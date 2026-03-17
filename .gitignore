@@ -59,7 +59,7 @@ uploads/
 *.jar
 
 # 하지만 WEB-INF/lib 안의 jar는 반드시 포함
-!src/main/webapp/WEB-INF/lib/*.jar
+!cybercareercatch_backend/src/main/webapp/WEB-INF/lib/*.jar
 
 # =============================
 # DB & Local Config (보안)
@@ -71,7 +71,7 @@ jdbc.properties
 .env.*
 
 # 예시 설정 파일은 포함
-!src/main/resources/db-example.properties
+!cybercareercatch_backend/src/main/resources/db-example.properties
 
 # =============================
 # Backup & Temp
