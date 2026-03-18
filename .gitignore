@@ -64,7 +64,7 @@ uploads/
 # =============================
 # DB & Local Config (보안)
 # =============================
-src/main/resources/db.properties
+src/main/resources/context.properties
 db.properties
 jdbc.properties
 .env
