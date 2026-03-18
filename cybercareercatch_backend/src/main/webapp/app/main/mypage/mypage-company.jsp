@@ -111,6 +111,36 @@
 							</c:otherwise>
 						</c:choose>
 					</ul>
+
+					<c:if test="${not empty waitingQnaList}">
+						<div class="mypage-QnAlist-bottom">
+							<div class="mypage-pagination">
+
+								<c:if test="${prev}">
+									<a class="page-btn page-arrow"
+									   href="${contextPath}/mypage/company/main.my?page=${startPage - 1}">
+										&lt;
+									</a>
+								</c:if>
+
+								<c:forEach var="i" begin="${startPage}" end="${endPage}">
+									<a class="page-btn ${page == i ? 'page-btn-active' : ''}"
+									   href="${contextPath}/mypage/company/main.my?page=${i}">
+										${i}
+									</a>
+								</c:forEach>
+
+								<c:if test="${next}">
+									<a class="page-btn page-arrow"
+									   href="${contextPath}/mypage/company/main.my?page=${endPage + 1}">
+										&gt;
+									</a>
+								</c:if>
+
+							</div>
+						</div>
+					</c:if>
+					
 				</div>
 			</div>
 		</div>
