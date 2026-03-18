@@ -7,87 +7,122 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>자유게시판 상세</title>
-  <link rel="stylesheet" href="../../../assets/css/main/community/post-detail.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main/community/post-detail.css">
 </head>
 
 <body>
-  <!--
-    축약어 규칙
-    cmd = Community Detail (커뮤니티 상세 페이지 공통 prefix)
-    top = 상단 타이틀 영역
-    ttl = title(제목)
-    mv = move button(이동 버튼)
-    pnl = panel(전체 박스)
-    post = 게시글 영역
-    head = 게시글 상단 영역
-    info = 게시글 정보 영역
-    it = item(단일 항목)
-    act = action button 영역
-    btn = button(버튼)
-    cont = content(내용 영역)
-    edit = 수정 영역
-    inp = input(입력창)
-    ta = textarea(내용 입력창)
-    cmt = comment(댓글 영역)
-    list = 댓글 목록 영역
-    write = 댓글 작성 영역
+  <%--
+    자유게시판 상세도
+    비회원 + 일반회원은 접근 가능,
+    기업회원은 접근 불가
+  --%>
+  <c:choose>
+    <c:when test="${empty sessionScope.userType or sessionScope.userType == '일반회원'}">
 
-    요약 기준
-    community = cm
-    detail = d
-    information = info
-    comment = cmt
-    input = inp
-    textarea = ta
-    button = btn
-  -->
+      <!--
+        Controller 예시
+        request.setAttribute("post", postDetailDTO);
 
-  <main class="cmd-wrap">
-    <div class="cmd-top">
-      <h2 class="cmd-top-ttl">자유게시판</h2>
-      <a href="post-list.html" class="cmd-top-mv">자유게시판 목록으로 이동하기</a>
-    </div>
+        PostDetailDTO 기준
+        - postNumber
+        - userNumber
+        - postTitle
+        - userId
+        - postDate
+        - editDate
+        - viewCount
+        - postContent
+      -->
 
-    <div class="cmd-pnl">
-      <div class="cmd-post">
-        <div class="cmd-head">
-          <div class="cmd-head-top">
-            <div class="cmd-post-ttl" id="cmdPostTitle">제목</div>
+      <main class="cmd-wrap">
+        <div class="cmd-top">
+          <h2 class="cmd-top-ttl">자유게시판</h2>
 
-            <div class="cmd-act" id="cmdPostActions">
-              <button type="button" class="cmd-act-btn cmd-act-del" id="cmdBtnDelete">삭제</button>
-              <button type="submit" form="cmdEditForm" class="cmd-act-btn cmd-act-save" id="cmdBtnSave" style="display:none;">저장</button>
-              <button type="button" class="cmd-act-btn cmd-act-cancel" id="cmdBtnCancel" style="display:none;">취소</button>
-            </div>
-          </div>
-
-          <div class="cmd-info">
-            <div class="cmd-info-it" id="cmdPostWriter">ID :kdt</div>
-            <div class="cmd-info-it" id="cmdPostViews">| 조회수 : 232332</div>
-            <div class="cmd-info-it" id="cmdPostDate">| 작성일 : 20260309</div>
-          </div>
+          <%--
+            현재는 JSP 직접 이동
+            나중에 Controller가 생기면 목록 컨트롤러 경로로 변경
+          --%>
+          <a href="${pageContext.request.contextPath}/app/main/community/post-list.jsp" class="cmd-top-mv">
+            자유게시판 목록으로 이동하기
+          </a>
         </div>
 
-        <div class="cmd-cont" id="cmdPostContent">내용</div>
+        <div class="cmd-pnl">
+          <c:choose>
+            <c:when test="${not empty post}">
 
-        <form action="#" method="post" class="cmd-edit" id="cmdEditForm" style="display:none;">
-          <input type="text" id="cmdEditTitle" class="cmd-edit-inp" name="editTitle" placeholder="제목">
-          <textarea id="cmdEditContent" class="cmd-edit-ta" name="editContent" placeholder="내용"></textarea>
-        </form>
-      </div>
+              <div class="cmd-post">
+                <div class="cmd-head">
+                  <div class="cmd-head-top">
 
-      <div class="cmd-cmt">
-        <div class="cmd-cmt-list" id="cmdCommentList"></div>
+                    <%-- 게시글 제목 출력 --%>
+                    <div class="cmd-post-ttl" id="cmdPostTitle">
+                      <c:out value="${post.postTitle}" />
+                    </div>
 
-        <form action="#" method="post" class="cmd-cmt-write" id="cmdCommentForm">
-          <input type="text" id="cmdCommentInput" class="cmd-cmt-inp" name="commentInput" placeholder="댓글을 작성해주세요">
-          <button type="submit" id="cmdBtnComment" class="cmd-cmt-btn">입력</button>
-        </form>
-      </div>
-    </div>
-  </main>
+                    <div class="cmd-act" id="cmdPostActions">
+                      <%--
+                        현재 범위에서는 수정 기능 없음
+                        삭제 버튼만 작성자 본인에게 보여줌
 
-  <script src="../../../assets/js/main/community/post-detail.js"></script>
+                        비회원은 sessionScope.userNumber가 없으므로
+                        자동으로 버튼이 안 보임.
+                      --%>
+                      <c:if test="${sessionScope.userNumber == post.userNumber}">
+                        <button
+                          type="button"
+                          class="cmd-act-btn cmd-act-del"
+                          id="cmdBtnDelete"
+                          data-post-number="${post.postNumber}">
+                          삭제
+                        </button>
+                      </c:if>
+                    </div>
+                  </div>
+
+                  <div class="cmd-info">
+                    <div class="cmd-info-it" id="cmdPostWriter">
+                      ID : <c:out value="${post.userId}" />
+                    </div>
+                    <div class="cmd-info-it" id="cmdPostViews">
+                      | 조회수 : <c:out value="${post.viewCount}" />
+                    </div>
+                    <div class="cmd-info-it" id="cmdPostDate">
+                      | 작성일 : <c:out value="${post.postDate}" />
+                    </div>
+                  </div>
+                </div>
+
+                <%-- 게시글 내용 출력 --%>
+                <div class="cmd-cont" id="cmdPostContent">
+                  <c:out value="${post.postContent}" />
+                </div>
+              </div>
+
+            </c:when>
+
+            <c:otherwise>
+              <div class="cmd-post">
+                <div class="cmd-post-ttl">존재하지 않는 게시글입니다.</div>
+              </div>
+            </c:otherwise>
+          </c:choose>
+        </div>
+      </main>
+    </c:when>
+
+    <c:otherwise>
+      <script>
+        alert("자유게시판은 일반회원만 이용할 수 있습니다.");
+        location.href = "${pageContext.request.contextPath}/";
+      </script>
+    </c:otherwise>
+  </c:choose>
+
+  <script>
+    const contextPath = "${pageContext.request.contextPath}";
+    const postNumber = "${not empty post ? post.postNumber : ''}";
+  </script>
+  <script src="${pageContext.request.contextPath}/assets/js/main/community/post-detail.js"></script>
 </body>
-
 </html>

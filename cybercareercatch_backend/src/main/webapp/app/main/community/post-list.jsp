@@ -7,176 +7,201 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>자유게시판</title>
-  <link rel="stylesheet" href="../../../assets/css/main/community/post-list.css">
+
+  <%--
+    contextPath를 붙이는 이유
+    -> 프로젝트 경로가 바뀌어도 CSS 경로가 안 깨지게 하기 위해서입니다.
+  --%>
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main/community/post-list.css">
 </head>
 
 <body>
-  <!--
-    축약어 규칙
-    cml = Community List (커뮤니티 게시글 목록 페이지 공통 prefix)
-    top = 상단 타이틀 영역
-    ttl = title(제목)
-    head = 게시글 목록 헤더 영역
-    row = 게시글 한 줄 영역
-    col = column(열)
-    num = number(번호)
-    wrt = writer(작성자)
-    date = 작성일
-    list = 게시글 목록 묶음 영역
-    pg = pagination(페이지 번호 영역)
-    btn = button(버튼)
-    now = current page(현재 페이지)
-    sch = search(검색 영역)
-    sel = select(검색 조건 선택)
-    inp = input(검색 입력창)
-    write = 글쓰기 이동 버튼
-    link = 게시글 이동 링크
+  <%--
+    자유게시판 접근 기준
+    1. 비회원 접근 가능
+    2. 일반회원 접근 가능
+    3. 기업회원 접근 불가
 
-    요약 기준
-    community = cm
-    list = l
-    writer = wrt
-    pagination = pg
-    search = sch
-  -->
+    그래서 userType이 없으면(비회원) 허용,
+    userType이 일반회원이면 허용,
+    userType이 기업회원이면 차단합니다.
+  --%>
+  <c:choose>
+    <c:when test="${empty sessionScope.userType or sessionScope.userType == '일반회원'}">
 
-  <main class="cml-wrap">
-    <div class="cml-top">
-      <h2 class="cml-top-ttl">자유게시판</h2>
-    </div>
+      <!--
+        Controller가 나중에 넘겨주면 좋은 값 이름
 
-    <div class="cml-head">
-      <div class="cml-head-col-num">번호</div>
-      <div class="cml-head-col-ttl">제목</div>
-      <div class="cml-head-col-wrt">작성자</div>
-      <div class="cml-head-col-date">작성일</div>
-    </div>
+        1. noticeList : 자유게시판 공지 목록 (List<NoticeDTO>)
+           -> 관리자 페이지에서 작성된 공지 목록
 
-    <div class="cml-list">
-      <!-- 더미데이터//////////////////////////////////////////////////// -->
+        2. postList : 자유게시판 일반글 목록 (List<PostListDTO>)
 
-      <div class="cml-row">
-        <div class="cml-row-col-num">관리자</div>
-        <div class="cml-row-col-ttl">
-          <a href="post-notification.html" class="cml-link">공지사항</a>
+        3. pageInfo : 페이지 정보 (PostPageDTO)
+      -->
+
+      <main class="cml-wrap">
+        <div class="cml-top">
+          <h2 class="cml-top-ttl">자유게시판</h2>
         </div>
-        <div class="cml-row-col-wrt">관리자</div>
-        <div class="cml-row-col-date">260309</div>
-      </div>
 
-      <div class="cml-row">
-        <div class="cml-row-col-num">9</div>
-        <div class="cml-row-col-ttl">
-          <a href="post-detail.html" class="cml-link">게시물 9</a>
+        <div class="cml-head">
+          <div class="cml-head-col-num">번호</div>
+          <div class="cml-head-col-ttl">제목</div>
+          <div class="cml-head-col-wrt">작성자</div>
+          <div class="cml-head-col-date">작성일</div>
         </div>
-        <div class="cml-row-col-wrt">사용자1</div>
-        <div class="cml-row-col-date">260308</div>
-      </div>
 
-      <div class="cml-row">
-        <div class="cml-row-col-num">8</div>
-        <div class="cml-row-col-ttl">
-          <a href="post-detail.html" class="cml-link">게시물 8</a>
+        <div class="cml-list">
+
+          <%-- =========================
+               1. 자유게시판 공지 출력
+               NoticeDTO 기준
+               - postNumber
+               - adminId
+               - postTitle
+               - postDate
+             ========================= --%>
+          <c:if test="${not empty noticeList}">
+            <c:forEach var="notice" items="${noticeList}">
+              <div class="cml-row">
+                <div class="cml-row-col-num">공지</div>
+
+                <div class="cml-row-col-ttl">
+                  <%--
+                    현재는 JSP 직접 이동
+                    나중에 Controller가 생기면 공지 상세 컨트롤러 경로로 변경
+                  --%>
+                  <a
+                    href="${pageContext.request.contextPath}/app/main/community/post-notification.jsp?postNumber=${notice.postNumber}"
+                    class="cml-link">
+                    <c:out value="${notice.postTitle}" />
+                  </a>
+                </div>
+
+                <div class="cml-row-col-wrt">
+                  <c:out value="${notice.adminId}" />
+                </div>
+
+                <div class="cml-row-col-date">
+                  <c:out value="${notice.postDate}" />
+                </div>
+              </div>
+            </c:forEach>
+          </c:if>
+
+          <%-- =========================
+               2. 자유게시판 일반글 출력
+               PostListDTO 기준
+               - postNumber
+               - postTitle
+               - userId
+               - postDate
+             ========================= --%>
+          <c:choose>
+            <c:when test="${not empty postList}">
+              <c:forEach var="post" items="${postList}">
+                <div class="cml-row">
+                  <div class="cml-row-col-num">
+                    <c:out value="${post.postNumber}" />
+                  </div>
+
+                  <div class="cml-row-col-ttl">
+                    <%--
+                      현재는 JSP 직접 이동
+                      나중에 Controller가 생기면 상세 컨트롤러 경로로 변경
+                    --%>
+                    <a
+                      href="${pageContext.request.contextPath}/app/main/community/post-detail.jsp?postNumber=${post.postNumber}"
+                      class="cml-link">
+                      <c:out value="${post.postTitle}" />
+                    </a>
+                  </div>
+
+                  <div class="cml-row-col-wrt">
+                    <c:out value="${post.userId}" />
+                  </div>
+
+                  <div class="cml-row-col-date">
+                    <c:out value="${post.postDate}" />
+                  </div>
+                </div>
+              </c:forEach>
+            </c:when>
+
+            <c:otherwise>
+              <div class="cml-row">
+                <div class="cml-row-col-ttl" style="grid-column: 1 / 5; text-align: center;">
+                  등록된 게시글이 없습니다.
+                </div>
+              </div>
+            </c:otherwise>
+          </c:choose>
         </div>
-        <div class="cml-row-col-wrt">사용자2</div>
-        <div class="cml-row-col-date">260308</div>
-      </div>
 
-      <div class="cml-row">
-        <div class="cml-row-col-num">7</div>
-        <div class="cml-row-col-ttl">
-          <a href="post-detail.html" class="cml-link">게시물 7</a>
+        <%-- 페이지네이션 --%>
+        <div class="cml-pg">
+          <c:if test="${not empty pageInfo}">
+
+            <c:if test="${pageInfo.prev}">
+              <a href="?page=${pageInfo.startPage - 1}" class="cml-pg-btn">&lt;</a>
+            </c:if>
+
+            <c:forEach var="pageNum" begin="${pageInfo.startPage}" end="${pageInfo.endPage}">
+              <a
+                href="?page=${pageNum}"
+                class="cml-pg-btn ${pageInfo.page == pageNum ? 'cml-pg-btn-now' : ''}">
+                <c:out value="${pageNum}" />
+              </a>
+            </c:forEach>
+
+            <c:if test="${pageInfo.next}">
+              <a href="?page=${pageInfo.endPage + 1}" class="cml-pg-btn">&gt;</a>
+            </c:if>
+
+          </c:if>
         </div>
-        <div class="cml-row-col-wrt">사용자3</div>
-        <div class="cml-row-col-date">260307</div>
-      </div>
 
-      <div class="cml-row">
-        <div class="cml-row-col-num">6</div>
-        <div class="cml-row-col-ttl">
-          <a href="post-detail.html" class="cml-link">게시물 6</a>
-        </div>
-        <div class="cml-row-col-wrt">사용자4</div>
-        <div class="cml-row-col-date">260307</div>
-      </div>
+        <%-- 검색 폼 --%>
+        <form action="#" method="get" class="cml-sch">
+          <%--
+            현재는 action="#"
+            나중에 Controller가 생기면 목록 컨트롤러 경로로 변경
+          --%>
+          <select name="searchType" class="cml-sch-sel">
+            <option value="title" ${param.searchType == 'title' ? 'selected' : ''}>제목</option>
+            <option value="writer" ${param.searchType == 'writer' ? 'selected' : ''}>작성자</option>
+            <option value="content" ${param.searchType == 'content' ? 'selected' : ''}>내용</option>
+          </select>
 
-      <div class="cml-row">
-        <div class="cml-row-col-num">5</div>
-        <div class="cml-row-col-ttl">
-          <a href="post-detail.html" class="cml-link">게시물 5</a>
-        </div>
-        <div class="cml-row-col-wrt">사용자5</div>
-        <div class="cml-row-col-date">260306</div>
-      </div>
+          <input
+            type="text"
+            name="keyword"
+            class="cml-sch-inp"
+            placeholder="검색할 내용을 입력하세요"
+            value="${param.keyword}"
+          >
 
-      <div class="cml-row">
-        <div class="cml-row-col-num">4</div>
-        <div class="cml-row-col-ttl">
-          <a href="post-detail.html" class="cml-link">게시물 4</a>
-        </div>
-        <div class="cml-row-col-wrt">사용자6</div>
-        <div class="cml-row-col-date">260306</div>
-      </div>
+          <button type="submit" class="cml-sch-btn">검색</button>
 
-      <div class="cml-row">
-        <div class="cml-row-col-num">3</div>
-        <div class="cml-row-col-ttl">
-          <a href="post-detail.html" class="cml-link">게시물 3</a>
-        </div>
-        <div class="cml-row-col-wrt">사용자7</div>
-        <div class="cml-row-col-date">260305</div>
-      </div>
+          <%--
+            글쓰기는 일반회원만 가능
+            비회원은 글쓰기 버튼을 보이지 않게 처리
+          --%>
+          <c:if test="${sessionScope.userType == '일반회원'}">
+            <a href="${pageContext.request.contextPath}/app/main/community/add-post.jsp" class="cml-sch-write">글쓰기</a>
+          </c:if>
+        </form>
+      </main>
+    </c:when>
 
-      <div class="cml-row">
-        <div class="cml-row-col-num">2</div>
-        <div class="cml-row-col-ttl">
-          <a href="post-detail.html" class="cml-link">게시물 2</a>
-        </div>
-        <div class="cml-row-col-wrt">사용자8</div>
-        <div class="cml-row-col-date">260305</div>
-      </div>
-
-      <div class="cml-row">
-        <div class="cml-row-col-num">1</div>
-        <div class="cml-row-col-ttl">
-          <a href="post-detail.html" class="cml-link">게시물 1</a>
-        </div>
-        <div class="cml-row-col-wrt">사용자9</div>
-        <div class="cml-row-col-date">260304</div>
-      </div>
-
-      <!-- ////////////////////////////////////////////////////////////////// -->
-    </div>
-
-    <div class="cml-pg">
-      <!--  더미 페이지네이션  이후 삭제 예정  -->
-      <a href="#" class="cml-pg-btn">&lt;</a>
-      <a href="#" class="cml-pg-btn">1</a>
-      <a href="#" class="cml-pg-btn">2</a>
-      <a href="#" class="cml-pg-btn">3</a>
-      <a href="#" class="cml-pg-btn">4</a>
-      <a href="#" class="cml-pg-btn">5</a>
-      <a href="#" class="cml-pg-btn">&gt;</a>
-    </div>
-
-    <form action="#" method="get" class="cml-sch">
-      <select name="searchType" class="cml-sch-sel">
-        <option value="title">제목</option>
-        <option value="writer">작성자</option>
-        <option value="content">내용</option>
-      </select>
-
-      <input
-        type="text"
-        name="searchKeyword"
-        class="cml-sch-inp"
-        placeholder="검색할 내용을 입력하세요"
-      >
-
-      <button type="submit" class="cml-sch-btn">검색</button>
-      <a href="add-post.html" class="cml-sch-write">글쓰기</a>
-    </form>
-  </main>
+    <c:otherwise>
+      <%-- 기업회원 차단 처리 --%>
+      <script>
+        alert("자유게시판은 일반회원만 이용할 수 있습니다.");
+        location.href = "${pageContext.request.contextPath}/";
+      </script>
+    </c:otherwise>
+  </c:choose>
 </body>
-
 </html>
