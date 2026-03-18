@@ -83,12 +83,12 @@
 	</insert>
 
 	<!-- 자유게시판 게시글 삭제 -->
-	<select id="delete" parameterType="com.ccc.post.dto.PostDTO">
+	<delete id="delete" parameterType="com.ccc.post.dto.PostDTO">
 		DELETE FROM TBL_POST
 		WHERE POST_NUMBER = #{postNumber}
 		  AND USER_NUMBER = #{userNumber}
 		  AND POST_TYPE = 'FREE_POST'
-	</select>
+	</delete>
 
 	<!-- 자유게시판 공지 추가 -->
 	<insert id="insertNotice" parameterType="com.ccc.post.dto.NoticeDTO">
@@ -138,6 +138,7 @@
 				P.EDIT_DATE,
 				P.VIEW_COUNT,
 				P.POST_CONTENT
+				P.USER_NUMBER
 			FROM TBL_POST P JOIN TBL_USER U
 			ON P.USER_NUMBER = U.USER_NUMBER
 			WHERE P.POST_NUMBER = #{postNumber}
