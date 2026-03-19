@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>기업 승인여부 상세</title>
-<link rel="stylesheet" href="../../../assets/css/admin/member-management/company-checkdetail.css">
+<link rel="stylesheet" href="/assets/css/admin/member-management/company-checkdetail.css">
 </head>
 
 <body class="company-checkdetail-body">
@@ -112,5 +112,6 @@
 </main>
 
 </div>
+
 </body>
 </html>

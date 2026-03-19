@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>기업 승인여부 리스트</title>
-<link rel="stylesheet" href="../../../assets/css/admin/member-management/company-check.css">
+<link rel="stylesheet" href="/assets/css/admin/member-management/company-check.css">
 </head>
 
 <body class="company-check-body">

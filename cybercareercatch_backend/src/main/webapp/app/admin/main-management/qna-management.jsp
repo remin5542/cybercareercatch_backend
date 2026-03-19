@@ -110,7 +110,7 @@
 					<div class="qnaMgmt-bottomBox">
 						<button type="submit" class="qnaMgmt-check">저장</button>
 						<a class="qnaMgmt-answerBtn"
-							href="${pageContext.request.contextPath}/app/admin/main-management/job-result-list.jsp">질의문 답변 목록</a>
+							href="${pageContext.request.contextPath}/app/admin/member-management/job-check.jsp">질의문 답변 목록</a>
 					</div>
 
 				</section>

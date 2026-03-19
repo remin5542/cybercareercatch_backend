@@ -39,7 +39,7 @@
 				</div>
 
 				<div class="company-check-sidebar-item company-check-active">
-					<a href="${pageContext.request.contextPath}/app/admin/main-management/job-check.jsp">질의문 답변 목록</a>
+					<a href="${pageContext.request.contextPath}/app/admin/member-management/job-check.jsp">질의문 답변 목록</a>
 				</div>
 
 				<div class="company-check-sidebar-item">
@@ -72,7 +72,7 @@
 						<div class="company-check-col status">제출일</div>
 					</div>
 
-					<a href="${pageContext.request.contextPath}/app/admin/main-management/job-checkdetail.jsp" class="company-check-row">
+					<a href="${pageContext.request.contextPath}/app/admin/member-management/job-checkdetail.jsp" class="company-check-row">
 						<div class="company-check-col number">5</div>
 						<div class="company-check-col id">user05</div>
 						<div class="company-check-col company">정하늘</div>
@@ -80,7 +80,7 @@
 						<div class="company-check-col status">2026-03-10</div>
 					</a>
 
-					<a href="${pageContext.request.contextPath}/app/admin/main-management/job-checkdetail.jsp" class="company-check-row">
+					<a href="${pageContext.request.contextPath}/app/admin/member-management/job-checkdetail.jsp" class="company-check-row">
 						<div class="company-check-col number">4</div>
 						<div class="company-check-col id">user04</div>
 						<div class="company-check-col company">최지우</div>
@@ -88,7 +88,7 @@
 						<div class="company-check-col status">2026-03-13</div>
 					</a>
 
-					<a href="${pageContext.request.contextPath}/app/admin/main-management/job-checkdetail.jsp" class="company-check-row">
+					<a href="${pageContext.request.contextPath}/app/admin/member-management/job-checkdetail.jsp" class="company-check-row">
 						<div class="company-check-col number">3</div>
 						<div class="company-check-col id">user03</div>
 						<div class="company-check-col company">박준호</div>
@@ -96,7 +96,7 @@
 						<div class="company-check-col status">2026-03-07</div>
 					</a>
 
-					<a href="${pageContext.request.contextPath}/app/admin/main-management/job-checkdetail.jsp" class="company-check-row">
+					<a href="${pageContext.request.contextPath}/app/admin/member-management/job-checkdetail.jsp" class="company-check-row">
 						<div class="company-check-col number">2</div>
 						<div class="company-check-col id">user02</div>
 						<div class="company-check-col company">이서연</div>
@@ -104,7 +104,7 @@
 						<div class="company-check-col status">2026-03-03</div>
 					</a>
 
-					<a href="${pageContext.request.contextPath}/app/admin/main-management/job-checkdetail.jsp" class="company-check-row">
+					<a href="${pageContext.request.contextPath}/app/admin/member-management/job-checkdetail.jsp" class="company-check-row">
 						<div class="company-check-col number">1</div>
 						<div class="company-check-col id">user01</div>
 						<div class="company-check-col company">김민수</div>
@@ -129,7 +129,7 @@
 		</main>
 
 	</div>
-<script src="${pageContext.request.contextPath}/assets/js/admin/member-management/job-cheak.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/admin/member-management/job-check.js"></script>
 </body>
 
 </html>

@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>기업별 채용담당자 회원정보</title>
-<link rel="stylesheet" href="../../../assets/css/admin/member-management/recruiter-info.css">
+<link rel="stylesheet" href="/assets/css/admin/member-management/recruiter-info.css">
 </head>
 
 <body class="recruiter-info-body">
