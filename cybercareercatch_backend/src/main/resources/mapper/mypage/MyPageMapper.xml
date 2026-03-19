@@ -10,12 +10,13 @@
 		U.USER_ID AS userId,
 		U.USER_NAME AS userName,
 		U.USER_PHONE AS userPhone,
-		M.MEMBER_DOB AS
+		TO_CHAR(M.MEMBER_DOB, 'YYYY.MM.DD') AS
 		memberDob,
-		M.MEMBER_GENDER AS memberGender,
+		M.MEMBER_GENDER AS
+		memberGender,
 		M.JOB_NUMBER AS jobNumber,
 		J.JOB_NAME AS jobName,
-		JR.JOB_RESULT_CONFIRM_DATE AS jobConfirmDate
+		TO_CHAR(JR.JOB_RESULT_CONFIRM_DATE, 'YYYY.MM.DD') AS jobConfirmDate
 		FROM TBL_USER U
 		JOIN TBL_MEMBER M
 		ON U.USER_NUMBER = M.USER_NUMBER
@@ -85,17 +86,31 @@
 		postTitle,
 		C.COMPANY_NAME AS companyName,
 		U.USER_ID AS userId,
-		P.POST_DATE AS postDate,
-		P.ANSWER_STATUS AS answerStatus
+		TO_CHAR(P.POST_DATE, 'YYYY.MM.DD') AS postDate,
+		P.ANSWER_STATUS AS
+		answerStatus
 		FROM TBL_POST P
 		JOIN TBL_USER U
-		ON P.USER_NUMBER = U.USER_NUMBER
+		ON P.USER_NUMBER =
+		U.USER_NUMBER
 		JOIN TBL_COMPANY C
 		ON
 		P.COMPANY_NUMBER = C.COMPANY_NUMBER
 		WHERE P.USER_NUMBER = #{userNumber}
 		AND P.POST_TYPE = 'QNA_POST'
-		ORDER BY P.POST_NUMBER DESC
+		ORDER
+		BY P.POST_NUMBER DESC
+	</select>
+
+	<!-- 일반회원 마이페이지 - 나의 Q&A글 총 개수 조회 -->
+	<!-- 사용페이지 : myQnAList.jsp -->
+	<select id="myQnaTotal" parameterType="int" resultType="int">
+		SELECT
+		COUNT(*)
+		FROM TBL_POST
+		WHERE POST_TYPE = 'QNA_POST'
+		AND USER_NUMBER =
+		#{value}
 	</select>
 
 	<!-- 일반회원 마이페이지 - Q&A글 삭제 -->
@@ -150,12 +165,14 @@
 		C.COMPANY_NAME AS companyName,
 		U.USER_ID AS
 		userId,
-		P.POST_DATE AS postDate,
-		P.ANSWER_STATUS AS answerStatus
+		TO_CHAR(P.POST_DATE, 'YYYY.MM.DD') AS postDate,
+		P.ANSWER_STATUS
+		AS answerStatus
 		FROM
 		TBL_POST P
 		JOIN TBL_USER U
-		ON P.USER_NUMBER = U.USER_NUMBER
+		ON P.USER_NUMBER =
+		U.USER_NUMBER
 		JOIN
 		TBL_COMPANY C
 		ON P.COMPANY_NUMBER = C.COMPANY_NUMBER
@@ -171,6 +188,15 @@
 		ORDER BY
 		P.POST_DATE DESC,
 		P.POST_NUMBER DESC
+	</select>
+
+	<!-- 기업회원 마이페이지 - Q&A답변대기 글 총 개수 -->
+	<select id="compQnaTotal" parameterType="int" resultType="int">
+		SELECT COUNT(*)
+		FROM TBL_POST
+		WHERE POST_TYPE = 'QNA_POST'
+		AND ANSWER_STATUS = '답변대기'
+		AND COMPANY_NUMBER = #{value}
 	</select>
 
 	<!-- 기업회원 마이페이지 - 정보수정 전 비밀번호 확인 -->
@@ -247,7 +273,7 @@
 		JP.JOB_POST_PROCESS AS jobPostProcess,
 		JP.JOB_POST_METHOD AS
 		jobPostMethod,
-		JP.JOB_POST_DATE AS jobPostDate,
+		TO_CHAR(JP.JOB_POST_DATE, 'YYYY.MM.DD') AS jobPostDate,
 		JP.CAT1_IS_HIRING AS
 		cat1IsHiring,
 		JP.CAT2_IS_HIRING AS cat2IsHiring,
@@ -257,13 +283,16 @@
 		FROM TBL_COMPANY C
 		JOIN
 		TBL_COMP_INFO CI
-		ON C.COMPANY_NUMBER = CI.COMPANY_NUMBER
+		ON C.COMPANY_NUMBER =
+		CI.COMPANY_NUMBER
 		LEFT JOIN
 		TBL_FILE F
-		ON C.COMPANY_NUMBER = F.COMPANY_NUMBER
+		ON C.COMPANY_NUMBER =
+		F.COMPANY_NUMBER
 		LEFT JOIN TBL_JOB_POST
 		JP
-		ON CI.COMPANY_NUMBER = JP.COMPANY_NUMBER
+		ON CI.COMPANY_NUMBER =
+		JP.COMPANY_NUMBER
 		WHERE C.COMPANY_NUMBER =
 		#{companyNumber}
 	</select>
@@ -415,14 +444,16 @@
 
 	<!-- 일반회원 마이페이지 - 회원탈퇴 -->
 	<delete id="deleteMemberByUserNumber" parameterType="int">
-		DELETE FROM TBL_USER
+		DELETE FROM
+		TBL_USER
 		WHERE USER_NUMBER = #{userNumber}
 		AND USER_TYPE = '일반회원'
 	</delete>
 
 	<!-- 기업회원 마이페이지 - 회원탈탈퇴 -->
 	<delete id="deleteCompanyUserByUserNumber" parameterType="int">
-		DELETE FROM TBL_USER
+		DELETE
+		FROM TBL_USER
 		WHERE USER_NUMBER = #{userNumber}
 		AND USER_TYPE = '기업회원'
 	</delete>

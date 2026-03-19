@@ -208,6 +208,22 @@ a.QnAlist-title:active{
   gap: 8px;
 }
 
+
+
+.page-arrow{
+  font-weight: 700;
+}
+
+#mypage-delete-btn{
+  min-width: 80px;
+}
+
+.page-btn-active{
+  background-color: rgba(78, 119, 255, 0.15);
+  font-weight: 700;
+  border: 1px solid rgba(78, 119, 255, 0.4);
+}
+
 .page-btn{
   min-width: 36px;
   height: 36px;
@@ -217,12 +233,9 @@ a.QnAlist-title:active{
   border-radius: 6px;
   font-size: 14px;
   cursor: pointer;
-}
-
-.page-arrow{
-  font-weight: 700;
-}
-
-#mypage-delete-btn{
-  min-width: 80px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: black;
 }

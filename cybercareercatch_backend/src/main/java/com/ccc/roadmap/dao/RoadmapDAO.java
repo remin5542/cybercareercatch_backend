@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.ccc.mybatis.config.MyBatisConfig;
+import com.ccc.common.config.MyBatisConfig;
 import com.ccc.roadmap.dto.RoadmapCurriculumDTO;
 import com.ccc.roadmap.dto.RoadmapDTO;
 import com.ccc.roadmap.dto.RoadmapJobDTO;

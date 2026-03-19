@@ -10,7 +10,7 @@ import com.ccc.job.dto.JobGroupDTO;
 import com.ccc.job.dto.JobRecommendQuestionDTO;
 import com.ccc.job.dto.JobResultDTO;
 import com.ccc.job.dto.JobTestResultDTO;
-import com.ccc.mybatis.config.MyBatisConfig;
+import com.ccc.common.config.MyBatisConfig;
 
 public class JobDAO {
 	public SqlSession sqlSession;

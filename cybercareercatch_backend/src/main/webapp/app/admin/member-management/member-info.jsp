@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>회원정보</title>
-<link rel="stylesheet" href="../../../assets/css/admin/member-management/member-info.css">
+<link rel="stylesheet" href="/assets/css/admin/member-management/member-info.css">
 </head>
 
 <body class="member-info-body">

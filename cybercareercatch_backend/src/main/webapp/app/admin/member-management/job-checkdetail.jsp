@@ -7,7 +7,7 @@
 	<meta charset="UTF-8">
 	<title>질의문 답변 상세</title>
 	<link rel="stylesheet"
-		href="${pageContext.request.contextPath}assets/css/admin/member-management/job-checkdetail.css">
+		href="${pageContext.request.contextPath}/assets/css/admin/member-management/job-checkdetail.css">
 </head>
 
 <body class="company-checkdetail-body">
@@ -39,7 +39,7 @@
 				</div>
 
 				<div class="company-checkdetail-sidebar-item company-checkdetail-active">
-					<a href="${pageContext.request.contextPath}/app/admin/main-management/job-check.jsp">질의문 답변 목록</a>
+					<a href="${pageContext.request.contextPath}/app/admin/member-management/job-check.jsp">질의문 답변 목록</a>
 				</div>
 
 				<div class="company-checkdetail-sidebar-item">
@@ -150,7 +150,7 @@
 					</div>
 
 					<div class="company-checkdetail-btnbox">
-						<a href="${pageContext.request.contextPath}/app/admin/main-management/job-check.jsp"
+						<a href="${pageContext.request.contextPath}/app/admin/member-management/job-check.jsp"
 							class="company-checkdetail-back">목록</a>
 						<button type="submit" class="company-checkdetail-save">저장</button>
 					</div>
@@ -162,7 +162,7 @@
 		</main>
 
 	</div>
-
+<script src="${pageContext.request.contextPath}/assets/js/admin/member-management/job-checkdetail.js"></script>
 </body>
 
 </html>

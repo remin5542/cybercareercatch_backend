@@ -6,7 +6,7 @@ public class CompanyDetailDTO {
 	private String companyName;
 	private String companyAddress;
 	private String companyState;
-	private String CompanyBrn;
+	private String companyBrn;
 	private String filePath;
 	private String compCeoName;
 	private int compFndYear;
@@ -62,11 +62,11 @@ public class CompanyDetailDTO {
 	}
 	
 	public String getCompanyBrn() {
-		return CompanyBrn;
+		return companyBrn;
 	}
 	
 	public void setCompanyBrn(String companyBrn) {
-		CompanyBrn = companyBrn;
+		this.companyBrn = companyBrn;
 	}
 	
 	public String getFilePath() {
@@ -240,7 +240,7 @@ public class CompanyDetailDTO {
 	@Override
 	public String toString() {
 		return "CompanyDetailDTO [companyNumber=" + companyNumber + ", companyName=" + companyName + ", companyAddress="
-				+ companyAddress + ", companyState=" + companyState + ", CompanyBrn=" + CompanyBrn + ", filePath="
+				+ companyAddress + ", companyState=" + companyState + ", CompanyBrn=" + companyBrn + ", filePath="
 				+ filePath + ", compCeoName=" + compCeoName + ", compFndYear=" + compFndYear + ", compEmplCnt="
 				+ compEmplCnt + ", compRev=" + compRev + ", compCap=" + compCap + ", compType=" + compType
 				+ ", compSummary=" + compSummary + ", compTech=" + compTech + ", compMainBiz=" + compMainBiz

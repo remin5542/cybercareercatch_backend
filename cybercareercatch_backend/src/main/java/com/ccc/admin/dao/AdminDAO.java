@@ -11,7 +11,7 @@ import com.ccc.admin.dto.AdminMemberListDTO;
 import com.ccc.company.dto.CompanyDTO;
 import com.ccc.company.dto.CompanyDetailDTO;
 import com.ccc.member.dto.MemberDTO;
-import com.ccc.mybatis.config.MyBatisConfig;
+import com.ccc.common.config.MyBatisConfig;
 
 public class AdminDAO {
 	public SqlSession sqlSession;
