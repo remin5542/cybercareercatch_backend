@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,7 +11,7 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/assets/css/main/mypage/company-password-check.css">
 <script defer
-	src="${contextPath}/assets/js/main/mypage/company-password-check.js"></script>
+	src="${pageContext.request.contextPath}/assets/js/main/mypage/company-password-check.js"></script>
 </head>
 <body>
 	<main>

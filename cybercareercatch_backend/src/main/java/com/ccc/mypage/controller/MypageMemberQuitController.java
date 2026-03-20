@@ -12,23 +12,25 @@ import com.ccc.common.Result;
 import com.ccc.mypage.dao.MypageDAO;
 import com.ccc.mypage.dto.MemberMypageInfoDTO;
 
-public class MypageMemberEditInfoController implements Execute{
+public class MypageMemberQuitController implements Execute{
 
 	@Override
 	public Result execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("MypageMemberEditInfoController 실행");
-		MypageDAO mypageDAO = new MypageDAO();
+		System.out.println("MypageMemberQuitPwController");
 		Result result = new Result();
 		HttpSession session = request.getSession();
+		MypageDAO mypageDAO = new MypageDAO();
 		
-		//로그인 정보 가져오기
+		//로그인 한 회원 정보 가져오기
 		Integer userNumber = (Integer) session.getAttribute("userNumber");
 		System.out.println("로그인한 회원 번호 : " + userNumber);
 		String userType = (String) session.getAttribute("userType");
 		System.out.println("로그인한 회원 타입 : " + userType);
-		Boolean memberPwChecked = (Boolean) session.getAttribute("memberPwChecked");
-		System.out.println("로그인한 비밀번호 확인 : " + memberPwChecked);
+		
+		
+		//결과를 저장할 MemberMypageInfoDTO 생성
+		MemberMypageInfoDTO memberMypageInfoDTO = new MemberMypageInfoDTO();
 		
 		// 비로그인
 		if (userNumber == null) {
@@ -37,37 +39,17 @@ public class MypageMemberEditInfoController implements Execute{
 			return result;
 		}
 
-		// 일반회원 아님
+		// 일반회원이 아님
 		if (!"일반회원".equals(userType)) {
 			result.setPath(request.getContextPath() + "/main/main.mafc");
 			result.setRedirect(true);
 			return result;
 		}
 		
-		if(memberPwChecked == null || !memberPwChecked) {
-			result.setPath(request.getContextPath() + "/mypage/member/checkPw.mpfc");
-			result.setRedirect(true);
-			return result;
-		}
-		
-		session.removeAttribute("memberPwChecked");
-			
-		//보여줄 아이디 조회
-		MemberMypageInfoDTO memberMypageInfoDTO = new MemberMypageInfoDTO();
 		memberMypageInfoDTO = mypageDAO.selectMemberMyPageInfo(userNumber);
-		
-		// 조회결과가 없는 경우
-		if (memberMypageInfoDTO == null) {
-			result.setPath(request.getContextPath() + "/main/main.mafc");
-			result.setRedirect(true);
-			return result;
-		}
-		
-		request.setAttribute("memberMypageInfoDTO", memberMypageInfoDTO);
-		
-		result.setPath("/app/mypage/mypage-member-edit.jsp");
+
+		result.setPath("/app/main/mypage/mypage-member-quit.jsp");
 		result.setRedirect(false);
-		
 		return result;
 	}
 

@@ -8,7 +8,7 @@ public class MypagePostListDTO {
 	private String companyName;
 	private String answerStatus;
 	private String postDate;
-	private Long viewCount;
+	private int viewCount;
 	
 		
 	public int getPostNumber() {
@@ -71,12 +71,12 @@ public class MypagePostListDTO {
 	}
 
 
-	public Long getViewCount() {
+	public int getViewCount() {
 		return viewCount;
 	}
 
 
-	public void setViewCount(Long viewCount) {
+	public void setViewCount(int viewCount) {
 		this.viewCount = viewCount;
 	}
 

@@ -26,7 +26,7 @@ public class MypageDAO {
 
 	// 일반회원 정보조회
 	public MemberMypageInfoDTO selectMemberMyPageInfo(int userNumber) {
-		return sqlSession.selectOne("myPage.selectMemberMyPageInfo", userNumber);
+		return sqlSession.selectOne("mypage.selectMemberMyPageInfo", userNumber);
 	}
 
 	// 일반회원 비밀번호 확인
@@ -36,7 +36,7 @@ public class MypageDAO {
 		paramMap.put("userNumber", userNumber);
 		paramMap.put("userPw", userPw);
 
-		return (Integer)sqlSession.selectOne("myPage.checkMemberPw", paramMap) < 1;
+		return (Integer)sqlSession.selectOne("mypage.checkMemberPw", paramMap) > 0;
 	}
 
 	// 일반회원 전화번호 수정
@@ -46,7 +46,7 @@ public class MypageDAO {
 		paramMap.put("userNumber", userNumber);
 		paramMap.put("userPhone", userPhone);
 
-		sqlSession.update("myPage.updateMemberPhone", paramMap);
+		sqlSession.update("mypage.updateMemberPhone", paramMap);
 	}
 
 	// 일반회원 비밀번호 수정
@@ -56,18 +56,18 @@ public class MypageDAO {
 		paramMap.put("userNumber", userNumber);
 		paramMap.put("newUserPw", newUserPw);
 
-		sqlSession.update("myPage.updateMemberPw", paramMap);
+		sqlSession.update("mypage.updateMemberPw", paramMap);
 	}
 
 	// 일반회원 나의 Q&A 리스트 조회
 	public List<MypageQnaListDTO> selectMyQnaList(int userNumber) {
 		System.out.println("일반회원 나의 Q&A 리스트 조회 메소드");
-		return sqlSession.selectList("myPage.selectMyQnaList", userNumber);
+		return sqlSession.selectList("mypage.selectMyQnaList", userNumber);
 	}
 
 	// 일반회원 나의 Q&A 리스트 총 개수
 	public int myQnaTotal(int userNumber) {
-		return sqlSession.selectOne("myPage.myQnaTotal", userNumber);
+		return sqlSession.selectOne("mypage.myQnaTotal", userNumber);
 	}
 
 	// 일반회원 나의 Q&A 선택 삭제
@@ -77,13 +77,13 @@ public class MypageDAO {
 		paramMap.put("userNumber", userNumber);
 		paramMap.put("postNumbers", postNumbers);
 
-		sqlSession.delete("myPage.deleteMyQnaPosts", paramMap);
+		sqlSession.delete("mypage.deleteMyQnaPosts", paramMap);
 	}
 
 	// 일반회원 회원탈퇴
 	public void deleteMemberByUserNumber(int userNumber) {
 		System.out.println("일반회원 회원탈퇴 메호드 실행");
-		sqlSession.delete("myPage.deleteMemberByUserNumber", userNumber);
+		sqlSession.delete("mypage.deleteMemberByUserNumber", userNumber);
 	}
 
 //==========기업회원 마이페이지=============
@@ -91,29 +91,29 @@ public class MypageDAO {
 	// 기업회원 기본정보 조회
 	public CompanyMypageInfoDTO selectCompanyMemberMyPageInfo(int userNumber) {
 		System.out.println("기업회원 기본정보 조회 메소드 실행");
-		return sqlSession.selectOne("myPage.selectCompanyMemberMyPageInfo", userNumber);
+		return sqlSession.selectOne("mypage.selectCompanyMemberMyPageInfo", userNumber);
 	}
 
 	// 기업회원 답변대기 Q&A글 총 개수
 	public int compQnaTotal(int companyNumber) {
 		System.out.println("기업회원 답변대기 Q&A글 총 개수");
-		return sqlSession.selectOne("myPage.compQnaTotal", companyNumber);
+		return sqlSession.selectOne("mypage.compQnaTotal", companyNumber);
 	}
 	
 	// 기업회원 답변대기 Q&A 조회
 	public List<MypageQnaListDTO> selectWaitingQnaListByCompanyUser(int userNumber) {
 		System.out.println("기업회원 답변대기 Q&A 조회");
-		return sqlSession.selectList("myPage.selectWaitingQnaListByCompanyUser", userNumber);
+		return sqlSession.selectList("mypage.selectWaitingQnaListByCompanyUser", userNumber);
 	}
 
 	// 기업회원 비밀번호 확인
-	public int checkCompanyPw(int userNumber, String userPw) {
+	public boolean checkCompanyPw(int userNumber, String userPw) {
 		System.out.println("기업회원 비밀번호 확인 메소드 실행");
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("userNumber", userNumber);
 		paramMap.put("userPw", userPw);
 
-		return sqlSession.selectOne("myPage.checkCompanyPw", paramMap);
+		return (Integer) sqlSession.selectOne("mypage.checkCompanyPw", paramMap) > 0;
 	}
 
 	// 기업회원 전화번호 수정
@@ -123,7 +123,7 @@ public class MypageDAO {
 		paramMap.put("userNumber", userNumber);
 		paramMap.put("userPhone", userPhone);
 
-		sqlSession.update("myPage.updateCompanyPhone", paramMap);
+		sqlSession.update("mypage.updateCompanyPhone", paramMap);
 	}
 
 	// 기업회원 비밀번호 수정
@@ -133,7 +133,7 @@ public class MypageDAO {
 		paramMap.put("userNumber", userNumber);
 		paramMap.put("newUserPw", newUserPw);
 
-		sqlSession.update("myPage.updateCompanyPw", paramMap);
+		sqlSession.update("mypage.updateCompanyPw", paramMap);
 	}
 
 	// 기업회원 회원탈퇴
@@ -144,55 +144,55 @@ public class MypageDAO {
 	// 기업정보페이지 존재 여부 확인
 	public int countCompanyPageByCompanyNumber(int companyNumber) {
 		System.out.println("기업정보페이지 존재 여부 확인 메소드");
-		return sqlSession.selectOne("myPage.countCompanyPageByCompanyNumber", companyNumber);
+		return sqlSession.selectOne("mypage.countCompanyPageByCompanyNumber", companyNumber);
 	}
 
 	// 기업정보페이지 상세조회
 	public CompanyDetailDTO selectCompanyPageDetail(int companyNumber) {
 		System.out.println("기업정보페이지 상세조회 메소드");
-		return sqlSession.selectOne("myPage.selectCompanyPageDetail", companyNumber);
+		return sqlSession.selectOne("mypage.selectCompanyPageDetail", companyNumber);
 	}
 
 	// 기업정보페이지 등록
 	public void insertCompInfo(CompanyInfoDTO companyInfoDTO) {
 		System.out.println("기업정보페이지 등록(기업소개) 메소드");
-		sqlSession.insert("myPage.insertCompInfo", companyInfoDTO);
+		sqlSession.insert("mypage.insertCompInfo", companyInfoDTO);
 	}
 
 	public void insertFile(FileDTO fileDTO) {
 		System.out.println("기업정보페이지 등록(파일) 메소드");
-		sqlSession.insert("myPage.insertFile", fileDTO);
+		sqlSession.insert("mypage.insertFile", fileDTO);
 	}
 
 	public void insertJobPost(JobPostDTO jobPostDTO) {
 		System.out.println("기업정보페이지 등록(채용공고) 메소드");
-		sqlSession.insert("myPage.insertJobPost", jobPostDTO);
+		sqlSession.insert("mypage.insertJobPost", jobPostDTO);
 	}
 
 	// 기업정보페이지 수정
 	public void updateCompInfo(CompanyInfoDTO companyInfoDTO) {
 		System.out.println("기업정보페이지 수정(기업소개) 메소드");
-		sqlSession.update("myPage.updateCompInfo", companyInfoDTO);
+		sqlSession.update("mypage.updateCompInfo", companyInfoDTO);
 	}
 
 	public void updateFile(FileDTO fileDTO) {
 		System.out.println("기업정보페이지 수정(파일) 메소드");
-		sqlSession.update("myPage.updateFile", fileDTO);
+		sqlSession.update("mypage.updateFile", fileDTO);
 	}
 
 	public void updateJobPost(JobPostDTO jobPostDTO) {
 		System.out.println("기업정보페이지 수정(채용공고) 메소드");
-		sqlSession.update("myPage.updateJobPost", jobPostDTO);
+		sqlSession.update("mypage.updateJobPost", jobPostDTO);
 	}
 
 	// 기업정보페이지 삭제
 	public void deleteFileByCompanyNumber(int companyNumber) {
 		System.out.println("기업정포페이지 삭제(파일) 메소드");
-		sqlSession.delete("myPage.deleteFileByCompanyNumber", companyNumber);
+		sqlSession.delete("mypage.deleteFileByCompanyNumber", companyNumber);
 	}
 
 	public void deleteCompInfoByCompanyNumber(int companyNumber) {
 		System.out.println("기업정보페이지 삭제(기업소개) 메소드 ");
-		sqlSession.delete("myPage.deleteCompInfoByCompanyNumber", companyNumber);
+		sqlSession.delete("mypage.deleteCompInfoByCompanyNumber", companyNumber);
 	}
 }

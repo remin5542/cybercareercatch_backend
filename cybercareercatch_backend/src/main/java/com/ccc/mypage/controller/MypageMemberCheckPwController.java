@@ -32,11 +32,9 @@ public class MypageMemberCheckPwController implements Execute{
 		//결과를 저장할 MemberMypageInfoDTO 생성
 		MemberMypageInfoDTO memberMypageInfoDTO = new MemberMypageInfoDTO();
 		
-		memberMypageInfoDTO = mypageDAO.selectMemberMyPageInfo(userNumber);
-		
 		// 비로그인
 		if (userNumber == null) {
-			result.setPath(request.getContextPath() + "/member/login.mpfc");
+			result.setPath(request.getContextPath() + "/member/login.mefc");
 			result.setRedirect(true);
 			return result;
 		}
@@ -47,6 +45,8 @@ public class MypageMemberCheckPwController implements Execute{
 			result.setRedirect(true);
 			return result;
 		}
+		
+		memberMypageInfoDTO = mypageDAO.selectMemberMyPageInfo(userNumber);
 
 		// 비밀번호 확인 페이지로 이동
 		result.setPath("/app/main/mypage/member-password-check.jsp");

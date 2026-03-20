@@ -1,6 +1,8 @@
 package com.ccc.mypage.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -10,26 +12,25 @@ import javax.servlet.http.HttpSession;
 import com.ccc.common.Execute;
 import com.ccc.common.Result;
 import com.ccc.mypage.dao.MypageDAO;
-import com.ccc.mypage.dto.MemberMypageInfoDTO;
 
-public class MypageMemberEditInfoController implements Execute{
+public class MypageMemberDeleteMyQnaController implements Execute {
 
 	@Override
 	public Result execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("MypageMemberEditInfoController 실행");
+		System.out.println("=== MypageMemberDeleteMyQnaController 실행 ===");
+
 		MypageDAO mypageDAO = new MypageDAO();
 		Result result = new Result();
 		HttpSession session = request.getSession();
-		
-		//로그인 정보 가져오기
+
+		// 로그인 정보 확인
 		Integer userNumber = (Integer) session.getAttribute("userNumber");
-		System.out.println("로그인한 회원 번호 : " + userNumber);
 		String userType = (String) session.getAttribute("userType");
+
+		System.out.println("로그인한 회원 번호 : " + userNumber);
 		System.out.println("로그인한 회원 타입 : " + userType);
-		Boolean memberPwChecked = (Boolean) session.getAttribute("memberPwChecked");
-		System.out.println("로그인한 비밀번호 확인 : " + memberPwChecked);
-		
+
 		// 비로그인
 		if (userNumber == null) {
 			result.setPath(request.getContextPath() + "/member/login.mefc");
@@ -43,32 +44,27 @@ public class MypageMemberEditInfoController implements Execute{
 			result.setRedirect(true);
 			return result;
 		}
-		
-		if(memberPwChecked == null || !memberPwChecked) {
-			result.setPath(request.getContextPath() + "/mypage/member/checkPw.mpfc");
+
+		String[] postNumbersParam = request.getParameterValues("postNumbers");
+
+		// 선택 안 한 경우
+		if (postNumbersParam == null || postNumbersParam.length == 0) {
+			result.setPath(request.getContextPath() + "/member/mypage/myQna.mpfc");
 			result.setRedirect(true);
 			return result;
 		}
-		
-		session.removeAttribute("memberPwChecked");
-			
-		//보여줄 아이디 조회
-		MemberMypageInfoDTO memberMypageInfoDTO = new MemberMypageInfoDTO();
-		memberMypageInfoDTO = mypageDAO.selectMemberMyPageInfo(userNumber);
-		
-		// 조회결과가 없는 경우
-		if (memberMypageInfoDTO == null) {
-			result.setPath(request.getContextPath() + "/main/main.mafc");
-			result.setRedirect(true);
-			return result;
+
+		List<Integer> postNumbers = new ArrayList<>();
+
+		for (String postNumber : postNumbersParam) {
+			postNumbers.add(Integer.parseInt(postNumber));
 		}
-		
-		request.setAttribute("memberMypageInfoDTO", memberMypageInfoDTO);
-		
-		result.setPath("/app/mypage/mypage-member-edit.jsp");
-		result.setRedirect(false);
-		
+
+		mypageDAO.deleteMyQnaPosts(userNumber, postNumbers);
+
+		result.setPath(request.getContextPath() + "/member/mypage/myQna.mpfc");
+		result.setRedirect(true);
+
 		return result;
 	}
-
 }

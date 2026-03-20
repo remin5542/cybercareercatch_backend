@@ -11,22 +11,21 @@ import com.ccc.common.Execute;
 import com.ccc.common.Result;
 import com.ccc.mypage.dao.MypageDAO;
 
-public class MypageMemberEditPhonenumController implements Execute{
+public class MypageMemberCheckCurrentPwController implements Execute {
 
 	@Override
 	public Result execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("MypageMemberEditPhonenumController 실행");
+
+		System.out.println("MypageMemberCheckPwController 실행");
+
 		MypageDAO mypageDAO = new MypageDAO();
 		Result result = new Result();
 		HttpSession session = request.getSession();
-		
-		//로그인 정보 확인
+
 		Integer userNumber = (Integer) session.getAttribute("userNumber");
-		System.out.println("로그인한 회원 번호 : " + userNumber);
 		String userType = (String) session.getAttribute("userType");
-		System.out.println("로그인한 회원 타입 : " + userType);
-		
+
 		// 비로그인
 		if (userNumber == null) {
 			result.setPath(request.getContextPath() + "/member/login.mefc");
@@ -40,36 +39,40 @@ public class MypageMemberEditPhonenumController implements Execute{
 			result.setRedirect(true);
 			return result;
 		}
-		
-		String newPhone = request.getParameter("userPhone");
-		
-		//전화번호 공백 체크
-		if( newPhone == null || newPhone.trim().isEmpty()) {
-			request.setAttribute("phoneMessage", "전화번호를 입력해주세요");
+
+		String currentUserPw = request.getParameter("currentUserPw");
+
+		// 현재 비밀번호 공백 체크
+		if (currentUserPw == null || currentUserPw.trim().isEmpty()) {
+			request.setAttribute("currentPwMessage", "현재 비밀번호를 입력해주세요.");
 			request.setAttribute("memberMypageInfoDTO", mypageDAO.selectMemberMyPageInfo(userNumber));
 			result.setPath("/app/mypage/mypage-member-edit.jsp");
 			result.setRedirect(false);
 			return result;
-		}	
-		
-		String authCode = request.getParameter("authCode");
-		
-		//인증번호 공백 체크
-		if (authCode == null || authCode.trim().isEmpty()) {
-		    request.setAttribute("authMessage", "인증번호를 입력해주세요.");
-		    request.setAttribute("memberMypageInfoDTO", mypageDAO.selectMemberMyPageInfo(userNumber));
-		    result.setPath("/app/mypage/mypage-member-edit.jsp");
-		    result.setRedirect(false);
-		    return result;
 		}
-		
-		mypageDAO.updateMemberPhone(userNumber, newPhone);
-		System.out.println("변경할 전화번호 " + newPhone);
-		result.setPath(request.getContextPath() + "/member/mypage.mpfc");
-		result.setRedirect(true);
-		
-		
+
+		currentUserPw = currentUserPw.trim();
+
+		// 현재 비밀번호 일치 여부 확인
+		boolean isCorrectPw = mypageDAO.checkMemberPw(userNumber, currentUserPw);
+
+		if (!isCorrectPw) {
+			request.setAttribute("currentPwMessage", "현재 비밀번호가 일치하지 않습니다.");
+			request.setAttribute("memberMypageInfoDTO", mypageDAO.selectMemberMyPageInfo(userNumber));
+			result.setPath("/app/mypage/mypage-member-edit.jsp");
+			result.setRedirect(false);
+			return result;
+		}
+
+		// 확인 성공
+		request.setAttribute("currentPwMessage", "현재 비밀번호가 확인되었습니다.");
+		request.setAttribute("memberMypageInfoDTO", mypageDAO.selectMemberMyPageInfo(userNumber));
+
+		// 선택: 확인 성공 여부를 세션에 저장
+		session.setAttribute("memberPwChecked", true);
+
+		result.setPath("/app/mypage/mypage-member-edit.jsp");
+		result.setRedirect(false);
 		return result;
 	}
-
 }

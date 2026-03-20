@@ -13,7 +13,7 @@
 	href="${pageContext.request.contextPath}/assets/css/main/mypage/mypage-member-edit.css">
 
 <script defer
-	src="${pageContext.request.contextPath}/assets/js/main/mypage/member-mypage-edit.js"></script>
+	src="${pageContext.request.contextPath}/assets/js/main/mypage/mypage-member-edit.js"></script>
 </head>
 
 <body>
@@ -40,22 +40,19 @@
 						<div class="mypage-info-title">전화번호</div>
 						<div class="mypage-input-wrap">
 							<input type="text" name="userPhone" class="mypage-info-text"
-								id="member-phonenumber"
-								value="${memberMypageInfoDTO.userPhone}"
-								placeholder="01012345678"
-								maxlength="11">
+								id="member-phonenumber" value="${memberMypageInfoDTO.userPhone}"
+								placeholder="01012345678" maxlength="11">
 							<div class="input-message" id="member-phonenumber-message">${phoneMessage}</div>
 						</div>
-						<button type="button" class="btn" id="member-phonenumber-submit-btn">전송</button>
+						<button type="button" class="btn"
+							id="member-phonenumber-submit-btn">전송</button>
 					</div>
 
 					<div class="mypage-info-box">
 						<div class="mypage-info-title">인증번호</div>
 						<div class="mypage-input-wrap">
 							<input type="text" name="authCode" class="mypage-info-text"
-								id="member-verificationcode"
-								placeholder="인증번호"
-								maxlength="6">
+								id="member-verificationcode" placeholder="인증번호" maxlength="6">
 							<div class="input-message" id="member-verificationcode-message">${authMessage}</div>
 						</div>
 						<button type="button" class="btn" id="member-verificationcode-btn">확인</button>
@@ -83,14 +80,16 @@
 								class="mypage-info-text" id="member-current-pw">
 							<div class="input-message" id="member-current-pw-message">${currentPwMessage}</div>
 						</div>
-						<button type="button" class="btn" id="currentpw-check-btn">확인</button>
+						<button type="submit" class="btn" id="currentpw-check-btn"
+							formaction="${pageContext.request.contextPath}/member/mypage/checkCurrentPw.mpfc"
+							formmethod="post">확인</button>
 					</div>
 
 					<div class="mypage-info-box">
 						<div class="mypage-info-title">변경할 비밀번호</div>
 						<div class="mypage-input-wrap">
-							<input type="password" name="newUserPw"
-								class="mypage-info-text" id="member-change-pw">
+							<input type="password" name="newUserPw" class="mypage-info-text"
+								id="member-change-pw">
 							<div class="input-message" id="member-change-pw-message">${newPwMessage}</div>
 						</div>
 					</div>
@@ -113,8 +112,8 @@
 			</form>
 
 			<div class="member-quit-wrap">
-				<a href="${pageContext.request.contextPath}/mypage/member/quit.mpfc" class="btn"
-					id="member-quit">회원탈퇴</a>
+				<a href="${pageContext.request.contextPath}/mypage/member/quit.mpfc"
+					class="btn" id="member-quit">회원탈퇴</a>
 			</div>
 		</div>
 	</main>

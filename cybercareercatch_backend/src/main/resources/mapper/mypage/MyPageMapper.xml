@@ -11,14 +11,16 @@
 		U.USER_NAME AS userName,
 		U.USER_PHONE AS userPhone,
 		TO_CHAR(M.MEMBER_DOB, 'YYYY.MM.DD') AS memberDob,
-		M.MEMBER_GENDER AS memberGender,
+		M.MEMBER_GENDER AS
+		memberGender,
 		M.JOB_NUMBER AS jobNumber,
 		J.JOB_NAME AS jobName,
 		TO_CHAR(JR.JOB_RESULT_CONFIRM_DATE, 'YYYY.MM.DD') AS jobConfirmDate
 		FROM TBL_USER U
 		JOIN TBL_MEMBER M
 		ON U.USER_NUMBER = M.USER_NUMBER
-		LEFT JOIN TBL_JOB_GROUP J
+		LEFT
+		JOIN TBL_JOB_GROUP J
 		ON M.JOB_NUMBER = J.JOB_NUMBER
 		LEFT JOIN (
 		SELECT
@@ -42,13 +44,13 @@
 
 	<!-- 일반회원 마이페이지 - 정보수정 전 비밀번호 확인 -->
 	<!-- 사용페이지 : memberCheckPw.jsp -->
-	<select id="checkMemberPw" parameterType="map"
-		resultType="int">
+	<select id="checkMemberPw" parameterType="map" resultType="int">
 		SELECT COUNT(*)
 		FROM TBL_USER
 		WHERE USER_NUMBER =
 		#{userNumber}
-		AND USER_PW = #{userPw}
+		AND
+		USER_PW = #{userPw}
 		AND USER_TYPE = '일반회원'
 	</select>
 
@@ -67,16 +69,18 @@
 	<!-- 사용페이지 : memberMyPageEdit.jsp -->
 	<update id="updateMemberPw" parameterType="map">
 		UPDATE TBL_USER
-		SET USER_PW = #{newUserPw}
+		SET
+		USER_PW = #{newUserPw}
 		WHERE USER_NUMBER = #{userNumber}
 		AND
-		USER_TYPE = '일반회원'
+		USER_TYPE =
+		'일반회원'
 	</update>
 
 	<!-- 일반회원 마이페이지 - 나의 Q&A글 조회 -->
 	<!-- 사용페이지 : myQnaList.jsp -->
 	<select id="selectMyQnaList" parameterType="int"
-		resultType="MyQnaListDTO">
+		resultType="MypageQnaListDTO">
 		SELECT
 		P.POST_NUMBER AS postNumber,
 		P.POST_TITLE AS
@@ -93,10 +97,11 @@
 		JOIN TBL_COMPANY C
 		ON
 		P.COMPANY_NUMBER = C.COMPANY_NUMBER
-		WHERE P.USER_NUMBER = #{userNumber}
+		WHERE P.USER_NUMBER = #{value}
 		AND P.POST_TYPE = 'QNA_POST'
 		ORDER
-		BY P.POST_NUMBER DESC
+		BY
+		P.POST_NUMBER DESC
 	</select>
 
 	<!-- 일반회원 마이페이지 - 나의 Q&A글 총 개수 조회 -->
@@ -187,24 +192,27 @@
 		P.POST_NUMBER DESC
 	</select>
 
-	<!-- 기업회원 마이페이지 - Q&A답변대기 글 총 개수 -->
+	<!-- 기업회원 마이페이지 - 로그인한 기업회원(userNumber) 기준 답변대기 Q&A 글 총 개수 -->
 	<select id="compQnaTotal" parameterType="int" resultType="int">
 		SELECT COUNT(*)
-		FROM TBL_POST
-		WHERE POST_TYPE = 'QNA_POST'
-		AND ANSWER_STATUS = '답변대기'
-		AND COMPANY_NUMBER = #{value}
+		FROM TBL_POST P
+		JOIN TBL_COMPANY_MEMBER CM
+		ON P.COMPANY_NUMBER = CM.COMPANY_NUMBER
+		WHERE P.POST_TYPE = 'QNA_POST'
+		AND P.ANSWER_STATUS = '답변대기'
+		AND CM.USER_NUMBER = #{userNumber}
+		AND CM.COMPANY_MANAGER_STATE = 'ACTIVE'
 	</select>
 
 	<!-- 기업회원 마이페이지 - 정보수정 전 비밀번호 확인 -->
 	<!-- 사용 페이지 : companyCheckPw.jsp -->
-	<select id="checkCompanyPw" parameterType="map"
-		resultType="int">
+	<select id="checkCompanyPw" parameterType="map" resultType="int">
 		SELECT COUNT(*)
 		FROM TBL_USER
 		WHERE USER_NUMBER =
 		#{userNumber}
-		AND USER_PW = #{userPw}
+		AND
+		USER_PW = #{userPw}
 		AND USER_TYPE ='기업회원'
 	</select>
 
@@ -222,10 +230,12 @@
 	<!-- 사용 페이지: companyMypageEdit.jsp -->
 	<update id="updateCompanyPw" parameterType="map">
 		UPDATE TBL_USER
-		SET USER_PW = #{newUserPw}
+		SET
+		USER_PW = #{newUserPw}
 		WHERE USER_NUMBER = #{userNumber}
 		AND
-		USER_TYPE = '기업회원'
+		USER_TYPE =
+		'기업회원'
 	</update>
 
 	<!-- 기업회원 마이페이지 - 기업정보페이지 등록 전 체크 -->
@@ -296,7 +306,7 @@
 
 	<!-- 기업회원 마이페이지 - 기업정보페이지 등록(기업소개등록) -->
 	<!-- 사용 페이지: companyPageForm.jsp -->
-	<insert id="insertCompInfo" parameterType="CompInfoDTO">
+	<insert id="insertCompInfo" parameterType="CompanyInfoDTO">
 		INSERT INTO
 		TBL_COMP_INFO (
 		COMPANY_NUMBER,
