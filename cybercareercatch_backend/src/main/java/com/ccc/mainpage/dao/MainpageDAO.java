@@ -24,7 +24,7 @@ public class MainpageDAO {
 	}
 
 	// 메인 상단 질문 1개 조회
-    public JobRecommendQuestionDTO selectMainQuestion(int jobQuestionNumber) {
+    public JobRecommendQuestionDTO selectMainQuestion(JobRecommendQuestionDTO jobQuestionNumber) {
     	System.out.println("메인 상단 질문 1개 조회");
             return sqlSession.selectOne("main.selectMainQuestion",jobQuestionNumber);
     }

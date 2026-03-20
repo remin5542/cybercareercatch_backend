@@ -15,7 +15,7 @@
   <header class="header">
     <div class="header-inner">
       <h1 class="logo">
-        <a href="../../main/mainpage/mainpage-login.html" class="logo-link" aria-label="CyberCareerCatch 홈">
+        <a href="${pageContext.request.contextPath}/mainpage/mainpage.mafc" class="logo-link" aria-label="CyberCareerCatch 홈">
           <span class="logo-strong">C</span><span class="logo-soft">yber</span>
           <span class="logo-strong">C</span><span class="logo-soft">areer</span>
           <span class="logo-strong">C</span><span class="logo-soft">atch</span>
@@ -27,7 +27,7 @@
           <li class="nav-item dropdown">
             <a href="#" class="nav-link" onclick="toggleDropdown(event)">직군검사</a>
             <ul class="dropdown-menu">
-              <li><a href="${pageContext.request.contextPath}/mainpage/mainpage-login.jsp">직군 검사</a></li>
+              <li><a href="${pageContext.request.contextPath}/mainpage/main">직군 검사</a></li>
               <li><a href="${pageContext.request.contextPath}/roadmap/roadmap-questionnaire1.jsp">보안컨설팅</a></li>
               <li><a href="${pageContext.request.contextPath}/roadmap/roadmap-questionnaire2.jsp">시스템/네트워크/엔지니어</a></li>
               <li><a href="${pageContext.request.contextPath}/roadmap/roadmap-questionnaire3.jsp">보안관제</a></li>
@@ -42,7 +42,7 @@
           <li class="nav-item dropdown">
             <a href="#" class="nav-link" onclick="toggleDropdown(event)">커뮤니티</a>
             <ul class="dropdown-menu">
-              <li><a href="../community/post-list.html">자유게시판</a></li>
+              <li><a href="${pageContext.request.contextPath}/post/postList.pfc">자유게시판</a></li>
               <li><a href="../qna/qna-list.html">기업QnA</a></li>
               <li><a href="../expo/expo-calendar.html">박람회일정</a></li>
             </ul>
