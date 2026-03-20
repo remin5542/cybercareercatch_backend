@@ -1,17 +1,60 @@
 package com.ccc.company.dto;
 
 public class CompanyCardDTO {
+
+    // =========================
+    // 기업 카드 / 기업 홍보 목록 출력용 필드
+    // =========================
+	
+	private String sortType; // 정렬 방식을 저장하는 필드이다.
+
+    // 기업 번호
     private int companyNumber;
+
+    // 기업 이름
     private String companyName;
+
+    // 기업 주소
     private String companyAddress;
+
+    // 기업 승인 상태
     private String companyState;
+
+    // 기업 요약 소개
     private String compSummary;
+
+    // 기업 유형
+    private String compType;
+
+    // 기업 대표 이미지 경로
     private String filePath;
+
+    // 기업 페이지 등록일
     private String compPageDate;
+
+    // 직군별 채용 여부
     private int cat1IsHiring;
     private int cat2IsHiring;
     private int cat3IsHiring;
     private int cat4IsHiring;
+
+    // =========================
+    // 기업 광고 / 목록 조회용 필드
+    // =========================
+
+    // 직군 필터 번호
+    // 지금 기업홍보 목록 쿼리에서 안 쓸 수도 있지만,
+    // 다른 목록 조회 쿼리와 같이 재사용할 가능성이 있으면 남겨둬도 된다.
+    private Integer jobNumber;
+
+    // 페이징 시작 행 번호
+    private Integer startRow;
+
+    // 페이징 끝 행 번호
+    private Integer endRow;
+
+    // 기본 생성자
+    public CompanyCardDTO() {;}
 
     public int getCompanyNumber() {
         return companyNumber;
@@ -101,30 +144,38 @@ public class CompanyCardDTO {
         this.cat4IsHiring = cat4IsHiring;
     }
 
-    public String getJobCategoryText() {
-        StringBuilder builder = new StringBuilder();
-
-        if (cat1IsHiring == 1) {
-            builder.append("보안컨설팅, ");
-        }
-        if (cat2IsHiring == 1) {
-            builder.append("시스템/네트워크 엔지니어, ");
-        }
-        if (cat3IsHiring == 1) {
-            builder.append("보안관제, ");
-        }
-        if (cat4IsHiring == 1) {
-            builder.append("침해사고/디지털포렌식, ");
-        }
-
-        if (builder.length() == 0) {
-            return "-";
-        }
-
-        return builder.substring(0, builder.length() - 2);
+    public Integer getJobNumber() {
+        return jobNumber;
     }
 
-    @Override
+    public void setJobNumber(Integer jobNumber) {
+        this.jobNumber = jobNumber;
+    }
+
+    public Integer getStartRow() {
+        return startRow;
+    }
+
+    public void setStartRow(Integer startRow) {
+        this.startRow = startRow;
+    }
+
+    public Integer getEndRow() {
+        return endRow;
+    }
+
+    public void setEndRow(Integer endRow) {
+        this.endRow = endRow;
+    }
+
+    public String getSortType() { // 정렬 방식을 반환하는 getter 메소드이다.
+    	return sortType; // sortType 값을 반환한다.
+    }
+
+    public void setSortType(String sortType) { // 정렬 방식을 저장하는 setter 메소드이다.
+    	this.sortType = sortType; // 전달받은 sortType 값을 필드에 저장한다.
+    }
+    
     public String toString() {
         return "CompanyCardDTO [companyNumber=" + companyNumber
                 + ", companyName=" + companyName
@@ -136,6 +187,12 @@ public class CompanyCardDTO {
                 + ", cat1IsHiring=" + cat1IsHiring
                 + ", cat2IsHiring=" + cat2IsHiring
                 + ", cat3IsHiring=" + cat3IsHiring
-                + ", cat4IsHiring=" + cat4IsHiring + "]";
+                + ", cat4IsHiring=" + cat4IsHiring
+                + ", jobNumber=" + jobNumber
+                + ", sortType=" + sortType
+                + ", startRow=" + startRow
+                + ", endRow=" + endRow + "]";
+        
+        
     }
 }
