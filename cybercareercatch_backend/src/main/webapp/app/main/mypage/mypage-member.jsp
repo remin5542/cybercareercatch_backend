@@ -75,10 +75,10 @@
 				</div>
 
 				<div class="mypage-button-box">
-					<a href="${pageContext.request.contextPath}/mypage/member/checkPw.mpfc"
+					<a href="${pageContext.request.contextPath}/member/mypage/checkPw.mpfc"
 						class="btn" id="mypage-edit-btn">회원 정보 수정</a>
 
-					<a href="${pageContext.request.contextPath}/mypage/member/myQnaList.mpfc"
+					<a href="${pageContext.request.contextPath}/member/mypage/myQna.mpfc"
 						class="btn" id="mypage-mycommunity-check">내가 작성한 게시물 목록 확인</a>
 				</div>
 			</div>

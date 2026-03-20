@@ -21,7 +21,7 @@
 
 			<div class="main-session">
 				<form id="member-quit-form"
-					action="${pageContext.request.contextPath}/mypage/member/quitOk.mpfc"
+					action="${pageContext.request.contextPath}/member/mypage/quitOk.mpfc"
 					method="post">
 
 					<div class="mypageedit-subtitle">회원탈퇴를 위해 비밀번호를 입력하세요</div>

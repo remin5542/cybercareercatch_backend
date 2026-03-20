@@ -23,7 +23,7 @@
 
 			<!-- 회원정보 변경 -->
 			<form id="member-phone-form"
-				action="${pageContext.request.contextPath}/mypage/member/updatePhone.mpfc"
+				action="${pageContext.request.contextPath}/member/mypage/updatePhone.mpfc"
 				method="post">
 
 				<div class="mypage-subtitle">회원정보 변경</div>
@@ -67,7 +67,7 @@
 
 			<!-- 비밀번호 변경 -->
 			<form id="member-password-form"
-				action="${pageContext.request.contextPath}/mypage/member/updatePw.mpfc"
+				action="${pageContext.request.contextPath}/member/mypage/updatePw.mpfc"
 				method="post">
 
 				<div class="mypage-subtitle">비밀번호 변경</div>
@@ -112,7 +112,7 @@
 			</form>
 
 			<div class="member-quit-wrap">
-				<a href="${pageContext.request.contextPath}/mypage/member/quit.mpfc"
+				<a href="${pageContext.request.contextPath}/member/mypage/quit.mpfc"
 					class="btn" id="member-quit">회원탈퇴</a>
 			</div>
 		</div>

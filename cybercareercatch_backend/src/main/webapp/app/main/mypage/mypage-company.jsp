@@ -23,32 +23,32 @@
 				<div class="main-container-section-changeinfo">
 					<div class="mypage-info-box">
 						<div class="mypage-info-title">아이디</div>
-						<div class="mypage-info-text" id="company-id">${CompanyMypageInfoDTO.userId}</div>
+						<div class="mypage-info-text" id="company-id">${companyMypageInfoDTO.userId}</div>
 					</div>
 
 					<div class="mypage-info-box">
 						<div class="mypage-info-title">기업명</div>
-						<div class="mypage-info-text" id="company-name">${CompanyMypageInfoDTO.companyName}</div>
+						<div class="mypage-info-text" id="company-name">${companyMypageInfoDTO.companyName}</div>
 					</div>
 
 					<div class="mypage-info-box">
 						<div class="mypage-info-title">사업자등록번호</div>
-						<div class="mypage-info-text" id="company-number">${CompanyMypageInfoDTO.companyBrn}</div>
+						<div class="mypage-info-text" id="company-number">${companyMypageInfoDTO.companyBrn}</div>
 					</div>
 
 					<div class="mypage-info-box">
 						<div class="mypage-info-title">기업 주소</div>
-						<div class="mypage-info-text" id="company-address">${CompanyMypageInfoDTO.companyAddress}</div>
+						<div class="mypage-info-text" id="company-address">${companyMypageInfoDTO.companyAddress}</div>
 					</div>
 
 					<div class="mypage-info-box">
 						<div class="mypage-info-title">채용담당자 이름</div>
-						<div class="mypage-info-text" id="company-manager-name">${CompanyMypageInfoDTO.userName}</div>
+						<div class="mypage-info-text" id="company-manager-name">${companyMypageInfoDTO.userName}</div>
 					</div>
 
 					<div class="mypage-info-box">
 						<div class="mypage-info-title">채용담당자 연락처</div>
-						<div class="mypage-info-text" id="company-manager-phonenumber">${CompanyMypageInfoDTO.userPhone}</div>
+						<div class="mypage-info-text" id="company-manager-phonenumber">${companyMypageInfoDTO.userPhone}</div>
 
 						<a href="${pageContext.request.contextPath}/company/mypage/checkPw.mpfc"
 							class="btn" id="company-phonenumber-submit-btn">회원정보수정</a>
@@ -57,12 +57,12 @@
 					<div class="mypage-button-box">
 						<c:choose>
 							<c:when test="${empty companyPageCount or companyPageCount == 0}">
-								<a href="${pageContext.request.contextPath}/mypage/company/companypageRegister.mpfc"
+								<a href="${pageContext.request.contextPath}/company/mypage/companypageRegister.mpfc"
 									class="btn"> 기업정보페이지 등록 </a>
 							</c:when>
 							<c:otherwise>
 								<a
-									href="${pageContext.request.contextPath}/mypage/company/companypageEdit.mpfc"
+									href="${pageContext.request.contextPath}/company/mypage/companypageEdit.mpfc"
 									class="btn"> 기업정보페이지 수정/삭제 </a>
 							</c:otherwise>
 						</c:choose>
@@ -116,21 +116,21 @@
 
 								<c:if test="${prev}">
 									<a class="page-btn page-arrow"
-									   href="${pageContext.request.contextPath}/mypage/company/main.mpfc?page=${startPage - 1}">
+									   href="${pageContext.request.contextPath}/company/mypage.mpfc?page=${startPage - 1}">
 										&lt;
 									</a>
 								</c:if>
 
 								<c:forEach var="i" begin="${startPage}" end="${endPage}">
 									<a class="page-btn ${page == i ? 'page-btn-active' : ''}"
-									   href="${pageContext.request.contextPath}/mypage/company/main.mpfc?page=${i}">
+									   href="${pageContext.request.contextPath}/company/mypage.mpfc?page=${i}">
 										${i}
 									</a>
 								</c:forEach>
 
 								<c:if test="${next}">
 									<a class="page-btn page-arrow"
-									   href="${pageContext.request.contextPath}/mypage/company/main.mpfc?page=${endPage + 1}">
+									   href="${pageContext.request.contextPath}/company/mypage.mpfc?page=${endPage + 1}">
 										&gt;
 									</a>
 								</c:if>
