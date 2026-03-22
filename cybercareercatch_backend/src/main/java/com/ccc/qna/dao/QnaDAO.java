@@ -7,86 +7,104 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 
 import com.ccc.common.config.MyBatisConfig;
-import com.ccc.company.dto.CompanyDTO;
 import com.ccc.qna.dto.QnaCommentDTO;
+import com.ccc.qna.dto.QnaCompanyDTO;
+import com.ccc.qna.dto.QnaDTO;
 import com.ccc.qna.dto.QnaDetailDTO;
 import com.ccc.qna.dto.QnaListDTO;
 import com.ccc.qna.dto.QnaWriteDTO;
 
 public class QnaDAO {
 
-   private SqlSession sqlSession;
+	private SqlSession sqlSession;
 
-   public QnaDAO() {
-      sqlSession = MyBatisConfig.getSqlSessionFactory().openSession(true);
-   }
+	public QnaDAO() {
+		sqlSession = MyBatisConfig.getSqlSessionFactory().openSession(true);
+	}
 
-   // 회사 목록 조회
-   public List<CompanyDTO> selectCompanyList() {
-      return sqlSession.selectList("qna.selectCompanyList");
-   }
+	// 회사 목록 조회
+	public List<QnaCompanyDTO> selectCompanyList() {
+		return sqlSession.selectList("qna.selectCompanyList");
+	}
 
-   // 목록 조회 + 검색 + 기업 필터
-   public List<QnaListDTO> selectQnaList(String searchType, String searchKeyword, String companyNumber) {
-      Map<String, Object> params = new HashMap<String, Object>();
-      params.put("searchType", searchType);
-      params.put("searchKeyword", searchKeyword);
-      params.put("companyNumber", companyNumber);
+	// 사용자 목록 조회 + 검색 + 기업 필터
+	public List<QnaListDTO> selectQnaList(String searchType, String searchKeyword, String companyNumber) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("searchType", searchType);
+		params.put("searchKeyword", searchKeyword);
+		params.put("companyNumber", companyNumber);
 
-      return sqlSession.selectList("qna.selectQnaList", params);
-   }
+		return sqlSession.selectList("qna.selectQnaList", params);
+	}
 
-   // 게시글 상세 조회
-   public QnaDetailDTO selectQnaDetail(Long postNumber) {
-      return sqlSession.selectOne("qna.selectQnaDetail", postNumber);
-   }
+	public int getAdminQnaTotal(String companyNumber) {
+		return sqlSession.selectOne("qna.getAdminQnaTotal", companyNumber);
+	}
 
-   // 댓글 목록 조회
-   public List<QnaCommentDTO> selectCommentListByPostNumber(Long postNumber) {
-      return sqlSession.selectList("qna.selectCommentListByPostNumber", postNumber);
-   }
+	public List<QnaListDTO> selectAdminQnaList(Map<String, Object> pageMap) {
+		return sqlSession.selectList("qna.selectAdminQnaList", pageMap);
+	}
 
-   // 댓글 등록
-   public void insertComment(QnaCommentDTO qnaCommentDTO) {
-      int count = sqlSession.insert("qna.insertComment", qnaCommentDTO);
-      System.out.println("insert count : " + count);
-   }
-   public void updateAnswerStatusToDone(Long postNumber) {
-      int count = sqlSession.update("qna.updateAnswerStatusToDone", postNumber);
-      System.out.println("answer status update count : " + count);
-   }
-   public int selectCommentCountByPostNumber(Long postNumber) {
-      return sqlSession.selectOne("qna.selectCommentCountByPostNumber", postNumber);
-   }
+	public QnaDTO selectAdminQnaNotice() {
+		return sqlSession.selectOne("qna.selectAdminQnaNotice");
+	}
 
-   public void updateAnswerStatusToWait(Long postNumber) {
-      int count = sqlSession.update("qna.updateAnswerStatusToWait", postNumber);
-      System.out.println("answer status wait update count : " + count);
-   }
-   // 댓글 삭제
-   public void deleteComment(Long commentNumber) {
-      int count = sqlSession.delete("qna.deleteComment", commentNumber);
-      System.out.println("delete count : " + count);
-   }
-   
-   public void deleteCommentsByPostNumber(Long postNumber) {
-      int count = sqlSession.delete("qna.deleteCommentsByPostNumber", postNumber);
-      System.out.println("comments delete count : " + count);
-   }
+	public void saveAdminQnaNotice(String noticeContent, int adminNumber) {
+		Integer count = sqlSession.selectOne("qna.getAdminQnaNoticeCount");
 
-   public void deleteQna(Long postNumber) {
-      int count = sqlSession.delete("qna.deleteQna", postNumber);
-      System.out.println("qna delete count : " + count);
-   }
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("noticeContent", noticeContent);
+		params.put("adminNumber", adminNumber);
 
-   // 게시글 등록
-   public void insertQna(QnaWriteDTO qnaWriteDTO) {
-      int count = sqlSession.insert("qna.insertQna", qnaWriteDTO);
-      System.out.println("qna insert count : " + count);
-   }
+		if (count == null || count == 0) {
+			sqlSession.insert("qna.insertAdminQnaNotice", params);
+			return;
+		}
 
-   // 마지막 등록 게시글 번호 조회
-   public Long selectLastPostNumber() {
-      return sqlSession.selectOne("qna.selectLastPostNumber");
-   }
+		sqlSession.update("qna.updateAdminQnaNotice", params);
+	}
+
+	public QnaDetailDTO selectQnaDetail(Long postNumber) {
+		return sqlSession.selectOne("qna.selectQnaDetail", postNumber);
+	}
+
+	public List<QnaCommentDTO> selectCommentListByPostNumber(Long postNumber) {
+		return sqlSession.selectList("qna.selectCommentListByPostNumber", postNumber);
+	}
+
+	public void insertComment(QnaCommentDTO qnaCommentDTO) {
+		sqlSession.insert("qna.insertComment", qnaCommentDTO);
+	}
+
+	public void updateAnswerStatusToDone(Long postNumber) {
+		sqlSession.update("qna.updateAnswerStatusToDone", postNumber);
+	}
+
+	public int selectCommentCountByPostNumber(Long postNumber) {
+		return sqlSession.selectOne("qna.selectCommentCountByPostNumber", postNumber);
+	}
+
+	public void updateAnswerStatusToWait(Long postNumber) {
+		sqlSession.update("qna.updateAnswerStatusToWait", postNumber);
+	}
+
+	public void deleteComment(Long commentNumber) {
+		sqlSession.delete("qna.deleteComment", commentNumber);
+	}
+
+	public void deleteCommentsByPostNumber(Long postNumber) {
+		sqlSession.delete("qna.deleteCommentsByPostNumber", postNumber);
+	}
+
+	public void deleteQna(Long postNumber) {
+		sqlSession.delete("qna.deleteQna", postNumber);
+	}
+
+	public void insertQna(QnaWriteDTO qnaWriteDTO) {
+		sqlSession.insert("qna.insertQna", qnaWriteDTO);
+	}
+
+	public Long selectLastPostNumber() {
+		return sqlSession.selectOne("qna.selectLastPostNumber");
+	}
 }

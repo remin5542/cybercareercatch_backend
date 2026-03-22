@@ -1,57 +1,78 @@
 package com.ccc.qna.dto;
 
 public class QnaListDTO {
-   private Long postNumber;
-   private String postTitle;
-   private String memberId;
-   private String postCreatedDate;
-   private String answerStatus;
-   
-   public QnaListDTO() {;}
+	private Long postNumber;
+	private String postTitle;
+	private String memberId;
+	private String companyName;
+	private String postCreatedDate;
+	private String answerStatus;
+	private int viewCount;
 
-   public Long getPostNumber() {
-      return postNumber;
-   }
+	public QnaListDTO() {
+		;
+	}
 
-   public void setPostNumber(Long postNumber) {
-      this.postNumber = postNumber;
-   }
+	public Long getPostNumber() {
+		return postNumber;
+	}
 
-   public String getPostTitle() {
-      return postTitle;
-   }
+	public void setPostNumber(Long postNumber) {
+		this.postNumber = postNumber;
+	}
 
-   public void setPostTitle(String postTitle) {
-      this.postTitle = postTitle;
-   }
+	public String getPostTitle() {
+		return postTitle;
+	}
 
-   public String getMemberId() {
-      return memberId;
-   }
+	public void setPostTitle(String postTitle) {
+		this.postTitle = postTitle;
+	}
 
-   public void setMemberId(String memberId) {
-      this.memberId = memberId;
-   }
+	public String getMemberId() {
+		return memberId;
+	}
 
-   public String getPostCreatedDate() {
-      return postCreatedDate;
-   }
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
+	}
 
-   public void setPostCreatedDate(String postCreatedDate) {
-      this.postCreatedDate = postCreatedDate;
-   }
+	public String getCompanyName() {
+		return companyName;
+	}
 
-   public String getAnswerStatus() {
-      return answerStatus;
-   }
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
 
-   public void setAnswerStatus(String answerStatus) {
-      this.answerStatus = answerStatus;
-   }
+	public String getPostCreatedDate() {
+		return postCreatedDate;
+	}
 
-   @Override
-   public String toString() {
-      return "QnaListDTO [postNumber=" + postNumber + ", postTitle=" + postTitle + ", memberId=" + memberId
-            + ", postCreatedDate=" + postCreatedDate + ", answerStatus=" + answerStatus + "]";
-   }
+	public void setPostCreatedDate(String postCreatedDate) {
+		this.postCreatedDate = postCreatedDate;
+	}
+
+	public String getAnswerStatus() {
+		return answerStatus;
+	}
+
+	public void setAnswerStatus(String answerStatus) {
+		this.answerStatus = answerStatus;
+	}
+
+	public int getViewCount() {
+		return viewCount;
+	}
+
+	public void setViewCount(int viewCount) {
+		this.viewCount = viewCount;
+	}
+
+	@Override
+	public String toString() {
+		return "QnaListDTO [postNumber=" + postNumber + ", postTitle=" + postTitle + ", memberId=" + memberId
+				+ ", companyName=" + companyName + ", postCreatedDate=" + postCreatedDate + ", answerStatus="
+				+ answerStatus + ", viewCount=" + viewCount + "]";
+	}
 }

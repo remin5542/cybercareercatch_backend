@@ -1,245 +1,169 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%
+/*
+ * 로그인하지 않은 관리자는
+ * 기업회원 승인/반려 페이지에 접근할 수 없도록 막는다.
+ */
+if (session.getAttribute("adminNumber") == null) {
+	response.sendRedirect(request.getContextPath() + "/admin/login.adfc");
+	return;
+}
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>기업 승인여부 리스트</title>
-<link rel="stylesheet" href="/assets/css/admin/member-management/company-check.css">
+<title>기업회원 승인 / 반려</title>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/assets/css/admin/member-management/company-check.css">
 </head>
 
 <body class="company-check-body">
 
-<div class="company-check-container">
-
-<header class="company-check-header">
-
-<div class="company-check-title">
- <a href="../admin-main.html">관리자 페이지</a>
-</div>
-
-<nav class="company-check-menu">
-<a href="../member-management/member-info.html">회원 관리</a>
-<a href="../main-management/qna-management.html">메인 관리</a>
-<a href="../community-management/expo-schedule.html">커뮤니티 관리</a>
-</nav>
-
-<a href="${pageContext.request.contextPath}/admin/logout.adfc" class="logout-btn">로그아웃</a>
-
-</header>
-
-<main class="company-check-main">
-
-<!-- 사이드바 -->
-<aside class="company-check-sidebar">
-
-<div class="company-check-sidebar-item">
-<a href="./member-info.html">일반회원 정보 조회</a>
-</div>
-
-<div class="company-check-sidebar-item company-check-active">
-<a href="./company-check.html">기업회원 승인, 반려</a>
-</div>
-
-<div class="company-check-sidebar-item">
-<a href="./recruiter-info.html">기업회원 정보 조회</a>
-</div>
-
-</aside>
-
-
-<!-- 오른쪽 영역 -->
-<section class="company-check-content">
-
-<div class="company-check-title-area">
-<h2>기업회원 승인 및 반려</h2>
-</div>
-
-<div class="company-check-subtitle">
-신규 기업회원가입자 목록
-</div>
-
-
-<!-- 리스트 헤더 -->
-
-<div class="company-check-table">
-
-<div class="company-check-row company-check-head">
-
-<div class="company-check-col number">번호</div>
-<div class="company-check-col id">아이디</div>
-<div class="company-check-col company">기업이름</div>
-<div class="company-check-col date">가입날짜</div>
-<div class="company-check-col status">승인/반려</div>
-
-</div>
-
-
-
-
-<!-- <div class="company-check-row">
-<div class="company-check-col number">1</div>
-<div class="company-check-col id">
-<a class="company-check-link" href="#">SsamSsong</a>
-</div>
-<div class="company-check-col company">
-<a class="company-check-link" href="#">쌈쏭쌈싸머거</a>
-</div>
-<div class="company-check-col date">26.02.12</div>
-<div class="company-check-col status">대기</div> -->
-
-
-<!-- 리스트 1 -->
-
-
-<a href="./company-checkdetail.html" class="company-check-row">
-
-<div class="company-check-col number">1</div>
-<div class="company-check-col id">SsamSsong</div>
-<div class="company-check-col company">쌈쏭쌈싸머거</div>
-<div class="company-check-col date">26.02.12</div>
-<div class="company-check-col status">대기</div>
-
-</a>
-
-<!-- 리스트 2 -->
-
-<a href="#" class="company-check-row">
-
-<div class="company-check-col number">2</div>
-<div class="company-check-col id">HEAJJunBaBo</div>
-<div class="company-check-col company">헤준BABO</div>
-<div class="company-check-col date">26.02.24</div>
-<div class="company-check-col status">대기</div>
-
-</a>
-
-
-<!-- 리스트 3 -->
-
-<a href="#" class="company-check-row">
-
-<div class="company-check-col number">3</div>
-<div class="company-check-col id">Jinokispretty</div>
-<div class="company-check-col company">진옥IT</div>
-<div class="company-check-col date">26.02.26</div>
-<div class="company-check-col status">대기</div>
-
-</a>
-
-
-<!-- 리스트 4 -->
-
-<a href="#" class="company-check-row">
-
-<div class="company-check-col number">4</div>
-<div class="company-check-col id">adorableJinok</div>
-<div class="company-check-col company">doradora컴퓨터</div>
-<div class="company-check-col date">26.02.28</div>
-<div class="company-check-col status">대기</div>
-
-</a>
-
-
-<!-- 리스트 5 -->
-
-<a href="#" class="company-check-row">
-
-<div class="company-check-col number">5</div>
-<div class="company-check-col id">IWantSleep</div>
-<div class="company-check-col company">IT솔리드</div>
-<div class="company-check-col date">26.03.01</div>
-<div class="company-check-col status">대기</div>
-
-</a>
-
-<!-- 리스트 6 -->
-
-<a href="#" class="company-check-row">
-
-<div class="company-check-col number">5</div>
-<div class="company-check-col id">IWantSleep</div>
-<div class="company-check-col company">IT솔리드</div>
-<div class="company-check-col date">26.03.01</div>
-<div class="company-check-col status">대기</div>
-
-</a>
-
-<!-- 리스트 7 -->
-
-<a href="#" class="company-check-row">
-
-<div class="company-check-col number">5</div>
-<div class="company-check-col id">IWantSleep</div>
-<div class="company-check-col company">IT솔리드</div>
-<div class="company-check-col date">26.03.01</div>
-<div class="company-check-col status">대기</div>
-
-</a>
-
-<!-- 리스트 8 -->
-
-<a href="#" class="company-check-row">
-
-<div class="company-check-col number">5</div>
-<div class="company-check-col id">IWantSleep</div>
-<div class="company-check-col company">IT솔리드</div>
-<div class="company-check-col date">26.03.01</div>
-<div class="company-check-col status">대기</div>
-
-</a>
-
-<!-- 리스트 9 -->
-
-<a href="#" class="company-check-row">
-
-<div class="company-check-col number">5</div>
-<div class="company-check-col id">IWantSleep</div>
-<div class="company-check-col company">IT솔리드</div>
-<div class="company-check-col date">26.03.01</div>
-<div class="company-check-col status">대기</div>
-
-</a>
-
-<!-- 리스트 10 -->
-
-<a href="#" class="company-check-row">
-
-<div class="company-check-col number">5</div>
-<div class="company-check-col id">IWantSleep</div>
-<div class="company-check-col company">IT솔리드</div>
-<div class="company-check-col date">26.03.01</div>
-<div class="company-check-col status">대기</div>
-
-</a>
-
-</div>
-
-
-<!-- 페이지네이션 -->
-
-<div class="company-check-pagination">
-
-<!-- <span>&lt;&lt;</span> -->
-<span>&lt;</span>
-
-<a class="company-check-page company-check-page-active">1</a>
-<a class="company-check-page">2</a>
-<a class="company-check-page">3</a>
-<a class="company-check-page">4</a>
-<a class="company-check-page">5</a>
-
-<span>&gt;</span>
-<!-- <span>&gt;&gt;</span> -->
-
-</div>
-
-
-</section>
-
-</main>
-
-</div>
-
+	<div class="company-check-container">
+
+		<header class="company-check-header">
+
+			<div class="company-check-title">
+				<a href="${pageContext.request.contextPath}/admin/main.adfc">관리자
+					페이지</a>
+			</div>
+
+			<nav class="company-check-menu">
+				<a href="${pageContext.request.contextPath}/admin/memberInfo.adfc">회원
+					관리</a> <a
+					href="${pageContext.request.contextPath}/admin/insertQuestion.adfc">메인
+					관리</a> <a
+					href="${pageContext.request.contextPath}/app/admin/community-management/expo-schedule.jsp">커뮤니티
+					관리</a>
+			</nav>
+
+			<a href="${pageContext.request.contextPath}/admin/logout.adfc"
+				class="company-check-logout">로그아웃</a>
+
+		</header>
+
+		<main class="company-check-main">
+
+			<!-- 왼쪽 사이드바 -->
+			<aside class="company-check-sidebar">
+
+				<div class="company-check-sidebar-item">
+					<a href="${pageContext.request.contextPath}/admin/memberInfo.adfc">일반회원
+						정보 조회</a>
+				</div>
+
+				<div class="company-check-sidebar-item company-check-active">
+					<a
+						href="${pageContext.request.contextPath}/admin/companyCheck.adfc">기업회원
+						승인, 반려</a>
+				</div>
+
+				<div class="company-check-sidebar-item">
+					<a
+						href="${pageContext.request.contextPath}/app/admin/member-management/recruiter-info.jsp">기업회원
+						정보 조회</a>
+				</div>
+				<div class="company-check-sidebar-item">
+					<a href="${pageContext.request.contextPath}/admin/jobCheck.adfc">질의문
+						답변 조회</a>
+				</div>
+
+			</aside>
+
+			<!-- 오른쪽 콘텐츠 -->
+			<section class="company-check-content">
+
+				<h2 class="company-check-content-title">기업회원 승인 / 반려</h2>
+
+				<div class="company-check-table">
+
+					<!-- header -->
+					<div class="company-check-table-header">
+						<div class="company-check-col company-check-col-num">번호</div>
+						<div class="company-check-col company-check-col-id">아이디</div>
+						<div class="company-check-col company-check-col-name">기업명</div>
+						<div class="company-check-col company-check-col-date">가입일</div>
+						<div class="company-check-col company-check-col-state">상태</div>
+					</div>
+
+					<!-- rows -->
+					<c:choose>
+						<c:when test="${empty companyList}">
+							<div class="company-check-row company-check-row-empty">
+								<div class="company-check-col company-check-col-num">-</div>
+								<div class="company-check-col company-check-col-id">등록된
+									기업회원이 없습니다.</div>
+								<div class="company-check-col company-check-col-name">-</div>
+								<div class="company-check-col company-check-col-date">-</div>
+								<div class="company-check-col company-check-col-state">-</div>
+							</div>
+						</c:when>
+
+						<c:otherwise>
+							<c:forEach var="company" items="${companyList}">
+								<a
+									href="${pageContext.request.contextPath}/admin/companyCheckDetail.adfc?companyNumber=${company.companyNumber}"
+									class="company-check-row-link">
+									<div class="company-check-row">
+										<div class="company-check-col company-check-col-num">${company.companyNumber}</div>
+										<div class="company-check-col company-check-col-id">${company.userId}</div>
+										<div class="company-check-col company-check-col-name">${company.companyName}</div>
+										<div class="company-check-col company-check-col-date">${company.userJoinDate}</div>
+										<div class="company-check-col company-check-col-state">${company.companyState}</div>
+									</div>
+								</a>
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>
+
+					<!-- 페이지네이션 -->
+					<c:if test="${total > 0}">
+						<div class="company-check-pagination">
+
+							<c:choose>
+								<c:when test="${prev}">
+									<a
+										href="${pageContext.request.contextPath}/admin/companyCheck.adfc?page=${startPage - 1}">&lt;</a>
+								</c:when>
+								<c:otherwise>
+									<span>&lt;</span>
+								</c:otherwise>
+							</c:choose>
+
+							<c:forEach var="i" begin="${startPage}" end="${endPage}">
+								<c:choose>
+									<c:when test="${i == page}">
+										<a class="company-check-page company-check-page-active">${i}</a>
+									</c:when>
+									<c:otherwise>
+										<a class="company-check-page"
+											href="${pageContext.request.contextPath}/admin/companyCheck.adfc?page=${i}">${i}</a>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+
+							<c:choose>
+								<c:when test="${next}">
+									<a
+										href="${pageContext.request.contextPath}/admin/companyCheck.adfc?page=${endPage + 1}">&gt;</a>
+								</c:when>
+								<c:otherwise>
+									<span>&gt;</span>
+								</c:otherwise>
+							</c:choose>
+
+						</div>
+					</c:if>
+
+				</div>
+
+			</section>
+
+		</main>
+
+	</div>
 </body>
 </html>

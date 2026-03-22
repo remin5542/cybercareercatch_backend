@@ -1,11 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // 질의문 답변 목록 행을 가져온다.
-    const rows = document.querySelectorAll(".company-check-row:not(.company-check-head)");
+    const rows = document.querySelectorAll(".job-check-row:not(.job-check-head)");
+    const pageButtons = document.querySelectorAll(".job-check-page");
 
-    // 페이지 번호를 가져온다.
-    const pageButtons = document.querySelectorAll(".company-check-page");
-
-    // 목록 행 hover 처리
     rows.forEach(function (row) {
         row.addEventListener("mouseenter", function () {
             row.classList.add("is-hover");
@@ -16,14 +12,13 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // 페이지 버튼 active 처리
     pageButtons.forEach(function (button) {
         button.addEventListener("click", function () {
             pageButtons.forEach(function (item) {
-                item.classList.remove("company-check-page-active");
+                item.classList.remove("job-check-page-active");
             });
 
-            button.classList.add("company-check-page-active");
+            button.classList.add("job-check-page-active");
         });
     });
 });

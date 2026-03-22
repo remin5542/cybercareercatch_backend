@@ -1,252 +1,210 @@
-/* 전체 배경 */
-
-.company-check-body{
-margin:0;
-background:#ffffff;
+.company-check-body {
+	margin: 0;
+	background: #ffffff;
+	font-family: sans-serif;
 }
 
-
-/* 전체 컨테이너 */
-
-.company-check-container{
-width:1300px;
-margin:40px auto;
-background:#c9cfe0;
-padding:30px;
+.company-check-container {
+	width: 1300px;
+	margin: 40px auto;
+	background: #c9cfe0;
+	padding: 30px;
+	box-sizing: border-box;
 }
 
+/* ---------------------- 상단 헤더 ---------------------- */
 
-/* 상단 헤더 */
-
-.company-check-header{
-display:flex;
-align-items:center;
-justify-content:space-between;
+.company-check-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 20px;
 }
 
-/* 기존 div 스타일 유지 */
 .company-check-title {
-    background:#6b83d6;
-    color:white;          /* 이건 a의 글씨 색에도 적용될 예정 */
-    padding:10px 20px;
-    border-radius:6px;
-    font-weight:bold;
-    cursor:pointer;
-    display:inline-block; /* a가 안 깨지도록 */
+	background: #6b83d6;
+	border-radius: 6px;
+	font-weight: bold;
+	overflow: hidden;
 }
 
-/* a 태그 스타일 초기화 + div 스타일과 동일하게 */
 .company-check-title a {
-    color: inherit;       /* div의 color 상속 */
-    text-decoration: none; /* 밑줄 제거 */
-    display:block;        /* div 안에서 영역 전체 클릭 가능 */
-    width:100%;
-    height:100%;
+	display: block;
+	padding: 10px 20px;
+	color: white;
+	text-decoration: none;
 }
 
-
-/* 상단 메뉴 */
-
-.company-check-menu{
-display:flex;
-gap:40px;
+.company-check-menu {
+	display: flex;
+	justify-content: center;
+	gap: 40px;
+	flex: 1;
 }
 
-.company-check-menu a{
-background:#6b83d6;
-color:white;
-padding:10px 25px;
-border-radius:6px;
-text-decoration:none;
+.company-check-menu a {
+	background: #6b83d6;
+	color: white;
+	padding: 10px 25px;
+	border-radius: 6px;
+	text-decoration: none;
 }
 
-.company-check-menu a:hover{
-background:#5569c1;
+.company-check-menu a:hover {
+	background: #5569c1;
 }
 
-
-/* 로그아웃 */
-
-.company-check-logout{
-padding:6px 12px;
+.company-check-logout {
+	display: inline-block;
+	background: #6b83d6;
+	color: white;
+	padding: 10px 25px;
+	border-radius: 6px;
+	text-decoration: none;
 }
 
-.company-check-logout:hover{
-background:#dcdcdc;
+.company-check-logout:hover {
+	background: #5569c1;
 }
 
+/* ---------------------- 메인 ---------------------- */
 
-/* 메인 영역 */
-
-.company-check-main{
-display:flex;
-margin-top:30px;
-gap:20px;
+.company-check-main {
+	display: flex;
+	margin-top: 30px;
+	gap: 20px;
 }
 
+/* ---------------------- 왼쪽 사이드바 ---------------------- */
 
-/* 사이드바 */
-
-.company-check-sidebar{
-width:200px;
-background:#adbbdb;
-padding-top:20px;
+.company-check-sidebar {
+	width: 220px;
+	background: #adbbdb;
+	padding-top: 20px;
+	box-sizing: border-box;
 }
 
-.company-check-sidebar-item{
-padding:20px;
-margin-bottom:10px;
-text-align:center;
-cursor:pointer;
-background:#adbbdb;
+.company-check-sidebar-item {
+	padding: 20px;
+	margin-bottom: 10px;
+	text-align: center;
+	background: #adbbdb;
+	cursor: pointer;
 }
 
-.company-check-sidebar-item a{
-color:black;
-text-decoration:none;
-display:block;
+.company-check-sidebar-item a {
+	display: block;
+	color: black;
+	text-decoration: none;
+	word-break: keep-all;
 }
 
-.company-check-sidebar-item:hover{
-background:#949fca;
+.company-check-sidebar-item:hover {
+	background: #949fca;
 }
 
-.company-check-sidebar-item:hover a{
-color:white;
+.company-check-sidebar-item:hover a {
+	color: white;
 }
 
-.company-check-sidebar-item.company-check-active{
-background:#8a8a8a;
+.company-check-sidebar-item.company-check-active {
+	background: #8a8a8a;
 }
 
-.company-check-sidebar-item.company-check-active a{
-color:white;
-font-weight:700;
+.company-check-sidebar-item.company-check-active a {
+	color: white;
+	font-weight: 700;
 }
 
+/* ---------------------- 오른쪽 콘텐츠 ---------------------- */
 
-/* 오른쪽 콘텐츠 영역 */
-
-.company-check-content{
-flex:1;
-background:#f5f5f5;
-padding:30px;
+.company-check-content {
+	flex: 1;
+	background: white;
+	padding: 40px;
+	min-height: 800px;
+	box-sizing: border-box;
 }
 
-
-/* 페이지 제목 */
-
-.company-check-title-area{
-font-weight:bold;
-margin-bottom:60px;
+.company-check-content-title {
+	margin: 0 0 30px 0;
+	font-size: 36px;
+	font-weight: 700;
 }
 
+/* ---------------------- 테이블 ---------------------- */
 
-/* 서브 타이틀 */
-
-.company-check-subtitle{
-margin-bottom:10px;
+.company-check-table {
+	margin-top: 15px;
+	border-top: 2px solid #d9d9d9;
 }
 
-
-/* 리스트 전체 */
-
-.company-check-table{
-width:100%;
-border-top:2px solid #aaa;
-background:white;
+.company-check-table-header {
+	display: grid;
+	grid-template-columns: 100px 1fr 1.3fr 180px 120px;
+	align-items: center;
+	padding: 18px 10px;
+	font-weight: 700;
+	border-bottom: 1px solid #dddddd;
+	background: #f8f8f8;
 }
 
-
-/* 한 줄 */
-
-/* .company-check-row{
-display:flex;
-border-bottom:1px solid #ccc;
-} */
-.company-check-row{
-display:flex;
-border-bottom:1px solid #ccc;
-text-decoration:none;
-color:inherit;
+.company-check-row-link {
+	display: block;
+	text-decoration: none;
+	color: black;
 }
 
-.company-check-row:hover{
-background:#f0f3ff;
-cursor:pointer;
+.company-check-row {
+	display: grid;
+	grid-template-columns: 100px 1fr 1.3fr 180px 120px;
+	align-items: center;
+	padding: 18px 10px;
+	border-bottom: 1px solid #eeeeee;
+	min-height: 64px;
 }
 
-/* 헤더 */
-
-.company-check-head{
-background:#e5e5e5;
-font-weight:bold;
+.company-check-row-link:hover .company-check-row {
+	background: #f7f9ff;
 }
 
-
-/* 컬럼 */
-
-.company-check-col{
-padding:12px 10px;
-flex:1;
+.company-check-col {
+	text-align: center;
+	word-break: keep-all;
 }
 
-
-/* 컬럼 크기 */
-
-.company-check-col.number{
-flex:0.5;
+.company-check-col-name,
+.company-check-col-id {
+	padding: 0 8px;
 }
 
-.company-check-col.id{
-flex:1.5;
+.company-check-row-empty {
+	color: #666666;
 }
 
-.company-check-col.company{
-flex:2;
+/* ---------------------- 페이지네이션 ---------------------- */
+
+.company-check-pagination {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	margin-top: 30px;
 }
 
-.company-check-col.date{
-flex:1;
+.company-check-pagination a,
+.company-check-pagination span {
+	min-width: 24px;
+	text-align: center;
+	text-decoration: none;
+	color: #333333;
 }
 
-.company-check-col.status{
-flex:1;
+.company-check-page {
+	padding: 2px 4px;
 }
 
-
-/* 링크 */
-
-.company-check-link{
-color:#2a63ff;
-text-decoration:none;
-}
-
-.company-check-link:hover{
-text-decoration:underline;
-}
-
-
-/* 상태 */
-
-.company-check-col.status{
-color:#333;
-}
-
-
-/* 페이지네이션 */
-
-.company-check-pagination{
-margin-top:25px;
-text-align:center;
-}
-
-.company-check-pagination span,
-.company-check-page{
-margin:0 6px;
-cursor:pointer;
-}
-
-.company-check-page-active{
-font-weight:bold;
+.company-check-page-active {
+	color: #3d63dd !important;
+	font-weight: 700;
 }

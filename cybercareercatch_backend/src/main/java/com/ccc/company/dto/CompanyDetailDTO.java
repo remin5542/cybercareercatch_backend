@@ -10,9 +10,15 @@ public class CompanyDetailDTO {
 	private String filePath;
 	private String compCeoName;
 	private int compFndYear;
-	private int compEmplCnt;
+
+	/*
+	 * NUMBER / NUMBER(15) 컬럼은 int로 받으면 오버플로우가 날 수 있어서
+	 * long으로 변경한다.
+	 */
+	private long compEmplCnt;
 	private long compRev;
 	private long compCap;
+
 	private String compType;
 	private String compSummary;
 	private String compTech;
@@ -93,28 +99,28 @@ public class CompanyDetailDTO {
 		this.compFndYear = compFndYear;
 	}
 	
-	public int getCompEmplCnt() {
+	public long getCompEmplCnt() {
 		return compEmplCnt;
 	}
 	
-	public void setCompEmplCnt(int compEmplCnt) {
+	public void setCompEmplCnt(long compEmplCnt) {
 		this.compEmplCnt = compEmplCnt;
 	}
 	
 	public long getCompRev() {
-	    return compRev;
+		return compRev;
 	}
-
+	
 	public void setCompRev(long compRev) {
-	    this.compRev = compRev;
+		this.compRev = compRev;
 	}
-
+	
 	public long getCompCap() {
-	    return compCap;
+		return compCap;
 	}
-
+	
 	public void setCompCap(long compCap) {
-	    this.compCap = compCap;
+		this.compCap = compCap;
 	}
 	
 	public String getCompType() {
@@ -239,18 +245,15 @@ public class CompanyDetailDTO {
 
 	@Override
 	public String toString() {
-		return "CompanyDetailDTO [companyNumber=" + companyNumber + ", companyName=" + companyName + ", companyAddress="
-				+ companyAddress + ", companyState=" + companyState + ", CompanyBrn=" + companyBrn + ", filePath="
-				+ filePath + ", compCeoName=" + compCeoName + ", compFndYear=" + compFndYear + ", compEmplCnt="
-				+ compEmplCnt + ", compRev=" + compRev + ", compCap=" + compCap + ", compType=" + compType
-				+ ", compSummary=" + compSummary + ", compTech=" + compTech + ", compMainBiz=" + compMainBiz
-				+ ", compInfo=" + compInfo + ", compSvcHist=" + compSvcHist + ", jobPostProfile=" + jobPostProfile
-				+ ", jobPostContent=" + jobPostContent + ", jobPostProcess=" + jobPostProcess + ", jobPostMethod="
-				+ jobPostMethod + ", jobPostDate=" + jobPostDate + ", cat1IsHiring=" + cat1IsHiring + ", cat2IsHiring="
-				+ cat2IsHiring + ", cat3IsHiring=" + cat3IsHiring + ", cat4IsHiring=" + cat4IsHiring + "]";
+		return "CompanyDetailDTO [companyNumber=" + companyNumber + ", companyName=" + companyName
+				+ ", companyAddress=" + companyAddress + ", companyState=" + companyState + ", companyBrn="
+				+ companyBrn + ", filePath=" + filePath + ", compCeoName=" + compCeoName + ", compFndYear="
+				+ compFndYear + ", compEmplCnt=" + compEmplCnt + ", compRev=" + compRev + ", compCap=" + compCap
+				+ ", compType=" + compType + ", compSummary=" + compSummary + ", compTech=" + compTech
+				+ ", compMainBiz=" + compMainBiz + ", compInfo=" + compInfo + ", compSvcHist=" + compSvcHist
+				+ ", jobPostProfile=" + jobPostProfile + ", jobPostContent=" + jobPostContent + ", jobPostProcess="
+				+ jobPostProcess + ", jobPostMethod=" + jobPostMethod + ", jobPostDate=" + jobPostDate
+				+ ", cat1IsHiring=" + cat1IsHiring + ", cat2IsHiring=" + cat2IsHiring + ", cat3IsHiring="
+				+ cat3IsHiring + ", cat4IsHiring=" + cat4IsHiring + "]";
 	}
-	
-	
-
-	
 }

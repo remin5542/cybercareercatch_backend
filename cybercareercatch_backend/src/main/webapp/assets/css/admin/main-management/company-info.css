@@ -1,245 +1,261 @@
 * {
-    box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 .companyInfo-body {
-    margin: 0;
-    background: #ffffff;
-    font-family: sans-serif;
+	margin: 0;
+	background: #ffffff;
+	font-family: sans-serif;
 }
 
 .companyInfo-ctr {
-    width: 1300px;
-    margin: 40px auto;
-    background: #c9cfe0;
-    padding: 30px;
+	width: 1300px;
+	margin: 40px auto;
+	background: #c9cfe0;
+	padding: 30px;
 }
 
-/* ---------------------- 상단 헤더 ---------------------- */
-
 .companyInfo-hdr {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 20px;
 }
 
 .companyInfo-title {
-    background: #6b83d6;
-    border-radius: 6px;
-    font-weight: bold;
-    overflow: hidden;
+	background: #6b83d6;
+	border-radius: 6px;
+	font-weight: bold;
+	overflow: hidden;
 }
 
 .companyInfo-title a {
-    display: block;
-    color: white;
-    text-decoration: none;
-    padding: 10px 20px;
+	display: block;
+	color: white;
+	text-decoration: none;
+	padding: 10px 20px;
 }
 
 .companyInfo-nav {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    flex: 1;
+	display: flex;
+	justify-content: center;
+	gap: 40px;
+	flex: 1;
 }
 
 .companyInfo-nav a {
-    background: #6b83d6;
-    color: white;
-    padding: 10px 25px;
-    border-radius: 6px;
-    text-decoration: none;
+	background: #6b83d6;
+	color: white;
+	padding: 10px 25px;
+	border-radius: 6px;
+	text-decoration: none;
 }
 
 .companyInfo-nav a:hover {
-    background: #5569c1;
+	background: #5569c1;
 }
 
 .companyInfo-logout {
-    display: inline-block;
-    background: #6b83d6;
-    color: white;
-    padding: 10px 25px;
-    border-radius: 6px;
-    text-decoration: none;
+	display: inline-block;
+	background: #6b83d6;
+	color: white;
+	padding: 10px 25px;
+	border-radius: 6px;
+	text-decoration: none;
 }
 
 .companyInfo-logout:hover {
-    background: #5569c1;
+	background: #5569c1;
 }
-
-/* ---------------------- 메인 ---------------------- */
 
 .companyInfo-main {
-    display: flex;
-    margin-top: 30px;
-    gap: 20px;
+	display: flex;
+	margin-top: 30px;
+	gap: 20px;
 }
-
-.companyInfo-main form {
-    flex: 1;
-}
-
-/* ---------------------- 왼쪽 사이드바 ---------------------- */
 
 .companyInfo-leftbar {
-    width: 200px;
-    background: #adbbdb;
-    padding-top: 20px;
+	width: 220px;
+	background: #adbbdb;
+	padding-top: 20px;
+	box-sizing: border-box;
+	flex-shrink: 0;
 }
 
 .companyInfo-left-item {
-    padding: 20px;
-    margin-bottom: 10px;
-    text-align: center;
-    cursor: pointer;
-    background: #adbbdb;
+	padding: 20px;
+	margin-bottom: 10px;
+	text-align: center;
+	background: #adbbdb;
 }
 
 .companyInfo-left-item a {
-    color: black;
-    text-decoration: none;
-    display: block;
+	display: block;
+	color: black;
+	text-decoration: none;
+	word-break: keep-all;
 }
 
 .companyInfo-left-item:hover {
-    background: #949fca;
+	background: #949fca;
 }
 
 .companyInfo-left-item:hover a {
-    color: white;
+	color: white;
 }
 
 .companyInfo-left-item.companyInfo-active {
-    background: #8a8a8a;
+	background: #8a8a8a;
 }
 
 .companyInfo-left-item.companyInfo-active a {
-    color: white;
-    font-weight: 700;
+	color: white;
+	font-weight: 700;
 }
 
-/* ---------------------- 오른쪽 콘텐츠 ---------------------- */
-
 .companyInfo-ct {
-    flex: 1;
-    background: white;
-    padding: 40px;
-    min-height: 800px;
+	flex: 1;
+	background: white;
+	padding: 40px;
+	min-height: 800px;
+	box-sizing: border-box;
 }
 
 .companyInfo-topbox {
-    margin-bottom: 25px;
+	margin-bottom: 25px;
 }
 
 .companyInfo-subtitle {
-    margin: 0;
-    font-size: 36px;
-    font-weight: 700;
+	margin: 0;
+	font-size: 36px;
+	font-weight: 700;
 }
 
-/* ---------------------- 검색 ---------------------- */
+.companyInfo-searchForm {
+	margin-bottom: 30px;
+}
 
 .companyInfo-search {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 35px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
 }
 
 .companyInfo-search input {
-    width: 280px;
-    height: 42px;
-    border-radius: 20px;
-    border: 1px solid #d0d0d0;
-    background: #f2f2f2;
-    text-align: center;
-    outline: none;
+	width: 300px;
+	height: 42px;
+	padding: 0 16px;
+	border-radius: 20px;
+	border: 1px solid #d0d0d0;
+	background: #f2f2f2;
+	outline: none;
 }
 
 .companyInfo-search button {
-    background: #6b83d6;
-    color: white;
-    border: none;
-    padding: 10px 22px;
-    border-radius: 6px;
-    cursor: pointer;
+	background: #6b83d6;
+	color: white;
+	border: none;
+	padding: 10px 22px;
+	border-radius: 6px;
+	cursor: pointer;
 }
 
 .companyInfo-search button:hover {
-    background: #5569c1;
+	background: #5569c1;
 }
 
-/* ---------------------- 테이블 ---------------------- */
-
 .companyInfo-tblHead {
-    display: grid;
-    grid-template-columns: 80px 90px 180px 120px 1fr;
-    align-items: center;
-    font-weight: bold;
-    padding: 14px 0;
-    border-bottom: 2px solid #dcdcdc;
+	display: flex;
+	align-items: center;
+	font-weight: bold;
+	padding: 14px 0;
+	border-bottom: 2px solid #dcdcdc;
+	background: #f8f8f8;
 }
 
 .companyInfo-row {
-    display: grid;
-    grid-template-columns: 80px 90px 180px 120px 1fr;
-    align-items: center;
-    padding: 18px 0;
-    border-bottom: 1px solid #ececec;
+	display: flex;
+	align-items: center;
+	padding: 18px 0;
+	border-bottom: 1px solid #ececec;
 }
 
-.col1,
-.col2,
-.col3,
-.col4,
+.companyInfo-tblHead > div,
+.companyInfo-row > div {
+	padding: 0 10px;
+	box-sizing: border-box;
+	text-align: center;
+	word-break: keep-all;
+}
+
+.col1 {
+	width: 90px;
+	flex-shrink: 0;
+}
+
+.col2 {
+	width: 90px;
+	flex-shrink: 0;
+}
+
+.col3 {
+	width: 220px;
+	flex-shrink: 0;
+}
+
+.col4 {
+	width: 120px;
+	flex-shrink: 0;
+}
+
 .col5 {
-    text-align: center;
-    word-break: keep-all;
+	flex: 1;
+	text-align: left !important;
 }
 
-.col5 {
-    text-align: left;
-    padding-left: 10px;
+.companyInfo-empty {
+	padding: 80px 0;
+	text-align: center;
+	color: #666666;
+	border-bottom: 1px solid #ececec;
 }
-
-/* ---------------------- 페이지네이션 ---------------------- */
 
 .companyInfo-page {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    margin-top: 35px;
+	display: flex;
+	justify-content: center;
+	gap: 12px;
+	margin-top: 35px;
 }
 
+.companyInfo-page a,
 .companyInfo-page span {
-    cursor: pointer;
+	text-decoration: none;
+	color: inherit;
+	min-width: 20px;
+	text-align: center;
 }
 
 .companyInfo-page .active {
-    color: #4c6ef5;
-    font-weight: bold;
+	color: #4c6ef5;
+	font-weight: bold;
 }
 
-/* ---------------------- 삭제 버튼 ---------------------- */
-
 .companyInfo-del {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 30px;
+	display: flex;
+	justify-content: flex-end;
+	margin-top: 30px;
 }
 
 .companyInfo-del button {
-    background: #d87c7c;
-    color: white;
-    border: none;
-    padding: 10px 25px;
-    border-radius: 6px;
-    cursor: pointer;
+	background: #d87c7c;
+	color: white;
+	border: none;
+	padding: 10px 25px;
+	border-radius: 6px;
+	cursor: pointer;
 }
 
 .companyInfo-del button:hover {
-    background: #c86b6b;
+	background: #c86b6b;
 }

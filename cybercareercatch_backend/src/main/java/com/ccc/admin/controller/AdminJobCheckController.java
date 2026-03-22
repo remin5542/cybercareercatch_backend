@@ -20,49 +20,62 @@ public class AdminJobCheckController implements Execute {
 	public Result execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		// 질의문 관련 DB 작업을 처리할 DAO 객체이다.
 		JobDAO jobDAO = new JobDAO();
-
-		// 이동 정보를 담을 객체이다.
 		Result result = new Result();
 
-		// 현재 페이지 번호를 저장할 변수이다.
 		int page = 1;
-
-		// 한 페이지당 보여줄 게시물 수이다.
 		int rowCount = 10;
+		int pageCount = 5;
 
-		// 페이지 파라미터를 가져온다.
 		String temp = request.getParameter("page");
 
-		// 페이지 번호가 있으면 정수로 변환한다.
-		if (temp != null) {
+		if (temp != null && !temp.trim().equals("")) {
 			page = Integer.parseInt(temp);
 		}
 
-		// 시작 행 번호를 계산한다.
-		int startRow = (page - 1) * rowCount + 1;
+		int total = jobDAO.getJobResultTotal();
 
-		// 끝 행 번호를 계산한다.
+		int realEndPage = (int)Math.ceil(total / (double)rowCount);
+
+		if (realEndPage == 0) {
+			realEndPage = 1;
+		}
+
+		if (page > realEndPage) {
+			page = realEndPage;
+		}
+
+		if (page < 1) {
+			page = 1;
+		}
+
+		int startRow = (page - 1) * rowCount + 1;
 		int endRow = startRow + rowCount - 1;
 
-		// Mapper로 넘길 페이지 정보를 담는다.
 		Map<String, Integer> pageMap = new HashMap<String, Integer>();
 		pageMap.put("startRow", startRow);
 		pageMap.put("endRow", endRow);
 
-		// 질의문 답변 목록을 조회한다.
 		List<JobTestResultDTO> jobResultList = jobDAO.selectJobResultList(pageMap);
 
-		// 전체 개수를 조회한다.
-		int total = jobDAO.getJobResultTotal();
+		int startPage = ((page - 1) / pageCount) * pageCount + 1;
+		int endPage = startPage + pageCount - 1;
 
-		// JSP에서 사용할 수 있도록 request 영역에 저장한다.
+		if (endPage > realEndPage) {
+			endPage = realEndPage;
+		}
+
+		boolean prev = startPage > 1;
+		boolean next = endPage < realEndPage;
+
 		request.setAttribute("jobResultList", jobResultList);
 		request.setAttribute("total", total);
 		request.setAttribute("page", page);
+		request.setAttribute("startPage", startPage);
+		request.setAttribute("endPage", endPage);
+		request.setAttribute("prev", prev);
+		request.setAttribute("next", next);
 
-		// 질의문 답변 목록 JSP로 이동한다.
 		result.setPath("/app/admin/member-management/job-check.jsp");
 		result.setRedirect(false);
 

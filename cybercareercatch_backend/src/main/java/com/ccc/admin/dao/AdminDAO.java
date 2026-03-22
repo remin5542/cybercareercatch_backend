@@ -23,63 +23,103 @@ public class AdminDAO {
 		sqlSession = MyBatisConfig.getSqlSessionFactory().openSession(true);
 	}
 
-	/* 관리자 로그인 */
+	/* =========================
+	 * 로그인 / 대시보드
+	 * =========================
+	 */
+
 	public AdminDTO login(AdminDTO adminDTO) {
 		return sqlSession.selectOne("admin.login", adminDTO);
 	}
 
-	/* 관리자 메인 총 일반 회원 수 */
 	public int getMemberTotal() {
 		return sqlSession.selectOne("admin.getMemberTotal");
 	}
 
-	/* 관리자 메인 총 기업 회원 수 */
 	public int getCompanyMemberCount() {
 		return sqlSession.selectOne("admin.getCompanyMemberCount");
 	}
 
-	/* 관리자 메인 총 박람회 수 */
 	public int getExpoCount() {
 		return sqlSession.selectOne("admin.getExpoCount");
 	}
 
-	/* 관리자 일반 회원 목록 조회 */
-	public List<AdminMemberListDTO> selectMemberList(Map<String, Integer> pageMap) {
+	/* =========================
+	 * 일반회원 정보 조회
+	 * =========================
+	 */
+
+	public int getMemberListTotal(Map<String, Object> searchMap) {
+		return sqlSession.selectOne("admin.getMemberListTotal", searchMap);
+	}
+
+	public List<AdminMemberListDTO> selectMemberList(Map<String, Object> pageMap) {
 		return sqlSession.selectList("admin.selectMemberList", pageMap);
 	}
 
-	/* 관리자 일반 회원 기본 정보 조회 */
 	public AdminMemberListDTO selectMemberUserInfo(int userNumber) {
 		return sqlSession.selectOne("admin.selectMemberUserInfo", userNumber);
 	}
 
-	/* 관리자 일반 회원 상세 정보 조회 */
 	public MemberDTO selectMemberDetail(int userNumber) {
 		return sqlSession.selectOne("admin.selectMemberDetail", userNumber);
 	}
 
-	/* 관리자 일반 회원 삭제 */
+	public void deleteMemberComments(int userNumber) {
+		sqlSession.delete("admin.deleteMemberComments", userNumber);
+	}
+
+	public void deleteMemberPosts(int userNumber) {
+		sqlSession.delete("admin.deleteMemberPosts", userNumber);
+	}
+
 	public void deleteMember(int userNumber) {
 		sqlSession.delete("admin.deleteMember", userNumber);
 	}
 
-	/* 관리자 기업 회원 승인/반려 목록 조회 */
+	/* =========================
+	 * 기업회원 승인 / 반려
+	 * =========================
+	 */
+
 	public List<AdminCompanyListDTO> selectCompanyApproveList(Map<String, Integer> pageMap) {
 		return sqlSession.selectList("admin.selectCompanyApproveList", pageMap);
 	}
 
-	/* 관리자 기업 회원 승인/반려 총 개수 */
 	public int getCompanyApproveTotal() {
 		return sqlSession.selectOne("admin.getCompanyApproveTotal");
 	}
 
-	/* 관리자 기업 회원 승인/반려 상세 정보 조회 */
 	public CompanyDetailDTO selectCompanyApproveDetail(int companyNumber) {
 		return sqlSession.selectOne("admin.selectCompanyApproveDetail", companyNumber);
 	}
 
-	/* 관리자 기업 회원 승인/반려 상태 변경 */
 	public void updateCompanyState(CompanyDTO companyDTO) {
 		sqlSession.update("admin.updateCompanyState", companyDTO);
+	}
+
+	/* =========================
+	 * 기업회원 정보 조회
+	 * =========================
+	 */
+
+	public int getRecruiterListTotal(Map<String, Object> searchMap) {
+		return sqlSession.selectOne("admin.getRecruiterListTotal", searchMap);
+	}
+
+	public List<AdminMemberListDTO> selectRecruiterList(Map<String, Object> pageMap) {
+		return sqlSession.selectList("admin.selectRecruiterList", pageMap);
+	}
+
+	public AdminMemberListDTO selectRecruiterUserInfo(int userNumber) {
+		return sqlSession.selectOne("admin.selectRecruiterUserInfo", userNumber);
+	}
+
+	public void deleteRecruiterComments(int userNumber) {
+		sqlSession.delete("admin.deleteRecruiterComments", userNumber);
+	}
+
+	public void deleteRecruiter(int userNumber) {
+		sqlSession.delete("admin.deleteRecruiter", userNumber);
 	}
 }

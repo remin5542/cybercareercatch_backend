@@ -55,9 +55,8 @@ public class AdminFrontController extends HttpServlet {
 
 		switch (target) {
 
-		/* =========================
-		 * 관리자 로그인 / 로그아웃 / 메인
-		 * =========================
+		/*
+		 * ========================= 관리자 로그인 / 로그아웃 / 메인 =========================
 		 */
 		case "/admin/login.adfc":
 			result = new AdminLoginController().execute(request, response);
@@ -75,9 +74,23 @@ public class AdminFrontController extends HttpServlet {
 			result = new AdminMainController().execute(request, response);
 			break;
 
-		/* =========================
-		 * 질의문 관련
-		 * =========================
+		/*
+		 * ========================= 일반회원 정보 조회 관련 =========================
+		 */
+		case "/admin/memberInfo.adfc":
+			result = new AdminMemberInfoController().execute(request, response);
+			break;
+
+		case "/admin/memberInfoDetail.adfc":
+			result = new AdminMemberInfoDetailController().execute(request, response);
+			break;
+
+		case "/admin/deleteMember.adfc":
+			result = new AdminMemberDeleteController().execute(request, response);
+			break;
+
+		/*
+		 * ========================= 질의문 관련 =========================
 		 */
 		case "/admin/insertQuestion.adfc":
 			result = new AdminInsertQuestionController().execute(request, response);
@@ -99,9 +112,8 @@ public class AdminFrontController extends HttpServlet {
 			result = new AdminJudgeJobResultController().execute(request, response);
 			break;
 
-		/* =========================
-		 * 기업 정보페이지 관련
-		 * =========================
+		/*
+		 * ========================= 기업 정보페이지 관련 =========================
 		 */
 		case "/admin/companyInfoListOk.adfc":
 			result = new AdminCompanyInfoListController().execute(request, response);
@@ -111,9 +123,8 @@ public class AdminFrontController extends HttpServlet {
 			result = new AdminDeleteCompanyInfoController().execute(request, response);
 			break;
 
-		/* =========================
-		 * 로드맵 관련
-		 * =========================
+		/*
+		 * ========================= 로드맵 관련 =========================
 		 */
 		case "/admin/roadmapManagement.adfc":
 			result = new AdminRoadmapManagementController().execute(request, response);
@@ -122,11 +133,94 @@ public class AdminFrontController extends HttpServlet {
 		case "/admin/updateRoadmap.adfc":
 			result = new AdminUpdateRoadmapController().execute(request, response);
 			break;
-		}
 
 		/*
-		 * 결과 경로가 있으면
-		 * redirect 또는 forward 방식으로 이동한다.
+		 * ========================= 승인 반려 =========================
+		 */
+		case "/admin/companyCheck.adfc":
+			result = new AdminCompanyCheckController().execute(request, response);
+			break;
+
+		case "/admin/companyCheckDetail.adfc":
+			result = new AdminCompanyCheckDetailController().execute(request, response);
+			break;
+
+		case "/admin/updateCompanyState.adfc":
+			result = new AdminUpdateCompanyStateController().execute(request, response);
+			break;
+
+		/*
+		 * ========================= 기업회원 =========================
+		 */
+		case "/admin/recruiterInfo.adfc":
+			result = new AdminRecruiterInfoController().execute(request, response);
+			break;
+
+		case "/admin/recruiterInfoDetail.adfc":
+			result = new AdminRecruiterInfoDetailController().execute(request, response);
+			break;
+
+		case "/admin/deleteRecruiter.adfc":
+			result = new AdminRecruiterDeleteController().execute(request, response);
+			break;
+
+		/*
+		 * ====================================================================== 
+		 * 								엑스포
+		 * =======================================================================
+		 */
+
+		case "/admin/expoSchedule.adfc":
+			result = new AdminExpoScheduleController().execute(request, response);
+			break;
+
+		case "/admin/expoDetailSchedule.adfc":
+			result = new AdminExpoDetailScheduleController().execute(request, response);
+			break;
+			
+		case "/admin/insertExpo.adfc":
+			result = new AdminInsertExpoController().execute(request, response);
+			break;
+
+		case "/admin/deleteExpo.adfc":
+			result = new AdminDeleteExpoController().execute(request, response);
+			break;
+
+		case "/admin/addExpoCompany.adfc":
+			result = new AdminAddExpoCompanyController().execute(request, response);
+			break;
+			/*
+			 * ========================= 자유게시판 =========================
+			 */	
+		case "/admin/communityManagement.adfc":
+			result = new AdminCommunityManagementController().execute(request, response);
+			break;
+
+		case "/admin/deleteFreePost.adfc":
+			result = new AdminDeleteFreePostController().execute(request, response);
+			break;
+			
+		case "/admin/saveFreeNotice.adfc":
+			result = new AdminSaveFreeNoticeController().execute(request, response);
+			break;
+			/*
+			 * ========================= 기업간 일반회원 qna =========================
+			 */	
+			
+		case "/admin/companyQnaManagement.adfc":
+			result = new AdminCompanyQnaManagementController().execute(request, response);
+			break;
+
+		case "/admin/saveCompanyQnaNotice.adfc":
+			result = new AdminSaveCompanyQnaNoticeController().execute(request, response);
+			break;
+
+		case "/admin/deleteCompanyQna.adfc":
+			result = new AdminDeleteCompanyQnaController().execute(request, response);
+			break;
+		}
+		/*
+		 * 결과 경로가 있으면 redirect 또는 forward 방식으로 이동한다.
 		 */
 		if (result != null && result.getPath() != null) {
 			if (result.isRedirect()) {
@@ -135,5 +229,4 @@ public class AdminFrontController extends HttpServlet {
 				request.getRequestDispatcher(result.getPath()).forward(request, response);
 			}
 		}
-	}
-}
+	}}

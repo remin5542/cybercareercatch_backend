@@ -1,238 +1,266 @@
-/* 전체 배경 */
-.job-checkdetail-body{
-    margin:0;
-    background:#ffffff;
+.job-checkdetail-body {
+	margin: 0;
+	background: #ffffff;
+	font-family: sans-serif;
 }
 
-/* 전체 컨테이너 */
-.job-checkdetail-container{
-    width:1300px;
-    margin:40px auto;
-    background:#c9cfe0;
-    padding:30px;
+.job-checkdetail-container {
+	width: 1300px;
+	margin: 40px auto;
+	background: #c9cfe0;
+	padding: 30px;
+	box-sizing: border-box;
 }
 
-/* 상단 헤더 */
-.job-checkdetail-header{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
+/* ================= 상단 헤더 ================= */
+
+.job-checkdetail-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 20px;
 }
 
-/* 기존 div 스타일 유지 */
 .job-checkdetail-title {
-    background:#6b83d6;
-    color:white;
-    padding:10px 20px;
-    border-radius:6px;
-    font-weight:bold;
-    cursor:pointer;
-    display:inline-block;
+	background: #6b83d6;
+	border-radius: 6px;
+	font-weight: bold;
+	overflow: hidden;
 }
 
-/* a 태그 스타일 초기화 + div 스타일과 동일하게 */
 .job-checkdetail-title a {
-    color: inherit;
-    text-decoration: none;
-    display:block;
-    width:100%;
-    height:100%;
+	display: block;
+	padding: 10px 20px;
+	color: white;
+	text-decoration: none;
 }
 
-/* 상단 메뉴 */
-.job-checkdetail-menu{
-    display:flex;
-    gap:40px;
+.job-checkdetail-menu {
+	display: flex;
+	justify-content: center;
+	gap: 40px;
+	flex: 1;
 }
 
-.job-checkdetail-menu a{
-    background:#6b83d6;
-    color:white;
-    padding:10px 25px;
-    border-radius:6px;
-    text-decoration:none;
+.job-checkdetail-menu a {
+	background: #6b83d6;
+	color: white;
+	padding: 10px 25px;
+	border-radius: 6px;
+	text-decoration: none;
 }
 
-.job-checkdetail-menu a:hover{
-    background:#5569c1;
+.job-checkdetail-menu a:hover {
+	background: #5569c1;
 }
 
-/* 로그아웃 */
-.job-checkdetail-logout{
-    padding:6px 12px;
+.job-checkdetail-logout {
+	display: inline-block;
+	background: #6b83d6;
+	color: white;
+	padding: 10px 25px;
+	border-radius: 6px;
+	text-decoration: none;
 }
 
-.job-checkdetail-logout:hover{
-    background:#dcdcdc;
+.job-checkdetail-logout:hover {
+	background: #5569c1;
 }
 
-/* 메인 영역 */
-.job-checkdetail-main{
-    display:flex;
-    margin-top:30px;
-    gap:20px;
+/* ================= 메인 ================= */
+
+.job-checkdetail-main {
+	display: flex;
+	margin-top: 30px;
+	gap: 20px;
+	align-items: stretch;
 }
 
-/* 사이드바 */
-.job-checkdetail-sidebar{
-    width:200px;
-    background:#adbbdb;
-    padding-top:20px;
+/* ================= 왼쪽 사이드바 ================= */
+
+.job-checkdetail-sidebar {
+	width: 220px;
+	background: #adbbdb;
+	padding-top: 20px;
+	box-sizing: border-box;
+	flex-shrink: 0;
 }
 
-.job-checkdetail-sidebar-item{
-    padding:20px;
-    margin-bottom:10px;
-    text-align:center;
-    cursor:pointer;
-    background:#adbbdb;
+.job-checkdetail-sidebar-item {
+	margin-bottom: 10px;
 }
 
-.job-checkdetail-sidebar-item a{
-    color:black;
-    text-decoration:none;
-    display:block;
+.job-checkdetail-sidebar-item a {
+	display: block;
+	padding: 18px 14px;
+	text-align: center;
+	text-decoration: none;
+	color: black;
+	background: #adbbdb;
+	word-break: keep-all;
+	line-height: 1.4;
+	box-sizing: border-box;
 }
 
-.job-checkdetail-sidebar-item:hover{
-    background:#949fca;
+.job-checkdetail-sidebar-item a:hover {
+	background: #949fca;
+	color: white;
 }
 
-.job-checkdetail-sidebar-item:hover a{
-    color:white;
+.job-checkdetail-sidebar-item.job-checkdetail-active a {
+	background: #8a8a8a;
+	color: white;
+	font-weight: 700;
 }
 
-.job-checkdetail-sidebar-item.job-checkdetail-active{
-    background:#8a8a8a;
+/* ================= 오른쪽 콘텐츠 ================= */
+
+.job-checkdetail-content {
+	flex: 1;
+	background: white;
+	padding: 40px;
+	min-height: 800px;
+	box-sizing: border-box;
 }
 
-.job-checkdetail-sidebar-item.job-checkdetail-active a{
-    color:white;
-    font-weight:700;
+.job-checkdetail-top {
+	margin-bottom: 30px;
 }
 
-/* 오른쪽 콘텐츠 */
-.job-checkdetail-content{
-    flex:1;
-    background:white;
-    padding:30px;
-    border-radius:4px;
+.job-checkdetail-top h2 {
+	margin: 0;
+	font-size: 36px;
+	font-weight: 700;
+	color: #111111;
 }
 
-/* 내부 박스 */
-.job-checkdetail-section{
-    background:#f3f3f3;
-    padding:30px;
-    border-radius:4px;
+/* ================= 사용자 정보 ================= */
+
+.job-checkdetail-userbox {
+	padding: 22px 24px;
+	background: #f8f8f8;
+	border-radius: 8px;
+	margin-bottom: 24px;
+	border: 1px solid #ececec;
 }
 
-/* 제목 */
-.job-checkdetail-header-area{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:10px;
+.job-checkdetail-userbox div {
+	margin-bottom: 8px;
+	font-size: 18px;
+	line-height: 1.6;
+	color: #222222;
 }
 
-.job-checkdetail-subtitle{
-    margin-bottom:20px;
-    font-size:14px;
-    color:#555;
+.job-checkdetail-userbox div:last-child {
+	margin-bottom: 0;
 }
 
-/* 목록 이동 버튼 */
-.job-checkdetail-move-btn{
-display:inline-block;
-background:#6b83d6;
-color:white;
-padding:8px 16px;
-border-radius:6px;
-text-decoration:none;
-cursor:pointer;
+/* ================= 질문 / 답변 ================= */
+
+.job-checkdetail-question {
+	border: 1px solid #ececec;
+	border-radius: 8px;
+	padding: 22px 24px;
+	margin-bottom: 18px;
+	background: #ffffff;
 }
 
-.job-checkdetail-move-btn:hover{
-background:#5569c1;
+.job-checkdetail-qtitle {
+	font-size: 22px;
+	font-weight: 700;
+	color: #111111;
+	margin-bottom: 14px;
 }
 
-/* 정보 리스트 (table 대체) */
-.job-checkdetail-info{
-    margin-top:10px;
-    width:100%;   /* 기존 400px → 전체폭 사용 */
+.job-checkdetail-qcontent {
+	padding: 14px 16px;
+	background: #f7f7f7;
+	border-radius: 6px;
+	line-height: 1.7;
+	color: #333333;
+	margin-bottom: 12px;
+	word-break: keep-all;
 }
 
-.job-checkdetail-row{
-    display:flex;
-    margin-bottom:5px;
+.job-checkdetail-acontent {
+	padding: 14px 16px;
+	background: #eef3ff;
+	border-radius: 6px;
+	line-height: 1.7;
+	color: #222222;
+	word-break: keep-all;
+	font-weight: 600;
 }
 
-.job-checkdetail-label{
-    flex:0 0 150px;
-    background:#e5e5e5;
-    padding:8px;
-    border:1px solid #ccc;
+/* ================= 직군 선택 ================= */
+
+.job-checkdetail-jobbox {
+	margin-top: 28px;
+	padding: 22px 24px;
+	background: #f8f8f8;
+	border-radius: 8px;
+	border: 1px solid #ececec;
 }
 
-.job-checkdetail-value{
-    flex:1;
-    padding:8px;
-    border:1px solid #ccc;
-    word-break:break-word;   /* 긴 글 자동 줄바꿈 */
+.job-checkdetail-jobtitle {
+	font-size: 22px;
+	font-weight: 700;
+	margin-bottom: 18px;
+	color: #111111;
 }
 
-/* 승인/반려 버튼 */
-/* .job-checkdetail-btn-area{
-    margin-top:20px;
-    text-align:right;
+.job-checkdetail-radio {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin-bottom: 14px;
+	font-size: 17px;
+	color: #222222;
+	cursor: pointer;
 }
 
-.job-checkdetail-approve{
-    background:#2f6df6;
-    color:white;
-    border:none;
-    padding:6px 12px;
-    border-radius:4px;
-    cursor:pointer;
+.job-checkdetail-radio:last-child {
+	margin-bottom: 0;
 }
 
-.job-checkdetail-reject{
-    background:#888;
-    color:white;
-    border:none;
-    padding:6px 12px;
-    border-radius:4px;
-    cursor:pointer;
-} */
-
-/* 라디오 그룹 가로정렬 */
-
-.job-checkdetail-btn-area{
-margin-top:20px;
-display:flex;
-align-items:center;
-gap:25px;
+.job-checkdetail-radio input[type="radio"] {
+	margin: 0;
 }
 
-/* 라디오 스타일 */
+/* ================= 하단 버튼 ================= */
 
-.job-checkdetail-radio{
-display:flex;
-align-items:center;
-gap:5px;
-cursor:pointer;
+.job-checkdetail-btnbox {
+	display: flex;
+	justify-content: flex-end;
+	gap: 12px;
+	margin-top: 28px;
 }
 
-/* 전송 버튼 */
-
-.job-checkdetail-submit{
-background:#2f6df6;
-color:white;
-border:none;
-padding:6px 14px;
-border-radius:4px;
-cursor:pointer;
+.job-checkdetail-back {
+	display: inline-block;
+	background: #8a8a8a;
+	color: white;
+	text-decoration: none;
+	padding: 11px 22px;
+	border-radius: 6px;
+	font-size: 15px;
 }
 
-.job-checkdetail-submit:hover{
-background:#1f55d6;
+.job-checkdetail-back:hover {
+	background: #777777;
+}
+
+.job-checkdetail-save {
+	border: none;
+	background: #5f9f67;
+	color: white;
+	padding: 11px 22px;
+	border-radius: 6px;
+	cursor: pointer;
+	font-size: 15px;
+	font-family: inherit;
+}
+
+.job-checkdetail-save:hover {
+	background: #4f8f57;
 }

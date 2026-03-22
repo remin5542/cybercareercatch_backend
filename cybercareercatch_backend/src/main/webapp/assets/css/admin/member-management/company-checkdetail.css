@@ -1,214 +1,221 @@
-/* 전체 배경 */
-.company-checkdetail-body{
-    margin:0;
-    background:#ffffff;
+.company-checkdetail-body {
+	margin: 0;
+	background: #ffffff;
+	font-family: sans-serif;
 }
 
-/* 전체 컨테이너 */
-.company-checkdetail-container{
-    width:1300px;
-    margin:40px auto;
-    background:#c9cfe0;
-    padding:30px;
+.company-checkdetail-container {
+	width: 1300px;
+	margin: 40px auto;
+	background: #c9cfe0;
+	padding: 30px;
+	box-sizing: border-box;
 }
 
-/* 상단 헤더 */
-.company-checkdetail-header{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
+/* ---------------------- 상단 헤더 ---------------------- */
+
+.company-checkdetail-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 20px;
 }
-/* 기존 div 스타일 유지 */
+
 .company-checkdetail-title {
-    background:#6b83d6;
-    color:white;          /* 이건 a의 글씨 색에도 적용될 예정 */
-    padding:10px 20px;
-    border-radius:6px;
-    font-weight:bold;
-    cursor:pointer;
-    display:inline-block; /* a가 안 깨지도록 */
+	background: #6b83d6;
+	border-radius: 6px;
+	font-weight: bold;
+	overflow: hidden;
 }
 
-/* a 태그 스타일 초기화 + div 스타일과 동일하게 */
 .company-checkdetail-title a {
-    color: inherit;       /* div의 color 상속 */
-    text-decoration: none; /* 밑줄 제거 */
-    display:block;        /* div 안에서 영역 전체 클릭 가능 */
-    width:100%;
-    height:100%;
+	display: block;
+	padding: 10px 20px;
+	color: white;
+	text-decoration: none;
 }
 
-/* 상단 메뉴 */
-.company-checkdetail-menu{
-    display:flex;
-    gap:40px;
+.company-checkdetail-menu {
+	display: flex;
+	justify-content: center;
+	gap: 40px;
+	flex: 1;
 }
 
-.company-checkdetail-menu a{
-    background:#6b83d6;
-    color:white;
-    padding:10px 25px;
-    border-radius:6px;
-    text-decoration:none;
+.company-checkdetail-menu a {
+	background: #6b83d6;
+	color: white;
+	padding: 10px 25px;
+	border-radius: 6px;
+	text-decoration: none;
 }
 
-.company-checkdetail-menu a:hover{
-    background:#5569c1;
+.company-checkdetail-menu a:hover {
+	background: #5569c1;
 }
 
-/* 로그아웃 */
-.company-checkdetail-logout{
-    padding:6px 12px;
+.company-checkdetail-logout {
+	display: inline-block;
+	background: #6b83d6;
+	color: white;
+	padding: 10px 25px;
+	border-radius: 6px;
+	text-decoration: none;
 }
 
-.company-checkdetail-logout:hover{
-    background:#dcdcdc;
+.company-checkdetail-logout:hover {
+	background: #5569c1;
 }
 
-/* 메인 영역 */
-.company-checkdetail-main{
-    display:flex;
-    margin-top:30px;
-    gap:20px;
+/* ---------------------- 메인 ---------------------- */
+
+.company-checkdetail-main {
+	display: flex;
+	margin-top: 30px;
+	gap: 20px;
 }
 
-/* 사이드바 */
-.company-checkdetail-sidebar{
-    width:200px;
-    background:#adbbdb;
-    padding-top:20px;
+/* ---------------------- 왼쪽 사이드바 ---------------------- */
+
+.company-checkdetail-sidebar {
+	width: 220px;
+	background: #adbbdb;
+	padding-top: 20px;
+	box-sizing: border-box;
 }
 
-.company-checkdetail-sidebar-item{
-    padding:20px;
-    margin-bottom:10px;
-    text-align:center;
-    cursor:pointer;
-    background:#adbbdb;
+.company-checkdetail-sidebar-item {
+	padding: 20px;
+	margin-bottom: 10px;
+	text-align: center;
+	background: #adbbdb;
+	cursor: pointer;
 }
 
-.company-checkdetail-sidebar-item a{
-    color:black;
-    text-decoration:none;
-    display:block;
+.company-checkdetail-sidebar-item a {
+	display: block;
+	color: black;
+	text-decoration: none;
+	word-break: keep-all;
 }
 
-.company-checkdetail-sidebar-item:hover{
-    background:#949fca;
+.company-checkdetail-sidebar-item:hover {
+	background: #949fca;
 }
 
-.company-checkdetail-sidebar-item:hover a{
-    color:white;
+.company-checkdetail-sidebar-item:hover a {
+	color: white;
 }
 
-.company-checkdetail-sidebar-item.company-checkdetail-active{
-    background:#8a8a8a;
+.company-checkdetail-sidebar-item.company-checkdetail-active {
+	background: #8a8a8a;
 }
 
-.company-checkdetail-sidebar-item.company-checkdetail-active a{
-    color:white;
-    font-weight:700;
+.company-checkdetail-sidebar-item.company-checkdetail-active a {
+	color: white;
+	font-weight: 700;
 }
 
-/* 오른쪽 콘텐츠 */
-.company-checkdetail-content{
-    flex:1;
-    background:white;
-    padding:30px;
-    border-radius:4px;
+/* ---------------------- 오른쪽 콘텐츠 ---------------------- */
+
+.company-checkdetail-content {
+	flex: 1;
+	background: white;
+	padding: 40px;
+	min-height: 800px;
+	box-sizing: border-box;
 }
 
-/* 내부 박스 */
-.company-checkdetail-section{
-    background:#f3f3f3;
-    padding:30px;
-    border-radius:4px;
+.company-checkdetail-top {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 30px;
+	gap: 20px;
 }
 
-/* 제목 */
-.company-checkdetail-header-area{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:10px;
+.company-checkdetail-page-title {
+	margin: 0;
+	font-size: 36px;
+	font-weight: 700;
 }
 
-.company-checkdetail-subtitle{
-    margin-bottom:20px;
-    font-size:14px;
-    color:#555;
+.company-checkdetail-back-btn {
+	display: inline-block;
+	background: #6b83d6;
+	color: white;
+	text-decoration: none;
+	padding: 10px 18px;
+	border-radius: 6px;
 }
 
-/* 목록 이동 버튼 */
-/* .company-checkdetail-move-btn{
-    background:#7a88f0;
-    color:white;
-    border:none;
-    padding:8px 12px;
-    border-radius:5px;
-    cursor:pointer;
-} */
-.company-checkdetail-move-btn{
-display:inline-block;
-background:#6b83d6;
-color:white;
-padding:8px 16px;
-border-radius:6px;
-text-decoration:none;
-cursor:pointer;
+.company-checkdetail-back-btn:hover {
+	background: #5569c1;
 }
 
-/* hover 추가 */
+/* ---------------------- 상세 정보 박스 ---------------------- */
 
-.company-checkdetail-move-btn:hover{
-background:#5569c1;
+.company-checkdetail-box {
+	border-top: 2px solid #d9d9d9;
 }
 
-
-/* 정보 리스트 (table 대체) */
-.company-checkdetail-info{
-    margin-top:10px;
-    width:400px;
+.company-checkdetail-row {
+	display: grid;
+	grid-template-columns: 180px 1fr;
+	border-bottom: 1px solid #ededed;
+	min-height: 64px;
+	align-items: center;
 }
 
-.company-checkdetail-row{
-    display:flex;
-    margin-bottom:5px;
+.company-checkdetail-label {
+	background: #f7f7f7;
+	font-weight: 700;
+	padding: 20px;
+	text-align: center;
+	border-right: 1px solid #ededed;
+	word-break: keep-all;
 }
 
-.company-checkdetail-label{
-    flex:0 0 150px;
-    background:#e5e5e5;
-    padding:8px;
-    border:1px solid #ccc;
+.company-checkdetail-value {
+	padding: 20px;
+	word-break: keep-all;
+	line-height: 1.7;
 }
 
-.company-checkdetail-value{
-    flex:1;
-    padding:8px;
-    border:1px solid #ccc;
+.company-checkdetail-multi {
+	white-space: pre-wrap;
 }
 
-/* 승인/반려 버튼 */
-.company-checkdetail-btn-area{
-    margin-top:20px;
-    text-align:right;
+/* ---------------------- 하단 버튼 ---------------------- */
+
+.company-checkdetail-btn-wrap {
+	display: flex;
+	justify-content: flex-end;
+	gap: 12px;
+	margin-top: 28px;
 }
 
-.company-checkdetail-approve{
-    background:#2f6df6;
-    color:white;
-    border:none;
-    padding:6px 12px;
-    border-radius:4px;
-    cursor:pointer;
+.company-checkdetail-btn {
+	border: none;
+	color: white;
+	padding: 11px 22px;
+	border-radius: 6px;
+	cursor: pointer;
+	font-size: 15px;
 }
 
-.company-checkdetail-reject{
-    background:#888;
-    color:white;
-    border:none;
-    padding:6px 12px;
-    border-radius:4px;
-    cursor:pointer;
+.company-checkdetail-approve-btn {
+	background: #5f9f67;
+}
+
+.company-checkdetail-approve-btn:hover {
+	background: #4f8f57;
+}
+
+.company-checkdetail-reject-btn {
+	background: #d66b6b;
+}
+
+.company-checkdetail-reject-btn:hover {
+	background: #c55d5d;
 }

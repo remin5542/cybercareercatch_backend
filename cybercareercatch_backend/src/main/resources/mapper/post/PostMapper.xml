@@ -45,6 +45,79 @@
           AND P.POST_TYPE = 'FREE_NOTICE'
     </select>
 
+    <!-- 관리자 자유게시판 공지 개수 -->
+    <select id="getAdminFreeNoticeCount" resultType="int">
+        SELECT COUNT(POST_NUMBER)
+        FROM TBL_POST
+        WHERE POST_TYPE = 'FREE_NOTICE'
+    </select>
+
+    <!-- 관리자 자유게시판 공지 조회 -->
+    <select id="selectAdminFreeNotice" resultType="com.ccc.post.dto.NoticeDTO">
+        SELECT *
+        FROM (
+            SELECT
+                P.POST_NUMBER,
+                P.POST_TYPE,
+                P.ADMIN_NUMBER,
+                A.ADMIN_ID,
+                P.POST_TITLE,
+                P.POST_CONTENT,
+                TO_CHAR(P.POST_DATE, 'YYYY-MM-DD') AS POST_DATE,
+                TO_CHAR(P.EDIT_DATE, 'YYYY-MM-DD') AS EDIT_DATE,
+                P.VIEW_COUNT
+            FROM TBL_POST P
+            JOIN TBL_ADMIN A
+              ON P.ADMIN_NUMBER = A.ADMIN_NUMBER
+            WHERE P.POST_TYPE = 'FREE_NOTICE'
+            ORDER BY P.POST_NUMBER DESC
+        )
+        WHERE ROWNUM = 1
+    </select>
+
+    <!-- 관리자 자유게시판 공지 등록 -->
+    <insert id="insertAdminFreeNotice" parameterType="map">
+        INSERT INTO TBL_POST (
+            POST_NUMBER,
+            POST_TYPE,
+            USER_NUMBER,
+            ADMIN_NUMBER,
+            COMPANY_NUMBER,
+            ANSWER_STATUS,
+            POST_TITLE,
+            POST_CONTENT,
+            POST_DATE,
+            VIEW_COUNT,
+            EDIT_DATE
+        )
+        VALUES (
+            SEQ_POST_NUMBER.NEXTVAL,
+            'FREE_NOTICE',
+            NULL,
+            #{adminNumber},
+            NULL,
+            NULL,
+            '자유게시판 공지',
+            #{noticeContent},
+            SYSDATE,
+            0,
+            SYSDATE
+        )
+    </insert>
+
+    <!-- 관리자 자유게시판 공지 수정 -->
+    <update id="updateAdminFreeNotice" parameterType="map">
+        UPDATE TBL_POST
+        SET POST_CONTENT = #{noticeContent},
+            EDIT_DATE = SYSDATE,
+            ADMIN_NUMBER = #{adminNumber}
+        WHERE POST_NUMBER = (
+            SELECT MAX(POST_NUMBER)
+            FROM TBL_POST
+            WHERE POST_TYPE = 'FREE_NOTICE'
+        )
+    </update>
+
     <!-- 자유게시판 글 개수 -->
     <select id="getTotal" resultType="int">
         SELECT COUNT(POST_NUMBER)
@@ -158,35 +231,69 @@
 
     <!-- 자유게시판 글 목록 -->
     <select id="selectAll"
-            parameterType="com.ccc.post.dto.PostPageDTO"
+            parameterType="map"
             resultType="com.ccc.post.dto.PostListDTO">
-
-        <bind name="startRow" value="(page - 1) * rowCount + 1"/>
-        <bind name="endRow" value="page * rowCount"/>
-
-        <![CDATA[
-            SELECT *
+        SELECT *
+        FROM (
+            SELECT
+                ROWNUM AS RNUM,
+                SUBQUERY.*
             FROM (
                 SELECT
-                    ROWNUM AS RNUM,
-                    SUBQUERY.*
-                FROM (
-                    SELECT
-                        P.POST_NUMBER,
-                        P.POST_TITLE,
-                        U.USER_ID,
-                        TO_CHAR(P.POST_DATE, 'YYYY-MM-DD') AS POST_DATE,
-                        TO_CHAR(P.EDIT_DATE, 'YYYY-MM-DD') AS EDIT_DATE
-                    FROM TBL_POST P
-                    JOIN TBL_USER U
-                      ON P.USER_NUMBER = U.USER_NUMBER
-                    WHERE P.POST_TYPE = 'FREE_POST'
-                    ORDER BY P.POST_NUMBER DESC
-                ) SUBQUERY
-            )
-            WHERE RNUM BETWEEN #{startRow} AND #{endRow}
-        ]]>
+                    P.POST_NUMBER,
+                    P.POST_TITLE,
+                    U.USER_ID,
+                    TO_CHAR(P.POST_DATE, 'YYYY-MM-DD') AS POST_DATE,
+                    TO_CHAR(P.EDIT_DATE, 'YYYY-MM-DD') AS EDIT_DATE
+                FROM TBL_POST P
+                JOIN TBL_USER U
+                  ON P.USER_NUMBER = U.USER_NUMBER
+                WHERE P.POST_TYPE = 'FREE_POST'
+                ORDER BY P.POST_NUMBER DESC
+            ) SUBQUERY
+        )
+        WHERE RNUM BETWEEN #{startRow} AND #{endRow}
     </select>
+
+    <!-- 관리자 자유게시판 글 총 개수 -->
+    <select id="getAdminFreePostTotal" resultType="int">
+        SELECT COUNT(POST_NUMBER)
+        FROM TBL_POST
+        WHERE POST_TYPE = 'FREE_POST'
+    </select>
+
+    <!-- 관리자 자유게시판 글 목록 -->
+    <select id="selectAdminFreePostList"
+            parameterType="map"
+            resultType="com.ccc.post.dto.PostListDTO">
+        SELECT *
+        FROM (
+            SELECT
+                ROWNUM AS RNUM,
+                SUBQUERY.*
+            FROM (
+                SELECT
+                    P.POST_NUMBER,
+                    P.POST_TITLE,
+                    U.USER_ID,
+                    TO_CHAR(P.POST_DATE, 'YYYY-MM-DD') AS POST_DATE,
+                    TO_CHAR(P.EDIT_DATE, 'YYYY-MM-DD') AS EDIT_DATE
+                FROM TBL_POST P
+                JOIN TBL_USER U
+                  ON P.USER_NUMBER = U.USER_NUMBER
+                WHERE P.POST_TYPE = 'FREE_POST'
+                ORDER BY P.POST_NUMBER DESC
+            ) SUBQUERY
+        )
+        WHERE RNUM BETWEEN #{startRow} AND #{endRow}
+    </select>
+
+    <!-- 관리자 자유게시판 글 삭제 -->
+    <delete id="deleteAdminFreePost" parameterType="int">
+        DELETE FROM TBL_POST
+        WHERE POST_NUMBER = #{postNumber}
+          AND POST_TYPE = 'FREE_POST'
+    </delete>
 
     <!-- 댓글 목록 -->
     <select id="selectCommentList"

@@ -1,226 +1,173 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%
+if (session.getAttribute("adminNumber") == null) {
+	response.sendRedirect(request.getContextPath() + "/admin/login.adfc");
+	return;
+}
+%>
 <!DOCTYPE html>
 <html lang="ko">
 
 <head>
-    <meta charset="UTF-8">
-    <title>관리자 페이지</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin/community-management/expo-schedule.css">
+<meta charset="UTF-8">
+<title>박람회 일정 관리</title>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/assets/css/admin/community-management/expo-schedule.css">
 </head>
 
 <body class="expoSchedule-body">
 
-    <div class="expoSchedule-container">
+	<div class="expoSchedule-container">
 
-        <header class="expoSchedule-top">
+		<header class="expoSchedule-top">
 
-            <div class="expoSchedule-title">관리자 페이지</div>
+			<div class="expoSchedule-title">
+				<a href="${pageContext.request.contextPath}/admin/main.adfc">관리자 페이지</a>
+			</div>
 
-            <nav class="expoSchedule-menu1">
-                <a href="../member-management/member-info.html">회원 관리</a>
-                <a href="../main-management/qna-management.html">메인 관리</a>
-                <a href="../community-management/expo-schedule.html">커뮤니티 관리</a>
-            </nav>
+			<nav class="expoSchedule-menu1">
+				<a href="${pageContext.request.contextPath}/admin/memberInfo.adfc">회원 관리</a>
+				<a href="${pageContext.request.contextPath}/admin/insertQuestion.adfc">메인 관리</a>
+				<a href="${pageContext.request.contextPath}/admin/expoSchedule.adfc">커뮤니티 관리</a>
+			</nav>
 
-           <a href="${pageContext.request.contextPath}/admin/logout.adfc" class="logout-btn">로그아웃</a>
+			<a href="${pageContext.request.contextPath}/admin/logout.adfc"
+				class="expoSchedule-logout">로그아웃</a>
 
-        </header>
+		</header>
 
+		<main class="expoSchedule-main">
 
-        <main class="expoSchedule-main">
+			<aside class="expoSchedule-leftbar">
 
-            <aside class="expoSchedule-leftbar">
+				<div class="expoSchedule-left-item expoSchedule-active">
+					<a href="${pageContext.request.contextPath}/admin/expoSchedule.adfc">박람회 일정</a>
+				</div>
 
-                <div class="expoSchedule-left-item expoSchedule-active">
-                    <a href="./expo-schedule.html">박람회 일정</a>
-                </div>
+				<div class="expoSchedule-left-item">
+					<a href="${pageContext.request.contextPath}/admin/communityManagement.adfc">자유 게시판</a>
+				</div>
 
-                <div class="expoSchedule-left-item">
-                    <a href="./community-management.html">자유 게시판</a>
-                </div>
+				<div class="expoSchedule-left-item">
+					<a href="${pageContext.request.contextPath}/admin/companyQnaManagement.adfc">기업 QnA</a>
+				</div>
 
-                <div class="expoSchedule-left-item">
-                    <a href="./company-qna.html">기업 QnA</a>
-                </div>
+			</aside>
 
-            </aside>
+			<section class="expoSchedule-content">
 
+				<div class="expoSchedule-tab">
+					<div class="expoSchedule-tab-item expoSchedule-active">박람회 일정</div>
+				</div>
 
-            <form>
+				<form action="${pageContext.request.contextPath}/admin/insertExpo.adfc"
+					method="post" class="expoSchedule-addForm">
 
-                <section class="expoSchedule-content">
+					<div class="expoSchedule-formTitle">박람회 추가</div>
 
+					<div class="expoSchedule-addRow">
+						<input type="text" name="expoName" placeholder="박람회명">
+						<input type="date" name="startDate">
+						<input type="date" name="endDate">
+						<input type="text" name="location" placeholder="장소">
+						<button type="submit">추가</button>
+					</div>
+				</form>
 
-                    <div class="expoSchedule-tab">
+				<form action="${pageContext.request.contextPath}/admin/deleteExpo.adfc"
+					method="post" id="expoDeleteForm">
 
-                        <div class="expoSchedule-tab-item expoSchedule-active">박람회 일정</div>
+					<input type="hidden" name="page" value="${page}">
 
-                        <div class="expoSchedule-tab-item">
-                            <a href="${pageContext.request.contextPath}/html/admin/community-management/expodetail-schedule.html">박람회 일정 관리</a>
-                        </div>
+					<div class="expoSchedule-table">
 
-                    </div>
+						<div class="expoSchedule-row expoSchedule-head">
+							<div class="col0">선택</div>
+							<div class="col1">번호</div>
+							<div class="col2">박람회명</div>
+							<div class="col3">시작일</div>
+							<div class="col4">종료일</div>
+							<div class="col5">장소</div>
+							<div class="col6">관리</div>
+						</div>
 
+						<c:choose>
+							<c:when test="${empty expoList}">
+								<div class="expoSchedule-empty">등록된 박람회 일정이 없습니다.</div>
+							</c:when>
 
-                    <div class="expoSchedule-table">
+							<c:otherwise>
+								<c:forEach var="expo" items="${expoList}">
+									<div class="expoSchedule-row">
+										<div class="col0">
+											<input type="checkbox" name="expoNumber" value="${expo.expoNumber}">
+										</div>
+										<div class="col1">${expo.expoNumber}</div>
+										<div class="col2">${expo.expoName}</div>
+										<div class="col3">${expo.startDate}</div>
+										<div class="col4">${expo.endDate}</div>
+										<div class="col5">${expo.location}</div>
+										<div class="col6">
+											<a class="expoSchedule-detailBtn"
+												href="${pageContext.request.contextPath}/admin/expoDetailSchedule.adfc?expoNumber=${expo.expoNumber}">
+												상세조회
+											</a>
+										</div>
+									</div>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
 
-                        <div class="expoSchedule-row expoSchedule-head">
-                            <div>번호</div>
-                            <div>박람회 명</div>
-                            <div>시작일</div>
-                            <div>종료일</div>
-                            <div>장소</div>
-                            <div>참여기업수</div>
-                            <div>진행상태</div>
-                        </div>
+					</div>
 
+					<c:if test="${total > 0}">
+						<div class="expoSchedule-page">
 
-                        <div class="expoSchedule-row">
-                            <div>10</div>
-                            <div>제1회 박람회</div>
-                            <div>2026년01월01일</div>
-                            <div>2026년01월04일</div>
-                            <div>서울</div>
-                            <div>5</div>
-                            <div>예정</div>
-                        </div>
+							<c:choose>
+								<c:when test="${prev}">
+									<a href="${pageContext.request.contextPath}/admin/expoSchedule.adfc?page=${startPage - 1}">&lt;</a>
+								</c:when>
+								<c:otherwise>
+									<span>&lt;</span>
+								</c:otherwise>
+							</c:choose>
 
-                        <div class="expoSchedule-row">
-                            <div>9</div>
-                            <div>제1회 박람회</div>
-                            <div>2026년01월01일</div>
-                            <div>2026년01월04일</div>
-                            <div>서울</div>
-                            <div>5</div>
-                            <div>예정</div>
-                        </div>
+							<c:forEach var="i" begin="${startPage}" end="${endPage}">
+								<c:choose>
+									<c:when test="${i == page}">
+										<span class="expoSchedule-page-active">${i}</span>
+									</c:when>
+									<c:otherwise>
+										<a href="${pageContext.request.contextPath}/admin/expoSchedule.adfc?page=${i}">${i}</a>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
 
-                        <div class="expoSchedule-row">
-                            <div>8</div>
-                            <div>제1회 박람회</div>
-                            <div>2026년01월01일</div>
-                            <div>2026년01월04일</div>
-                            <div>서울</div>
-                            <div>5</div>
-                            <div>예정</div>
-                        </div>
+							<c:choose>
+								<c:when test="${next}">
+									<a href="${pageContext.request.contextPath}/admin/expoSchedule.adfc?page=${endPage + 1}">&gt;</a>
+								</c:when>
+								<c:otherwise>
+									<span>&gt;</span>
+								</c:otherwise>
+							</c:choose>
 
-                        <div class="expoSchedule-row">
-                            <div>7</div>
-                            <div>제1회 박람회</div>
-                            <div>2026년01월01일</div>
-                            <div>2026년01월04일</div>
-                            <div>서울</div>
-                            <div>5</div>
-                            <div>진행 중</div>
-                        </div>
+						</div>
+					</c:if>
 
-                        <div class="expoSchedule-row">
-                            <div>6</div>
-                            <div>제1회 박람회</div>
-                            <div>2026년01월01일</div>
-                            <div>2026년01월04일</div>
-                            <div>서울</div>
-                            <div>5</div>
-                            <div>진행 중</div>
-                        </div>
+					<div class="expoSchedule-del">
+						<button type="submit">삭제</button>
+					</div>
 
-                        <div class="expoSchedule-row">
-                            <div>5</div>
-                            <div>제1회 박람회</div>
-                            <div>2026년01월01일</div>
-                            <div>2026년01월04일</div>
-                            <div>서울</div>
-                            <div>5</div>
-                            <div>진행 중</div>
-                        </div>
+				</form>
 
-                        <div class="expoSchedule-row">
-                            <div>4</div>
-                            <div>제1회 박람회</div>
-                            <div>2026년01월01일</div>
-                            <div>2026년01월04일</div>
-                            <div>서울</div>
-                            <div>5</div>
-                            <div>진행 중</div>
-                        </div>
+			</section>
 
-                        <div class="expoSchedule-row">
-                            <div>3</div>
-                            <div>제1회 박람회</div>
-                            <div>2026년01월01일</div>
-                            <div>2026년01월04일</div>
-                            <div>서울</div>
-                            <div>5</div>
-                            <div>진행 중</div>
-                        </div>
+		</main>
 
-                        <div class="expoSchedule-row">
-                            <div>2</div>
-                            <div>제1회 박람회</div>
-                            <div>2026년01월01일</div>
-                            <div>2026년01월04일</div>
-                            <div>서울</div>
-                            <div>5</div>
-                            <div>진행 중</div>
-                        </div>
-
-                        <div class="expoSchedule-row">
-                            <div>1</div>
-                            <div>제1회 박람회</div>
-                            <div>2026년01월01일</div>
-                            <div>2026년01월04일</div>
-                            <div>서울</div>
-                            <div>5</div>
-                            <div>진행 중</div>
-                        </div>
-
-                    </div>
-
-
-                    <div class="expoSchedule-page">
-
-                        <span>&lt;&lt;</span>
-                        <span>&lt;</span>
-                        <span class="expoSchedule-page-active">1</span>
-                        <span>2</span>
-                        <span>3</span>
-                        <span>4</span>
-                        <span>5</span>
-                        <span>&gt;</span>
-                        <span>&gt;&gt;</span>
-
-                    </div>
-
-
-                    <div class="expoSchedule-company">
-
-                        <h3>참가기업 목록</h3>
-
-                        <div class="expoSchedule-company-row">
-                            <span>1</span>
-                            <span>사랑기업</span>
-                            <input type="checkbox">
-                        </div>
-
-                    </div>
-
-
-                    <div class="expoSchedule-company-delete">
-                        <button type="button" class="expoSchedule-company-delBtn">선택 기업 삭제</button>
-                    </div>
-
-                </section>
-
-            </form>
-
-        </main>
-
-    </div>
-
-    <script src="${pageContext.request.contextPath}/assets/js/admin/community-management/expo-schedule.js"></script>
-
+	</div>
 </body>
 
 </html>

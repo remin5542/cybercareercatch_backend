@@ -1,201 +1,172 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%
+if (session.getAttribute("adminNumber") == null) {
+	response.sendRedirect(request.getContextPath() + "/admin/login.adfc");
+	return;
+}
+%>
 <!DOCTYPE html>
 <html lang="ko">
 
 <head>
-    <meta charset="UTF-8">
-    <title>관리자 페이지</title>
-    <link rel="stylesheet"
-        href="${pageContext.request.contextPath}/assets/css/admin/main-management/company-qna.css">
+<meta charset="UTF-8">
+<title>자유 게시판 관리</title>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/assets/css/admin/community-management/community-management.css">
 </head>
 
-<body class="qna-body">
-    <div class="qna-container">
+<body class="qnaMgmt-body">
 
-        <!-- 상단 -->
-        <header class="qna-top">
-            <div class="qna-title">
-                <a href="${pageContext.request.contextPath}/app/admin/admin-main.jsp">관리자 페이지</a>
-            </div>
+	<div class="qnaMgmt-ctr">
 
-            <nav class="qna-menu">
-                <a href="${pageContext.request.contextPath}/app/admin/member-management/member-info.jsp">회원 관리</a>
-                <a href="${pageContext.request.contextPath}/app/admin/main-management/qna-management.jsp">메인 관리</a>
-                <a href="${pageContext.request.contextPath}/app/admin/community-management/expo-schedule.jsp">커뮤니티 관리</a>
-            </nav>
+		<header class="qnaMgmt-hdr">
 
-            <button class="qna-logout" type="button">로그아웃</button>
-        </header>
+			<div class="qnaMgmt-title">
+				<a href="${pageContext.request.contextPath}/admin/main.adfc">관리자 페이지</a>
+			</div>
 
-        <!-- 메인 영역 -->
-        <main class="qna-main">
+			<nav class="qnaMgmt-nav">
+				<a href="${pageContext.request.contextPath}/admin/memberInfo.adfc">회원 관리</a>
+				<a href="${pageContext.request.contextPath}/admin/insertQuestion.adfc">메인 관리</a>
+				<a href="${pageContext.request.contextPath}/admin/expoSchedule.adfc">커뮤니티 관리</a>
+			</nav>
 
-            <!-- 왼쪽 메뉴 -->
-            <aside class="qna-leftbar">
-                <div class="qna-left-item">
-                    <a href="${pageContext.request.contextPath}/app/admin/community-management/expo-schedule.jsp">박람회 일정</a>
-                </div>
-                <div class="qna-left-item">
-                    <a href="${pageContext.request.contextPath}/app/admin/community-management/community-management.jsp">자유 게시판</a>
-                </div>
-                <div class="qna-left-item qna-active">
-                    <a href="${pageContext.request.contextPath}/app/admin/community-management/company-qna.jsp">기업 QnA</a>
-                </div>
-            </aside>
+			<a href="${pageContext.request.contextPath}/admin/logout.adfc"
+				class="qnaMgmt-logout">로그아웃</a>
+		</header>
 
-            <!-- 오른쪽 콘텐츠 -->
-            <section class="qna-content">
+		<main class="qnaMgmt-main">
 
-                <form id="qna-form">
+			<aside class="qna-leftbar">
+				<div class="qna-left-item">
+					<a href="${pageContext.request.contextPath}/admin/expoSchedule.adfc">박람회 일정</a>
+				</div>
 
-                    <h2 class="qna-notice-title">기업 QnA 공지</h2>
+				<div class="qna-left-item qna-active">
+					<a href="${pageContext.request.contextPath}/admin/communityManagement.adfc">자유 게시판</a>
+				</div>
 
-                    <textarea id="notice-box" placeholder="공지 내용을 입력하세요..."></textarea>
+				<div class="qna-left-item">
+					<a href="${pageContext.request.contextPath}/admin/companyQnaManagement.adfc">기업 QnA</a>
+				</div>
+			</aside>
 
-                    <div class="qna-notice-btn">
-                        <button type="button" id="notice-btn">수정</button>
-                    </div>
+			<section class="qnaMgmt-ct">
 
-                    <h2 class="qna-title">기업 Q&amp;A</h2>
+				<form action="${pageContext.request.contextPath}/admin/saveFreeNotice.adfc"
+					method="post" id="freeNoticeForm">
 
-                    <div class="qna-filter">
-                        <select>
-                            <option>기업선택</option>
-                            <option>디노키</option>
-                            <option>옥장</option>
-                            <option>슬민진</option>
-                        </select>
-                    </div>
+					<h2 class="qnaMgmt-notice-title">자유게시판 공지</h2>
 
-                    <div class="qna-table">
+					<textarea id="free-notice-box" name="noticeContent"
+						placeholder="공지 내용을 입력하세요...">${freeNotice.postContent}</textarea>
 
-                        <div class="qna-row qna-head">
-                            <div class="col1">번호</div>
-                            <div class="col2">제목</div>
-                            <div class="col3">기업명</div>
-                            <div class="col4">작성일</div>
-                            <div class="col5">조회</div>
-                            <div class="col6">삭제여부</div>
-                        </div>
+					<div class="qnaMgmt-notice-btn">
+						<button type="submit">저장</button>
+					</div>
+				</form>
 
-                        <div class="qna-row">
-                            <div class="col1">65</div>
-                            <div class="col2"><a href="#">“충격” 김진욱, 머리피다!!!</a></div>
-                            <div class="col3">진진욱</div>
-                            <div class="col4">260302</div>
-                            <div class="col5">34</div>
-                            <div class="col6"><input type="checkbox"></div>
-                        </div>
+				<div class="qnaMgmt-topBox">
+					<h2 class="qnaMgmt-subtitle">자유 게시판 목록</h2>
+				</div>
 
-                        <div class="qna-row">
-                            <div class="col1">64</div>
-                            <div class="col2">김태우, 내 피그마 그만 훔쳐봐라</div>
-                            <div class="col3">디노키</div>
-                            <div class="col4">260302</div>
-                            <div class="col5">125</div>
-                            <div class="col6"><input type="checkbox"></div>
-                        </div>
+				<form id="freePostDeleteForm"
+					action="${pageContext.request.contextPath}/admin/deleteFreePost.adfc"
+					method="post">
 
-                        <div class="qna-row">
-                            <div class="col1">63</div>
-                            <div class="col2">이해준, 그만 클럽가려고 병원다녀와라.</div>
-                            <div class="col3">옥장</div>
-                            <div class="col4">260302</div>
-                            <div class="col5">89</div>
-                            <div class="col6"><input type="checkbox"></div>
-                        </div>
+					<input type="hidden" name="page" value="${page}">
 
-                        <div class="qna-row">
-                            <div class="col1">62</div>
-                            <div class="col2">이해준, 그만 클럽가려고 병원다녀와라.</div>
-                            <div class="col3">옥장</div>
-                            <div class="col4">260302</div>
-                            <div class="col5">89</div>
-                            <div class="col6"><input type="checkbox"></div>
-                        </div>
+					<div class="qnaMgmt-table">
 
-                        <div class="qna-row">
-                            <div class="col1">61</div>
-                            <div class="col2">이해준, 그만 클럽가려고 병원다녀와라.</div>
-                            <div class="col3">옥장</div>
-                            <div class="col4">260302</div>
-                            <div class="col5">89</div>
-                            <div class="col6"><input type="checkbox"></div>
-                        </div>
+						<div class="qnaMgmt-row qnaMgmt-head">
+							<div class="col1">번호</div>
+							<div class="col2">제목</div>
+							<div class="col3">ID</div>
+							<div class="col4">작성일</div>
+							<div class="col5">삭제여부</div>
+						</div>
 
-                        <div class="qna-row">
-                            <div class="col1">60</div>
-                            <div class="col2">이해준, 그만 클럽가려고 병원다녀와라.</div>
-                            <div class="col3">옥장</div>
-                            <div class="col4">260302</div>
-                            <div class="col5">89</div>
-                            <div class="col6"><input type="checkbox"></div>
-                        </div>
+						<c:if test="${not empty freeNotice}">
+							<div class="qnaMgmt-row qnaMgmt-notice-row">
+								<div class="col1">공지</div>
+								<div class="col2">${freeNotice.postContent}</div>
+								<div class="col3">관리자</div>
+								<div class="col4">${freeNotice.postDate}</div>
+								<div class="col5"></div>
+							</div>
+						</c:if>
 
-                        <div class="qna-row">
-                            <div class="col1">59</div>
-                            <div class="col2">이해준, 그만 클럽가려고 병원다녀와라.</div>
-                            <div class="col3">옥장</div>
-                            <div class="col4">260302</div>
-                            <div class="col5">89</div>
-                            <div class="col6"><input type="checkbox"></div>
-                        </div>
+						<c:choose>
+							<c:when test="${empty postList}">
+								<div class="qnaMgmt-empty">등록된 자유 게시판 글이 없습니다.</div>
+							</c:when>
 
-                        <div class="qna-row">
-                            <div class="col1">58</div>
-                            <div class="col2">이해준, 그만 클럽가려고 병원다녀와라.</div>
-                            <div class="col3">옥장</div>
-                            <div class="col4">260302</div>
-                            <div class="col5">89</div>
-                            <div class="col6"><input type="checkbox"></div>
-                        </div>
+							<c:otherwise>
+								<c:forEach var="post" items="${postList}">
+									<div class="qnaMgmt-row">
+										<div class="col1">${post.postNumber}</div>
+										<div class="col2">${post.postTitle}</div>
+										<div class="col3">${post.userId}</div>
+										<div class="col4">${post.postDate}</div>
+										<div class="col5">
+											<input type="checkbox" name="postNumber"
+												value="${post.postNumber}">
+										</div>
+									</div>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
 
-                        <div class="qna-row">
-                            <div class="col1">57</div>
-                            <div class="col2">이해준, 그만 클럽가려고 병원다녀와라.</div>
-                            <div class="col3">옥장</div>
-                            <div class="col4">260302</div>
-                            <div class="col5">89</div>
-                            <div class="col6"><input type="checkbox"></div>
-                        </div>
+					</div>
 
-                        <div class="qna-row">
-                            <div class="col1">56</div>
-                            <div class="col2">이해준, 그만 클럽가려고 병원다녀와라.</div>
-                            <div class="col3">옥장</div>
-                            <div class="col4">260302</div>
-                            <div class="col5">89</div>
-                            <div class="col6"><input type="checkbox"></div>
-                        </div>
+					<c:if test="${total > 0}">
+						<div class="qnaMgmt-page">
 
-                    </div>
+							<c:choose>
+								<c:when test="${prev}">
+									<a href="${pageContext.request.contextPath}/admin/communityManagement.adfc?page=${startPage - 1}">&lt;</a>
+								</c:when>
+								<c:otherwise>
+									<span>&lt;</span>
+								</c:otherwise>
+							</c:choose>
 
-                    <div class="qna-page">
-                        <span>&lt;&lt;</span>
-                        <span>&lt;</span>
-                        <span class="active">1</span>
-                        <span>2</span>
-                        <span>3</span>
-                        <span>4</span>
-                        <span>5</span>
-                        <span>&gt;</span>
-                        <span>&gt;&gt;</span>
-                    </div>
+							<c:forEach var="i" begin="${startPage}" end="${endPage}">
+								<c:choose>
+									<c:when test="${i == page}">
+										<span class="active">${i}</span>
+									</c:when>
+									<c:otherwise>
+										<a href="${pageContext.request.contextPath}/admin/communityManagement.adfc?page=${i}">${i}</a>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
 
-                    <div class="qna-delete">
-                        <button type="button" id="delete-btn">삭제</button>
-                    </div>
+							<c:choose>
+								<c:when test="${next}">
+									<a href="${pageContext.request.contextPath}/admin/communityManagement.adfc?page=${endPage + 1}">&gt;</a>
+								</c:when>
+								<c:otherwise>
+									<span>&gt;</span>
+								</c:otherwise>
+							</c:choose>
 
-                </form>
+						</div>
+					</c:if>
 
-            </section>
+					<div class="qnaMgmt-del">
+						<button type="submit">삭제</button>
+					</div>
 
-        </main>
+				</form>
 
-    </div>
+			</section>
 
-    <script src="${pageContext.request.contextPath}/assets/js/admin/main-management/company-qna.js"></script>
+		</main>
+
+	</div>
 </body>
 
 </html>

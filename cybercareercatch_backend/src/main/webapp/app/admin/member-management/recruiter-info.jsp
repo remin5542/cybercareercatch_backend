@@ -1,233 +1,201 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%
+if (session.getAttribute("adminNumber") == null) {
+	response.sendRedirect(request.getContextPath() + "/admin/login.adfc");
+	return;
+}
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>기업별 채용담당자 회원정보</title>
-<link rel="stylesheet" href="/assets/css/admin/member-management/recruiter-info.css">
+<title>기업회원 정보 조회</title>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/assets/css/admin/member-management/recruiter-info.css">
 </head>
 
 <body class="recruiter-info-body">
 
-<div class="recruiter-info-container">
+	<div class="recruiter-info-container">
 
-<header class="recruiter-info-header">
+		<header class="recruiter-info-header">
 
-<div class="recruiter-info-title">
- <a href="../admin-main.html">관리자 페이지</a>
-</div>
+			<div class="recruiter-info-title">
+				<a href="${pageContext.request.contextPath}/admin/main.adfc">관리자
+					페이지</a>
+			</div>
 
-<nav class="recruiter-info-menu">
-<a href="../member-management/member-info.html">회원 관리</a>
-<a href="../main-management/qna-management.html">메인 관리</a>
-<a href="../community-management/expo-schedule.html">커뮤니티 관리</a>
-</nav>
+			<nav class="recruiter-info-menu">
+				<a href="${pageContext.request.contextPath}/admin/memberInfo.adfc">회원
+					관리</a> <a
+					href="${pageContext.request.contextPath}/admin/insertQuestion.adfc">메인
+					관리</a> <a
+					href="${pageContext.request.contextPath}/app/admin/community-management/expo-schedule.jsp">커뮤니티
+					관리</a>
+			</nav>
 
-<a href="${pageContext.request.contextPath}/admin/logout.adfc" class="logout-btn">로그아웃</a>
+			<a href="${pageContext.request.contextPath}/admin/logout.adfc"
+				class="recruiter-info-logout">로그아웃</a>
 
-</header>
+		</header>
 
+		<main class="recruiter-info-main">
 
-<main class="recruiter-info-main">
+			<aside class="recruiter-info-sidebar">
 
-<!-- 왼쪽 사이드바 -->
-<aside class="recruiter-info-sidebar">
+				<div class="recruiter-info-sidebar-item">
+					<a href="${pageContext.request.contextPath}/admin/memberInfo.adfc">일반회원
+						정보 조회</a>
+				</div>
 
-<div class="recruiter-info-sidebar-item">
-<a href="./member-info.html">일반회원 정보 조회</a>
-</div>
+				<div class="recruiter-info-sidebar-item">
+					<a
+						href="${pageContext.request.contextPath}/admin/companyCheck.adfc">기업회원
+						승인, 반려</a>
+				</div>
 
-<div class="recruiter-info-sidebar-item">
-<a href="./company-check.html">기업회원 승인,반려</a>
-</div>
+				<div class="recruiter-info-sidebar-item recruiter-info-active">
+					<a
+						href="${pageContext.request.contextPath}/admin/recruiterInfo.adfc">기업회원
+						정보 조회</a>
+				</div>
+				<div class="recruiter-info-sidebar-item">
+					<a href="${pageContext.request.contextPath}/admin/jobCheck.adfc">질의문
+						답변 조회</a>
+				</div>
+			</aside>
 
-<div class="recruiter-info-sidebar-item recruiter-info-active">
-<a href="./recruiter-info.html">기업회원 정보 조회</a>
-</div>
+			<section class="recruiter-info-content">
 
-</aside>
+				<h2 class="recruiter-info-content-title">기업회원 정보 조회</h2>
 
+				<form
+					action="${pageContext.request.contextPath}/admin/recruiterInfo.adfc"
+					method="get" class="recruiter-info-search-box">
+					<span class="recruiter-info-search-label">- 검색</span> <select
+						class="recruiter-info-search-select" name="keywordType">
+						<option value="userName"
+							${keywordType eq 'userName' ? 'selected' : ''}>이름</option>
+						<option value="userId"
+							${keywordType eq 'userId' ? 'selected' : ''}>아이디</option>
+					</select> <input type="text" class="recruiter-info-search-input"
+						name="keyword" value="${keyword}" placeholder="검색어 입력">
 
-<!-- 오른쪽 콘텐츠 -->
-<section class="recruiter-info-content">
+					<button type="submit" class="recruiter-info-search-btn">검색</button>
+				</form>
 
-<h2 class="recruiter-info-content-title">기업회원 정보 및 관리</h2>
+				<form
+					action="${pageContext.request.contextPath}/admin/deleteRecruiter.adfc"
+					method="post" onsubmit="return validateRecruiterDelete();">
 
-<!-- 검색 -->
-<div class="recruiter-info-search-box">
+					<input type="hidden" name="page" value="${page}">
 
-<span class="recruiter-info-search-label">- 검색</span>
+					<div class="recruiter-info-table">
 
-<select class="recruiter-info-search-select">
-<option>이름</option>
-<option>아이디</option>
-</select>
+						<div class="recruiter-info-table-header">
+							<div class="recruiter-info-col recruiter-info-col-check">선택</div>
+							<div class="recruiter-info-col recruiter-info-col-num">번호</div>
+							<div class="recruiter-info-col recruiter-info-col-id">아이디</div>
+							<div class="recruiter-info-col recruiter-info-col-name">이름</div>
+							<div class="recruiter-info-col recruiter-info-col-manage">관리</div>
+						</div>
 
-<input type="text" class="recruiter-info-search-input">
+						<c:choose>
+							<c:when test="${empty recruiterList}">
+								<div class="recruiter-info-empty">등록된 기업회원이 없습니다.</div>
+							</c:when>
 
-<button class="recruiter-info-search-btn">검색</button>
+							<c:otherwise>
+								<c:forEach var="recruiter" items="${recruiterList}"
+									varStatus="status">
+									<div class="recruiter-info-row-wrap">
+										<div class="recruiter-info-col recruiter-info-col-check">
+											<input type="checkbox" name="userNumber"
+												value="${recruiter.userNumber}">
+										</div>
 
-</div>
+										<a
+											href="${pageContext.request.contextPath}/admin/recruiterInfoDetail.adfc?userNumber=${recruiter.userNumber}"
+											class="recruiter-info-row-link">
+											<div class="recruiter-info-row">
+												<div class="recruiter-info-col recruiter-info-col-num">${(page - 1) * rowCount + status.index + 1}</div>
+												<div class="recruiter-info-col recruiter-info-col-id">${recruiter.userId}</div>
+												<div class="recruiter-info-col recruiter-info-col-name">${recruiter.userName}</div>
+												<div class="recruiter-info-col recruiter-info-col-manage">상세조회</div>
+											</div>
+										</a>
+									</div>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
 
+						<div class="recruiter-info-bottom">
+							<button type="submit" class="recruiter-info-delete-btn">선택
+								삭제</button>
+						</div>
 
-<!-- 회원 리스트 -->
-<div class="recruiter-info-table">
+						<c:if test="${total > 0}">
+							<div class="recruiter-info-pagination">
 
-<!-- 헤더 -->
-<div class="recruiter-info-table-header">
+								<c:choose>
+									<c:when test="${prev}">
+										<a
+											href="${pageContext.request.contextPath}/admin/recruiterInfo.adfc?page=${startPage - 1}&keywordType=${keywordType}&keyword=${keyword}">&lt;</a>
+									</c:when>
+									<c:otherwise>
+										<span>&lt;</span>
+									</c:otherwise>
+								</c:choose>
 
-<div class="recruiter-info-col recruiter-info-col-num">번호</div>
-<div class="recruiter-info-col recruiter-info-col-id">아이디</div>
-<div class="recruiter-info-col recruiter-info-col-name">이름</div>
-<div class="recruiter-info-col recruiter-info-col-manage">관리</div>
+								<c:forEach var="i" begin="${startPage}" end="${endPage}">
+									<c:choose>
+										<c:when test="${i == page}">
+											<a class="recruiter-info-page recruiter-info-page-active">${i}</a>
+										</c:when>
+										<c:otherwise>
+											<a class="recruiter-info-page"
+												href="${pageContext.request.contextPath}/admin/recruiterInfo.adfc?page=${i}&keywordType=${keywordType}&keyword=${keyword}">${i}</a>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
 
-</div>
+								<c:choose>
+									<c:when test="${next}">
+										<a
+											href="${pageContext.request.contextPath}/admin/recruiterInfo.adfc?page=${endPage + 1}&keywordType=${keywordType}&keyword=${keyword}">&gt;</a>
+									</c:when>
+									<c:otherwise>
+										<span>&gt;</span>
+									</c:otherwise>
+								</c:choose>
 
-<!-- row -->
-<!-- <div class="recruiter-info-row">
-<div class="recruiter-info-col recruiter-info-col-num">210</div>
-<div class="recruiter-info-col recruiter-info-col-id">zaps00121</div>
-<div class="recruiter-info-col recruiter-info-col-name">김성민</div>
-<div class="recruiter-info-col recruiter-info-col-manage">
-<button class="recruiter-info-delete-btn">삭제</button>
-</div>
-</div> -->
-<div class="recruiter-info-row">
-<a href="./recruiter-infodetail.html" class="recruiter-info-link-group">
-<div class="recruiter-info-col recruiter-info-col-num">210</div>
-<div class="recruiter-info-col recruiter-info-col-id">zaps00121</div>
-<div class="recruiter-info-col recruiter-info-col-name">김성민</div>
-</a>
-<div class="recruiter-info-col recruiter-info-col-manage">
-<button class="recruiter-info-delete-btn">삭제</button>
-</div>
-</div>
+							</div>
+						</c:if>
 
+					</div>
+				</form>
 
+			</section>
 
-<div class="recruiter-info-row">
-<a href="#" class="recruiter-info-link-group">
-<div class="recruiter-info-col recruiter-info-col-num">209</div>
-<div class="recruiter-info-col recruiter-info-col-id">dkoskd457</div>
-<div class="recruiter-info-col recruiter-info-col-name">김민석</div>
-</a>
-<div class="recruiter-info-col recruiter-info-col-manage">
-<button class="recruiter-info-delete-btn">삭제</button>
-</div>
-</div>
+		</main>
 
-<div class="recruiter-info-row">
-<a href="#" class="recruiter-info-link-group">
-<div class="recruiter-info-col recruiter-info-col-num">208</div>
-<div class="recruiter-info-col recruiter-info-col-id">sadswo212</div>
-<div class="recruiter-info-col recruiter-info-col-name">김지훈</div>
-</a>
-<div class="recruiter-info-col recruiter-info-col-manage">
-<button class="recruiter-info-delete-btn">삭제</button>
-</div>
-</div>
+	</div>
 
-<div class="recruiter-info-row">
-<a href="#" class="recruiter-info-link-group">
-<div class="recruiter-info-col recruiter-info-col-num">207</div>
-<div class="recruiter-info-col recruiter-info-col-id">zzdooop2122</div>
-<div class="recruiter-info-col recruiter-info-col-name">이지훈</div>
-</a>
-<div class="recruiter-info-col recruiter-info-col-manage">
-<button class="recruiter-info-delete-btn">삭제</button>
-</div>
-</div>
+	<script>
+		function validateRecruiterDelete() {
+			const checkedList = document
+					.querySelectorAll("input[name='userNumber']:checked");
 
-<div class="recruiter-info-row">
-<a href="#" class="recruiter-info-link-group">
-<div class="recruiter-info-col recruiter-info-col-num">206</div>
-<div class="recruiter-info-col recruiter-info-col-id">ppap2232</div>
-<div class="recruiter-info-col recruiter-info-col-name">이상혁</div>
-</a>
-<div class="recruiter-info-col recruiter-info-col-manage">
-<button class="recruiter-info-delete-btn">삭제</button>
-</div>
-</div>
+			if (checkedList.length === 0) {
+				alert("삭제할 기업회원을 선택하세요.");
+				return false;
+			}
 
-<div class="recruiter-info-row">
-<a href="#" class="recruiter-info-link-group">
-<div class="recruiter-info-col recruiter-info-col-num">205</div>
-<div class="recruiter-info-col recruiter-info-col-id">zzdkk223</div>
-<div class="recruiter-info-col recruiter-info-col-name">손흥민</div>
-</a>
-<div class="recruiter-info-col recruiter-info-col-manage">
-<button class="recruiter-info-delete-btn">삭제</button>
-</div>
-</div>
-
-<div class="recruiter-info-row">
-<a href="#" class="recruiter-info-link-group">
-<div class="recruiter-info-col recruiter-info-col-num">204</div>
-<div class="recruiter-info-col recruiter-info-col-id">zdjjjj122</div>
-<div class="recruiter-info-col recruiter-info-col-name">김민아</div>
-</a>
-<div class="recruiter-info-col recruiter-info-col-manage">
-<button class="recruiter-info-delete-btn">삭제</button>
-</div>
-</div>
-
-<div class="recruiter-info-row">
-<a href="#" class="recruiter-info-link-group">
-<div class="recruiter-info-col recruiter-info-col-num">203</div>
-<div class="recruiter-info-col recruiter-info-col-id">qese2232</div>
-<div class="recruiter-info-col recruiter-info-col-name">변준호</div>
-</a>
-<div class="recruiter-info-col recruiter-info-col-manage">
-<button class="recruiter-info-delete-btn">삭제</button>
-</div>
-</div>
-
-<div class="recruiter-info-row">
-<a href="#" class="recruiter-info-link-group">
-<div class="recruiter-info-col recruiter-info-col-num">202</div>
-<div class="recruiter-info-col recruiter-info-col-id">illdl2232</div>
-<div class="recruiter-info-col recruiter-info-col-name">고길동</div>
-</a>
-<div class="recruiter-info-col recruiter-info-col-manage">
-<button class="recruiter-info-delete-btn">삭제</button>
-</div>
-</div>
-
-<div class="recruiter-info-row">
-<a href="#" class="recruiter-info-link-group">
-<div class="recruiter-info-col recruiter-info-col-num">201</div>
-<div class="recruiter-info-col recruiter-info-col-id">ksm92313</div>
-<div class="recruiter-info-col recruiter-info-col-name">이재용</div>
-</a>
-<div class="recruiter-info-col recruiter-info-col-manage">
-<button class="recruiter-info-delete-btn">삭제</button>
-</div>
-</div>
-
-<!-- 페이지네이션 -->
-
-<div class="recruiter-info-pagination">
-
-<!-- <span>&lt;&lt;</span> -->
-<span>&lt;</span>
-
-<a class="recruiter-info-page recruiter-info-page-active">1</a>
-<a class="recruiter-info-page">2</a>
-<a class="recruiter-info-page">3</a>
-<a class="recruiter-info-page">4</a>
-<a class="recruiter-info-page">5</a>
-
-<span>&gt;</span>
-<!-- <span>&gt;&gt;</span> -->
-
-</div>
-
-</section>
-
-</main>
-
-</div>
+			return confirm("선택한 기업회원 계정만 삭제하시겠습니까?");
+		}
+	</script>
 
 </body>
 </html>

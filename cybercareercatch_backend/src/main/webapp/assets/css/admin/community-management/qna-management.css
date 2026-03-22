@@ -1,201 +1,188 @@
 * {
-    box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 .qnaMgmt-body {
-    margin: 0;
-    background: #ffffff;
-    font-family: sans-serif;
+	margin: 0;
+	background: #ffffff;
+	font-family: sans-serif;
 }
 
 .qnaMgmt-ctr {
-    width: 1300px;
-    margin: 40px auto;
-    background: #c9cfe0;
-    padding: 30px;
+	width: 1300px;
+	margin: 40px auto;
+	background: #c9cfe0;
+	padding: 30px;
 }
 
-/* ---------------- 상단 헤더 ---------------- */
-
 .qnaMgmt-hdr {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 20px;
 }
 
 .qnaMgmt-title {
-    background: #6b83d6;
-    border-radius: 6px;
-    overflow: hidden;
-    font-weight: bold;
+	background: #6b83d6;
+	border-radius: 6px;
+	font-weight: bold;
+	overflow: hidden;
 }
 
 .qnaMgmt-title a {
-    display: block;
-    padding: 10px 20px;
-    color: white;
-    text-decoration: none;
+	display: block;
+	color: white;
+	text-decoration: none;
+	padding: 10px 20px;
 }
 
 .qnaMgmt-nav {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    flex: 1;
+	display: flex;
+	justify-content: center;
+	gap: 40px;
+	flex: 1;
 }
 
 .qnaMgmt-nav a {
-    background: #6b83d6;
-    color: white;
-    padding: 10px 25px;
-    border-radius: 6px;
-    text-decoration: none;
+	background: #6b83d6;
+	color: white;
+	padding: 10px 25px;
+	border-radius: 6px;
+	text-decoration: none;
 }
 
 .qnaMgmt-nav a:hover {
-    background: #5569c1;
+	background: #5569c1;
 }
 
 .qnaMgmt-logout {
-    display: inline-block;
-    background: #6b83d6;
-    color: white;
-    padding: 10px 25px;
-    border-radius: 6px;
-    text-decoration: none;
+	display: inline-block;
+	background: #6b83d6;
+	color: white;
+	padding: 10px 25px;
+	border-radius: 6px;
+	text-decoration: none;
 }
 
 .qnaMgmt-logout:hover {
-    background: #5569c1;
+	background: #5569c1;
 }
-
-/* ---------------- 메인 ---------------- */
 
 .qnaMgmt-main {
-    display: flex;
-    gap: 20px;
-    margin-top: 30px;
+	display: flex;
+	margin-top: 30px;
+	gap: 20px;
+	align-items: stretch;
 }
-
-.qnaMgmt-main form {
-    flex: 1;
-}
-
-/* ---------------- 사이드바 ---------------- */
 
 .qna-leftbar {
-    width: 200px;
-    background: #adbbdb;
-    padding-top: 20px;
+	width: 220px;
+	background: #adbbdb;
+	padding-top: 20px;
+	flex-shrink: 0;
 }
 
 .qna-left-item {
-    padding: 20px;
-    margin-bottom: 10px;
-    text-align: center;
-    background: #adbbdb;
+	padding: 20px;
+	margin-bottom: 10px;
+	text-align: center;
+	background: #adbbdb;
 }
 
 .qna-left-item a {
-    display: block;
-    text-decoration: none;
-    color: black;
+	display: block;
+	color: black;
+	text-decoration: none;
+	word-break: keep-all;
 }
 
 .qna-left-item:hover {
-    background: #949fca;
+	background: #949fca;
 }
 
 .qna-left-item:hover a {
-    color: white;
+	color: white;
 }
 
-.qna-active {
-    background: #8a8a8a;
+.qna-left-item.qna-active {
+	background: #8a8a8a;
 }
 
-.qna-active a {
-    color: white;
-    font-weight: 700;
+.qna-left-item.qna-active a {
+	color: white;
+	font-weight: 700;
 }
 
-/* ---------------- 오른쪽 콘텐츠 ---------------- */
+.qnaMgmt-main > form {
+	flex: 1;
+	margin: 0;
+}
 
 .qnaMgmt-ct {
-    flex: 1;
-    background: white;
-    padding: 40px;
-    min-height: 800px;
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
+	background: white;
+	padding: 40px;
+	min-height: 800px;
+	width: 100%;
 }
 
 .qnaMgmt-qItem {
-    border: 1px solid #d8d8d8;
-    padding: 20px;
-    border-radius: 8px;
-    background: #fafafa;
+	margin-bottom: 22px;
+	padding-bottom: 18px;
+	border-bottom: 1px solid #ececec;
 }
 
 .qnaMgmt-qTitle {
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 10px;
+	font-size: 22px;
+	font-weight: 700;
+	margin-bottom: 10px;
+	color: #111111;
 }
 
 .qnaMgmt-qItem input[type="text"] {
-    width: 100%;
-    height: 44px;
-    border: 1px solid #cccccc;
-    border-radius: 6px;
-    padding: 0 15px;
-    font-size: 15px;
-    background: white;
+	width: 100%;
+	height: 46px;
+	padding: 0 14px;
+	border: 1px solid #d7dbe8;
+	border-radius: 8px;
+	font-size: 15px;
+	outline: none;
 }
 
-/* ---------------- 하단 버튼 ---------------- */
+.qnaMgmt-qItem input[type="text"]:focus {
+	border-color: #6b83d6;
+}
 
 .qnaMgmt-bottomBox {
-    display: flex;
-    justify-content: flex-end;
-    gap: 12px;
-    margin-top: 30px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 30px;
 }
 
-.qnaMgmt-check,
 .qnaMgmt-answerBtn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 130px;
-    height: 42px;
-    padding: 0 24px;
-    border-radius: 6px;
-    font-size: 14px;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-/* 저장 버튼 */
-.qnaMgmt-check {
-    background: #6b83d6;
-    color: white;
-    border: none;
-}
-
-.qnaMgmt-check:hover {
-    background: #5569c1;
-}
-
-/* 질의문 답변 목록 버튼 */
-.qnaMgmt-answerBtn {
-    background: white;
-    color: #6b83d6;
-    border: 1px solid #6b83d6;
+	display: inline-block;
+	background: #8a8a8a;
+	color: white;
+	text-decoration: none;
+	padding: 11px 22px;
+	border-radius: 6px;
+	font-size: 15px;
 }
 
 .qnaMgmt-answerBtn:hover {
-    background: #eef2ff;
+	background: #777777;
+}
+
+.qnaMgmt-check {
+	border: none;
+	background: #6b83d6;
+	color: white;
+	padding: 11px 24px;
+	border-radius: 6px;
+	cursor: pointer;
+	font-size: 15px;
+}
+
+.qnaMgmt-check:hover {
+	background: #5569c1;
 }

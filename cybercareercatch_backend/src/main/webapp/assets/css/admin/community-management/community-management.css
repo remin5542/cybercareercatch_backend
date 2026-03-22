@@ -1,192 +1,266 @@
+* {
+	box-sizing: border-box;
+}
+
 .qnaMgmt-body {
-    margin: 0;
-    background: #ffffff;
+	margin: 0;
+	background: #ffffff;
+	font-family: sans-serif;
 }
 
 .qnaMgmt-ctr {
-    width: 1300px;
-    margin: 40px auto;
-    background: #c9cfe0;
-    padding: 30px;
+	width: 1300px;
+	margin: 40px auto;
+	background: #c9cfe0;
+	padding: 30px;
 }
 
 .qnaMgmt-hdr {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 20px;
 }
 
 .qnaMgmt-title {
-    background: #6b83d6;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 6px;
-    font-weight: bold;
+	background: #6b83d6;
+	border-radius: 6px;
+	font-weight: bold;
+	overflow: hidden;
+}
+
+.qnaMgmt-title a {
+	display: block;
+	color: white;
+	text-decoration: none;
+	padding: 10px 20px;
 }
 
 .qnaMgmt-nav {
-    display: flex;
-    gap: 40px;
+	display: flex;
+	justify-content: center;
+	gap: 40px;
+	flex: 1;
 }
 
 .qnaMgmt-nav a {
-    background: #6b83d6;
-    color: white;
-    padding: 10px 25px;
-    border-radius: 6px;
-    text-decoration: none;
+	background: #6b83d6;
+	color: white;
+	padding: 10px 25px;
+	border-radius: 6px;
+	text-decoration: none;
+}
+
+.qnaMgmt-nav a:hover {
+	background: #5569c1;
+}
+
+.qnaMgmt-logout {
+	display: inline-block;
+	background: #6b83d6;
+	color: white;
+	padding: 10px 25px;
+	border-radius: 6px;
+	text-decoration: none;
+}
+
+.qnaMgmt-logout:hover {
+	background: #5569c1;
 }
 
 .qnaMgmt-main {
-    display: flex;
-    margin-top: 30px;
-    gap: 20px;
-}
-
-.qnaMgmt-main form {
-    flex: 1;
+	display: flex;
+	margin-top: 30px;
+	gap: 20px;
+	align-items: stretch;
 }
 
 .qna-leftbar {
-    width: 200px;
-    background: #adbbdb;
-    padding-top: 20px;
+	width: 220px;
+	background: #adbbdb;
+	padding-top: 20px;
+	flex-shrink: 0;
 }
-
 
 .qna-left-item {
-    padding: 20px;
-    margin-bottom: 10px;
-    text-align: center;
-    cursor: pointer;
-    background: #adbbdb;
+	padding: 20px;
+	margin-bottom: 10px;
+	text-align: center;
+	background: #adbbdb;
 }
-
 
 .qna-left-item a {
-    color: black;
-    text-decoration: none;
-    display: block;
+	display: block;
+	color: black;
+	text-decoration: none;
+	word-break: keep-all;
 }
 
-
 .qna-left-item:hover {
-    background: #949fca;
+	background: #949fca;
 }
 
 .qna-left-item:hover a {
-    color: white;
+	color: white;
 }
 
-
 .qna-left-item.qna-active {
-    background: #8a8a8a;
+	background: #8a8a8a;
 }
 
 .qna-left-item.qna-active a {
-    color: white;
-    font-weight: 700;
+	color: white;
+	font-weight: 700;
 }
 
 .qnaMgmt-ct {
-    flex: 1;
-    background: white;
-    padding: 40px;
+	flex: 1;
+	background: white;
+	padding: 40px;
+	min-height: 800px;
 }
 
-
-
-
-.qnaMgmt-noticeBox {
-    width: 100%;
-    height: 200px;
-    background: #eaeaea;
-    padding: 10px;
+.qnaMgmt-notice-title,
+.qnaMgmt-subtitle {
+	margin: 0 0 20px 0;
+	font-size: 32px;
+	font-weight: 700;
+	color: #111111;
 }
 
-.qnaMgmt-noticeBtn {
-    width: 100%;
-    text-align: right;
-    margin-top: 10px;
+#free-notice-box {
+	width: 100%;
+	min-height: 160px;
+	padding: 14px;
+	border-radius: 8px;
+	border: 1px solid #ccc;
+	resize: vertical;
+	font-size: 16px;
+	line-height: 1.6;
+	background: #fafafa;
+	font-family: inherit;
 }
 
-.qnaMgmt-noticeBtn button {
-    background: #6b83d6;
-    color: white;
-    border: none;
-    padding: 8px 20px;
-    cursor: pointer;
+.qnaMgmt-notice-btn {
+	width: 100%;
+	text-align: right;
+	margin-top: 12px;
+	margin-bottom: 30px;
 }
 
+.qnaMgmt-notice-btn button {
+	background: #6b83d6;
+	color: white;
+	border: none;
+	padding: 8px 18px;
+	border-radius: 6px;
+	cursor: pointer;
+}
 
+.qnaMgmt-notice-btn button:hover {
+	background: #5569c1;
+}
+
+.qnaMgmt-topBox {
+	margin-bottom: 24px;
+}
 
 .qnaMgmt-table {
-    width: 100%;
+	border-top: 2px solid #dcdcdc;
 }
 
 .qnaMgmt-row {
-    display: flex;
-    padding: 12px 0;
-    border-bottom: 1px solid #ddd;
+	display: flex;
+	align-items: center;
+	min-height: 64px;
+	padding: 0 10px;
+	border-bottom: 1px solid #ececec;
 }
 
 .qnaMgmt-head {
-    font-weight: bold;
+	background: #f8f8f8;
+	font-weight: 700;
+}
+
+.qnaMgmt-notice-row {
+	background: #f6efcf;
+	font-weight: 600;
+}
+
+.qnaMgmt-row > div {
+	padding: 16px 10px;
+	box-sizing: border-box;
+	text-align: center;
+	word-break: keep-all;
 }
 
 .col1 {
-    width: 80px;
+	width: 120px;
+	flex-shrink: 0;
 }
 
 .col2 {
-    flex: 1;
+	flex: 1;
+	text-align: left !important;
 }
 
 .col3 {
-    width: 120px;
+	width: 160px;
+	flex-shrink: 0;
 }
 
 .col4 {
-    width: 120px;
+	width: 140px;
+	flex-shrink: 0;
 }
 
 .col5 {
-    width: 120px;
-    text-align: center;
+	width: 100px;
+	flex-shrink: 0;
 }
 
-
-
+.qnaMgmt-empty {
+	padding: 80px 0;
+	text-align: center;
+	color: #666666;
+	border-bottom: 1px solid #ececec;
+}
 
 .qnaMgmt-page {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 30px;
+	display: flex;
+	justify-content: center;
+	gap: 12px;
+	margin-top: 35px;
 }
 
+.qnaMgmt-page a,
 .qnaMgmt-page span {
-    cursor: pointer;
+	text-decoration: none;
+	color: inherit;
+	min-width: 20px;
+	text-align: center;
 }
 
 .qnaMgmt-page .active {
-    color: #4c6ef5;
-    font-weight: bold;
+	color: #4c6ef5;
+	font-weight: bold;
 }
 
-
-
-
 .qnaMgmt-del {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 20px;
+	display: flex;
+	justify-content: flex-end;
+	margin-top: 30px;
 }
 
 .qnaMgmt-del button {
-    background: #d67b7b;
-    border: none;
-    color: white;
-    padding: 10px 25px;
-    cursor: pointer;
+	background: #d67b7b;
+	border: none;
+	color: white;
+	padding: 10px 25px;
+	border-radius: 6px;
+	cursor: pointer;
+}
+
+.qnaMgmt-del button:hover {
+	background: #c56464;
 }

@@ -40,7 +40,7 @@
 					   placeholder="Admin PW">
 			</div>
 
-			<div class="form-group" style="display:flex; align-items:center; gap:8px; margin-top:-4px;">
+			<div class="form-group remember-row" style="display:flex; align-items:center; gap:8px; margin-top:-4px;">
 				<input type="checkbox" id="remember" name="remember">
 				<label for="remember" style="margin:0;">아이디 저장</label>
 			</div>

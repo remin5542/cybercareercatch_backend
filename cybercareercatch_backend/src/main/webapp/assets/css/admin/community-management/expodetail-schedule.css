@@ -1,151 +1,279 @@
+* {
+	box-sizing: border-box;
+}
+
 .expoDetail-body {
-    margin: 0;
-    background: #ffffff;
+	margin: 0;
+	background: #ffffff;
+	font-family: sans-serif;
 }
 
 .expoDetail-container {
-    width: 1300px;
-    margin: 40px auto;
-    background: #c9cfe0;
-    padding: 30px;
+	width: 1300px;
+	margin: 40px auto;
+	background: #c9cfe0;
+	padding: 30px;
 }
 
 .expoDetail-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 20px;
 }
 
 .expoDetail-title {
-    background: #6b83d6;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 6px;
-    font-weight: bold;
+	background: #6b83d6;
+	border-radius: 6px;
+	font-weight: bold;
+	overflow: hidden;
+}
+
+.expoDetail-title a {
+	display: block;
+	padding: 10px 20px;
+	color: white;
+	text-decoration: none;
 }
 
 .expoDetail-menu1 {
-    display: flex;
-    gap: 40px;
+	display: flex;
+	justify-content: center;
+	gap: 40px;
+	flex: 1;
 }
 
 .expoDetail-menu1 a {
-    background: #6b83d6;
-    color: white;
-    padding: 10px 25px;
-    border-radius: 6px;
-    text-decoration: none;
+	background: #6b83d6;
+	color: white;
+	padding: 10px 25px;
+	border-radius: 6px;
+	text-decoration: none;
+}
+
+.expoDetail-menu1 a:hover {
+	background: #5569c1;
+}
+
+.expoDetail-logout {
+	display: inline-block;
+	background: #6b83d6;
+	color: white;
+	padding: 10px 25px;
+	border-radius: 6px;
+	text-decoration: none;
+}
+
+.expoDetail-logout:hover {
+	background: #5569c1;
 }
 
 .expoDetail-main {
-    display: flex;
-    margin-top: 30px;
-    gap: 20px;
+	display: flex;
+	margin-top: 30px;
+	gap: 20px;
+	align-items: stretch;
 }
-
-.expoDetail-main form {
-    flex: 1;
-}
-
-
 
 .expoDetail-leftbar {
-    width: 200px;
-    background: #adbbdb;
-    padding-top: 20px;
+	width: 220px;
+	background: #adbbdb;
+	padding-top: 20px;
+	flex-shrink: 0;
 }
 
 .expoDetail-left-item {
-    padding: 20px;
-    margin-bottom: 10px;
-    text-align: center;
-    cursor: pointer;
-    background: #adbbdb;
+	padding: 20px;
+	margin-bottom: 10px;
+	text-align: center;
+	background: #adbbdb;
 }
 
 .expoDetail-left-item a {
-    color: black;
-    text-decoration: none;
-    display: block;
+	display: block;
+	color: black;
+	text-decoration: none;
+	word-break: keep-all;
 }
 
 .expoDetail-left-item:hover {
-    background: #949fca;
+	background: #949fca;
 }
 
 .expoDetail-left-item:hover a {
-    color: white;
+	color: white;
 }
 
 .expoDetail-left-item.expoDetail-active {
-    background: #8a8a8a;
+	background: #8a8a8a;
 }
 
 .expoDetail-left-item.expoDetail-active a {
-    color: white;
-    font-weight: 700;
+	color: white;
+	font-weight: 700;
 }
 
 .expoDetail-content {
-    flex: 1;
-    background: white;
-    padding: 30px;
+	flex: 1;
+	background: white;
+	padding: 35px;
+	min-height: 800px;
 }
 
 .expoDetail-tab {
-    display: flex;
-    margin-bottom: 20px;
+	display: flex;
+	margin-bottom: 24px;
 }
 
 .expoDetail-tab-item {
-    flex: 1;
-    background: #e6e6e6;
-    padding: 15px;
-    text-align: center;
-    cursor: pointer;
+	padding: 12px 20px;
+	background: #f0f3ff;
+	border: 1px solid #d4dbef;
+	border-radius: 8px;
+	font-weight: 700;
+	color: #4b57a8;
 }
 
-.expoDetail-tab-item a {
-    text-decoration: none;
-    color: black;
-    display: block;
+.expoDetail-infoBox {
+	border: 1px solid #e5e8f2;
+	border-radius: 10px;
+	padding: 0;
+	overflow: hidden;
+	margin-bottom: 24px;
 }
 
-.expoDetail-active {
-    background: white;
-    font-weight: bold;
+.expoDetail-infoRow {
+	display: flex;
+	border-bottom: 1px solid #ececec;
 }
 
-.expoDetail-row {
-    display: flex;
-    padding: 12px 0;
-    border-bottom: 1px solid #ddd;
-    text-align: center;
-    cursor: pointer;
+.expoDetail-infoRow:last-child {
+	border-bottom: none;
 }
 
-.expoDetail-row:hover {
-    background: #f3f6ff;
+.expoDetail-label {
+	width: 180px;
+	padding: 18px 20px;
+	background: #f8f8f8;
+	font-weight: 700;
+	flex-shrink: 0;
 }
 
-.expoDetail-row div {
-    flex: 1;
+.expoDetail-value {
+	flex: 1;
+	padding: 18px 20px;
 }
 
-.expoDetail-head {
-    font-weight: bold;
-    background: #f2f2f2;
-    cursor: default;
+.expoDetail-addForm {
+	margin-bottom: 30px;
+	padding: 22px;
+	background: #f8f9ff;
+	border: 1px solid #dce2f3;
+	border-radius: 10px;
+}
+
+.expoDetail-addTitle {
+	font-size: 24px;
+	font-weight: 700;
+	margin-bottom: 14px;
+	color: #222222;
+}
+
+.expoDetail-addRow {
+	display: flex;
+	gap: 10px;
+}
+
+.expoDetail-addRow select {
+	flex: 1;
+	height: 42px;
+	padding: 0 12px;
+	border: 1px solid #d0d0d0;
+	border-radius: 6px;
+	background: white;
+}
+
+.expoDetail-addRow button {
+	background: #6b83d6;
+	color: white;
+	border: none;
+	padding: 0 20px;
+	border-radius: 6px;
+	cursor: pointer;
+	height: 42px;
+}
+
+.expoDetail-addRow button:hover {
+	background: #5569c1;
+}
+
+.expoDetail-company-title {
+	font-size: 24px;
+	font-weight: 700;
+	margin-bottom: 16px;
+	color: #222222;
 }
 
 .expoDetail-company-list {
-    margin-top: 20px;
-    border-top: 1px solid #aaa;
-    border-bottom: 1px solid #aaa;
-    padding: 15px 0;
+	border-top: 2px solid #dcdcdc;
 }
 
-.expoDetail-company-list p {
-    margin: 10px 0;
-    cursor: pointer;
+.expoDetail-company-row {
+	display: flex;
+	align-items: center;
+	min-height: 60px;
+	border-bottom: 1px solid #ececec;
+	padding: 0 10px;
+}
+
+.expoDetail-company-head {
+	background: #f8f8f8;
+	font-weight: 700;
+}
+
+.expoDetail-company-col {
+	padding: 16px 10px;
+	word-break: keep-all;
+}
+
+.expoDetail-company-col.col1 {
+	width: 120px;
+	flex-shrink: 0;
+	text-align: center;
+}
+
+.expoDetail-company-col.col2 {
+	width: 240px;
+	flex-shrink: 0;
+	text-align: center;
+}
+
+.expoDetail-company-col.col3 {
+	flex: 1;
+}
+
+.expoDetail-empty {
+	padding: 70px 0;
+	text-align: center;
+	color: #666666;
+	border-bottom: 1px solid #ececec;
+}
+
+.expoDetail-btnWrap {
+	display: flex;
+	justify-content: flex-end;
+	margin-top: 28px;
+}
+
+.expoDetail-backBtn {
+	display: inline-block;
+	background: #6b83d6;
+	color: white;
+	padding: 10px 22px;
+	border-radius: 6px;
+	text-decoration: none;
+}
+
+.expoDetail-backBtn:hover {
+	background: #5569c1;
 }

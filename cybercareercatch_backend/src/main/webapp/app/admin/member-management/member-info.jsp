@@ -1,235 +1,201 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%
+if (session.getAttribute("adminNumber") == null) {
+	response.sendRedirect(request.getContextPath() + "/admin/login.adfc");
+	return;
+}
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>회원정보</title>
-<link rel="stylesheet" href="/assets/css/admin/member-management/member-info.css">
+<title>일반회원 정보 조회</title>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/assets/css/admin/member-management/member-info.css">
 </head>
 
 <body class="member-info-body">
 
-<div class="member-info-container">
+	<div class="member-info-container">
 
-<header class="member-info-header">
+		<header class="member-info-header">
 
-<div class="member-info-title">
- <a href="../admin-main.html">관리자 페이지</a>
-</div>
+			<div class="member-info-title">
+				<a href="${pageContext.request.contextPath}/admin/main.adfc">관리자
+					페이지</a>
+			</div>
 
-<nav class="member-info-menu">
-<a href="../member-management/member-info.html">회원 관리</a>
-<a href="../main-management/qna-management.html">메인 관리</a>
-<a href="../community-management/expo-schedule.html">커뮤니티 관리</a>
-</nav>
+			<nav class="member-info-menu">
+				<a href="${pageContext.request.contextPath}/admin/memberInfo.adfc">회원
+					관리</a> <a
+					href="${pageContext.request.contextPath}/admin/insertQuestion.adfc">메인
+					관리</a> <a
+					href="${pageContext.request.contextPath}/app/admin/community-management/expo-schedule.jsp">커뮤니티
+					관리</a>
+			</nav>
 
-<a href="${pageContext.request.contextPath}/admin/logout.adfc" class="logout-btn">로그아웃</a>
+			<a href="${pageContext.request.contextPath}/admin/logout.adfc"
+				class="logout-btn">로그아웃</a>
 
-</header>
+		</header>
 
+		<main class="member-info-main">
 
-<main class="member-info-main">
+			<aside class="member-info-sidebar">
 
-<!-- 왼쪽 사이드바 -->
-<aside class="member-info-sidebar">
+				<div class="member-info-sidebar-item member-info-active">
+					<a href="${pageContext.request.contextPath}/admin/memberInfo.adfc">일반회원
+						정보 조회</a>
+				</div>
 
-<div class="member-info-sidebar-item member-info-active">
-<a href="./member-info.html">일반회원 정보 조회</a>
-</div>
+				<div class="member-info-sidebar-item">
+					<a
+						href="${pageContext.request.contextPath}/admin/companyCheck.adfc">기업회원
+						승인, 반려</a>
+				</div>
 
-<div class="member-info-sidebar-item">
-<a href="./company-check.html">기업회원 승인, 반려</a>
-</div>
+				<div class="member-info-sidebar-item">
+					<a
+						href="${pageContext.request.contextPath}/admin/recruiterInfo.adfc">기업회원
+						정보 조회</a>
+				</div>
+				<div class="member-info-sidebar-item">
+					<a href="${pageContext.request.contextPath}/admin/jobCheck.adfc">질의문
+						답변 조회</a>
+				</div>
 
-<div class="member-info-sidebar-item">
-<a href="./recruiter-info.html">기업회원 정보 조회</a>
-</div>
+			</aside>
 
-</aside>
+			<section class="member-info-content">
 
+				<h2 class="member-info-content-title">회원 정보 및 관리</h2>
 
-<!-- 오른쪽 콘텐츠 -->
-<section class="member-info-content">
+				<form
+					action="${pageContext.request.contextPath}/admin/memberInfo.adfc"
+					method="get" class="member-info-search-box">
+					<span class="member-info-search-label">- 검색</span> <select
+						class="member-info-search-select" name="keywordType">
+						<option value="userName"
+							${keywordType eq 'userName' ? 'selected' : ''}>이름</option>
+						<option value="userId"
+							${keywordType eq 'userId' ? 'selected' : ''}>아이디</option>
+					</select> <input type="text" class="member-info-search-input" name="keyword"
+						value="${keyword}" placeholder="검색어 입력">
 
-<h2 class="member-info-content-title">회원 정보 및 관리</h2>
+					<button type="submit" class="member-info-search-btn">검색</button>
+				</form>
 
-<!-- 검색 -->
-<div class="member-info-search-box">
+				<form id="memberDeleteForm"
+					action="${pageContext.request.contextPath}/admin/deleteMember.adfc"
+					method="post" onsubmit="return validateMemberDelete();">
 
-<span class="member-info-search-label">- 검색</span>
+					<input type="hidden" name="page" value="${page}">
 
-<select class="member-info-search-select">
-<option>이름</option>
-<option>아이디</option>
-</select>
+					<div class="member-info-table">
 
-<input type="text" class="member-info-search-input">
+						<div class="member-info-table-header">
+							<div class="member-info-col member-info-col-check">선택</div>
+							<div class="member-info-col member-info-col-num">번호</div>
+							<div class="member-info-col member-info-col-id">아이디</div>
+							<div class="member-info-col member-info-col-name">이름</div>
+							<div class="member-info-col member-info-col-manage">관리</div>
+						</div>
 
-<button class="member-info-search-btn">검색</button>
+						<c:choose>
+							<c:when test="${empty memberList}">
+								<div class="member-info-empty">등록된 일반회원이 없습니다.</div>
+							</c:when>
 
-</div>
+							<c:otherwise>
+								<c:forEach var="member" items="${memberList}" varStatus="status">
+									<div class="member-info-row-wrap">
+										<div class="member-info-col member-info-col-check">
+											<input type="checkbox" name="userNumber"
+												value="${member.userNumber}">
+										</div>
 
+										<a
+											href="${pageContext.request.contextPath}/admin/memberInfoDetail.adfc?userNumber=${member.userNumber}"
+											class="member-info-row-link">
+											<div class="member-info-row">
+												<div class="member-info-col member-info-col-num">${(page - 1) * rowCount + status.index + 1}</div>
+												<div class="member-info-col member-info-col-id">${member.userId}</div>
+												<div class="member-info-col member-info-col-name">${member.userName}</div>
+												<div class="member-info-col member-info-col-manage">상세조회</div>
+											</div>
+										</a>
+									</div>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
 
-<!-- 회원 리스트 -->
-<div class="member-info-table">
+						<div class="member-info-bottom">
+							<button type="submit" class="member-info-delete-btn">선택
+								삭제</button>
+						</div>
 
-<!-- header -->
-<div class="member-info-table-header">
+						<c:if test="${total > 0}">
+							<div class="member-info-pagination">
 
-<div class="member-info-col member-info-col-num">번호</div>
-<div class="member-info-col member-info-col-id">아이디</div>
-<div class="member-info-col member-info-col-name">이름</div>
-<div class="member-info-col member-info-col-manage">관리</div>
+								<c:choose>
+									<c:when test="${prev}">
+										<a
+											href="${pageContext.request.contextPath}/admin/memberInfo.adfc?page=${startPage - 1}&keywordType=${keywordType}&keyword=${keyword}">&lt;</a>
+									</c:when>
+									<c:otherwise>
+										<span>&lt;</span>
+									</c:otherwise>
+								</c:choose>
 
-</div>
+								<c:forEach var="i" begin="${startPage}" end="${endPage}">
+									<c:choose>
+										<c:when test="${i == page}">
+											<a class="member-info-page member-info-page-active">${i}</a>
+										</c:when>
+										<c:otherwise>
+											<a class="member-info-page"
+												href="${pageContext.request.contextPath}/admin/memberInfo.adfc?page=${i}&keywordType=${keywordType}&keyword=${keyword}">${i}</a>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
 
+								<c:choose>
+									<c:when test="${next}">
+										<a
+											href="${pageContext.request.contextPath}/admin/memberInfo.adfc?page=${endPage + 1}&keywordType=${keywordType}&keyword=${keyword}">&gt;</a>
+									</c:when>
+									<c:otherwise>
+										<span>&gt;</span>
+									</c:otherwise>
+								</c:choose>
 
-<!-- rows -->
+							</div>
+						</c:if>
 
-<!-- <div class="member-info-row">
-<div class="member-info-col member-info-col-num">210</div>
-<div class="member-info-col member-info-col-id">zaps00121</div>
-<div class="member-info-col member-info-col-name">김성민</div>
-<div class="member-info-col member-info-col-manage">
-<button class="member-info-delete-btn">삭제</button>
-</div>
-</div> -->
-<div class="member-info-row">
-<a href="./member-infodetail.html" class="member-info-link-group">
-<div class="member-info-col member-info-col-num">210</div>
-<div class="member-info-col member-info-col-id">zaps00121</div>
-<div class="member-info-col member-info-col-name">김성민</div>
-</a>
-<div class="member-info-col member-info-col-manage">
-<button class="member-info-delete-btn">삭제</button>
-</div>
-</div>
+					</div>
+				</form>
 
+			</section>
 
+		</main>
 
-<div class="member-info-row">
-<a href="#" class="member-info-link-group">
-<div class="member-info-col member-info-col-num">209</div>
-<div class="member-info-col member-info-col-id">dkoskd457</div>
-<div class="member-info-col member-info-col-name">김민석</div>
-</a>
-<div class="member-info-col member-info-col-manage">
-<button class="member-info-delete-btn">삭제</button>
-</div>
-</div>
+	</div>
 
-<div class="member-info-row">
-<a href="#" class="member-info-link-group">
-<div class="member-info-col member-info-col-num">208</div>
-<div class="member-info-col member-info-col-id">sadswo212</div>
-<div class="member-info-col member-info-col-name">김지훈</div>
-</a>
-<div class="member-info-col member-info-col-manage">
-<button class="member-info-delete-btn">삭제</button>
-</div>
-</div>
+	<script>
+		function validateMemberDelete() {
+			const checkedList = document
+					.querySelectorAll("input[name='userNumber']:checked");
 
-<div class="member-info-row">
-<a href="#" class="member-info-link-group">
-<div class="member-info-col member-info-col-num">207</div>
-<div class="member-info-col member-info-col-id">zzdooop2122</div>
-<div class="member-info-col member-info-col-name">이지훈</div>
-</a>
-<div class="member-info-col member-info-col-manage">
-<button class="member-info-delete-btn">삭제</button>
-</div>
-</div>
+			if (checkedList.length === 0) {
+				alert("삭제할 회원을 선택하세요.");
+				return false;
+			}
 
-<div class="member-info-row">
-<a href="#" class="member-info-link-group">
-<div class="member-info-col member-info-col-num">206</div>
-<div class="member-info-col member-info-col-id">ppap2232</div>
-<div class="member-info-col member-info-col-name">이상혁</div>
-</a>
-<div class="member-info-col member-info-col-manage">
-<button class="member-info-delete-btn">삭제</button>
-</div>
-</div>
+			return confirm("선택한 일반회원을 삭제하시겠습니까?");
+		}
+	</script>
 
-<div class="member-info-row">
-<a href="#" class="member-info-link-group">
-<div class="member-info-col member-info-col-num">205</div>
-<div class="member-info-col member-info-col-id">zzdkk223</div>
-<div class="member-info-col member-info-col-name">손흥민</div>
-</a>
-<div class="member-info-col member-info-col-manage">
-<button class="member-info-delete-btn">삭제</button>
-</div>
-</div>
-
-<div class="member-info-row">
-<a href="#" class="member-info-link-group">
-<div class="member-info-col member-info-col-num">204</div>
-<div class="member-info-col member-info-col-id">zdjjjj122</div>
-<div class="member-info-col member-info-col-name">김민아</div>
-</a>
-<div class="member-info-col member-info-col-manage">
-<button class="member-info-delete-btn">삭제</button>
-</div>
-</div>
-
-<div class="member-info-row">
-<a href="#" class="member-info-link-group">
-<div class="member-info-col member-info-col-num">203</div>
-<div class="member-info-col member-info-col-id">qese2232</div>
-<div class="member-info-col member-info-col-name">변준호</div>
-</a>
-<div class="member-info-col member-info-col-manage">
-<button class="member-info-delete-btn">삭제</button>
-</div>
-</div>
-
-<div class="member-info-row">
-<a href="#" class="member-info-link-group">
-<div class="member-info-col member-info-col-num">202</div>
-<div class="member-info-col member-info-col-id">illdl2232</div>
-<div class="member-info-col member-info-col-name">고길동</div>
-</a>
-<div class="member-info-col member-info-col-manage">
-<button class="member-info-delete-btn">삭제</button>
-</div>
-</div>
-
-<div class="member-info-row">
-<a href="#" class="member-info-link-group">
-<div class="member-info-col member-info-col-num">201</div>
-<div class="member-info-col member-info-col-id">ksm92313</div>
-<div class="member-info-col member-info-col-name">이재용</div>
-</a>
-<div class="member-info-col member-info-col-manage">
-<button class="member-info-delete-btn">삭제</button>
-</div>
-</div>
-
-
-<!-- 페이지네이션 -->
-
-<div class="member-info-pagination">
-
-<!-- <span>&lt;&lt;</span> -->
-<span>&lt;</span>
-
-<a class="member-info-page member-info-page-active">1</a>
-<a class="member-info-page">2</a>
-<a class="member-info-page">3</a>
-<a class="member-info-page">4</a>
-<a class="member-info-page">5</a>
-
-<span>&gt;</span>
-<!-- <span>&gt;&gt;</span> -->
-
-</div>
-
-</section>
-
-</main>
-
-</div>
 </body>
 </html>

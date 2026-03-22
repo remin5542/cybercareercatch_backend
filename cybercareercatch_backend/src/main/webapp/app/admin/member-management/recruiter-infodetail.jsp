@@ -1,124 +1,120 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%
+/*
+ * 로그인하지 않은 관리자는
+ * 기업회원 상세 페이지에 접근할 수 없도록 막는다.
+ */
+if (session.getAttribute("adminNumber") == null) {
+	response.sendRedirect(request.getContextPath() + "/admin/login.adfc");
+	return;
+}
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>기업별 채용담당자 회원정보상세</title>
-<link rel="stylesheet" href="/assets/css/admin/member-management/recruiter-infodetail.css">
+<title>기업회원 상세 조회</title>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/assets/css/admin/member-management/recruiter-infodetail.css">
 </head>
 
-<body class="recruiter-infodetail-body">
+<body class="recruiter-detail-body">
 
-<div class="recruiter-infodetail-container">
+	<div class="recruiter-detail-container">
 
-<header class="recruiter-infodetail-header">
+		<header class="recruiter-detail-header">
 
-<div class="recruiter-infodetail-title">
-<a href="../admin-main.html">관리자 페이지</a>
-</div>
+			<div class="recruiter-detail-title">
+				<a href="${pageContext.request.contextPath}/admin/main.adfc">관리자
+					페이지</a>
+			</div>
 
-<nav class="recruiter-infodetail-menu">
-<a href="../member-management/member-info.html">회원 관리</a>
-<a href="../main-management/qna-management.html">메인 관리</a>
-<a href="../community-management/expo-schedule.html">커뮤니티 관리</a>
-</nav>
+			<nav class="recruiter-detail-menu">
+				<a href="${pageContext.request.contextPath}/admin/memberInfo.adfc">회원
+					관리</a> <a
+					href="${pageContext.request.contextPath}/admin/insertQuestion.adfc">메인
+					관리</a> <a
+					href="${pageContext.request.contextPath}/app/admin/community-management/expo-schedule.jsp">커뮤니티
+					관리</a>
+			</nav>
 
-<a href="${pageContext.request.contextPath}/admin/logout.adfc" class="logout-btn">로그아웃</a>
+			<a href="${pageContext.request.contextPath}/admin/logout.adfc"
+				class="recruiter-detail-logout">로그아웃</a>
 
-</header>
+		</header>
 
-<main class="recruiter-infodetail-main">
+		<main class="recruiter-detail-main">
 
-<!-- 왼쪽 사이드바 -->
-<aside class="recruiter-infodetail-sidebar">
+			<!-- 왼쪽 사이드바 -->
+			<aside class="recruiter-detail-sidebar">
 
-<div class="recruiter-infodetail-sidebar-item">
-<a href="./member-info.html">일반회원 정보 조회</a>
-</div>
+				<div class="recruiter-detail-sidebar-item">
+					<a href="${pageContext.request.contextPath}/admin/memberInfo.adfc">일반회원
+						정보 조회</a>
+				</div>
 
-<div class="recruiter-infodetail-sidebar-item">
-<a href="./company-check.html">기업회원 승인, 반려</a>
-</div>
+				<div class="recruiter-detail-sidebar-item">
+					<a
+						href="${pageContext.request.contextPath}/admin/companyCheck.adfc">기업회원
+						승인, 반려</a>
+				</div>
 
-<div class="recruiter-infodetail-sidebar-item recruiter-infodetail-active">
-<a href="./recruiter-info.html">기업회원 정보 조회</a>
-</div>
+				<div class="recruiter-detail-sidebar-item recruiter-detail-active">
+					<a
+						href="${pageContext.request.contextPath}/admin/recruiterInfo.adfc">기업회원
+						정보 조회</a>
+				</div>
+				<div class="recruiter-detail-sidebar-item">
+					<a href="${pageContext.request.contextPath}/admin/jobCheck.adfc">질의문
+						답변 조회</a>
+				</div>
 
-</aside>
+			</aside>
 
-<!-- 오른쪽 콘텐츠 -->
-<section class="recruiter-infodetail-content">
+			<!-- 오른쪽 콘텐츠 -->
+			<section class="recruiter-detail-content">
 
-<div class="recruiter-infodetail-section-header">
+				<div class="recruiter-detail-top">
+					<h2 class="recruiter-detail-page-title">기업회원 상세 정보</h2>
+					<a
+						href="${pageContext.request.contextPath}/admin/recruiterInfo.adfc"
+						class="recruiter-detail-back-btn">목록으로</a>
+				</div>
 
-<div class="recruiter-infodetail-section-title">
-기업회원 상세 정보
-</div>
+				<div class="recruiter-detail-box">
 
-<!-- 기존 코드 (버튼) -->
-<!--
-<button class="recruiter-infodetail-move-btn">
-기업회원 정보 조회 목록 이동
-</button>
--->
+					<div class="recruiter-detail-row">
+						<div class="recruiter-detail-label">회원번호</div>
+						<div class="recruiter-detail-value">${recruiterInfo.userNumber}</div>
+					</div>
 
-<!-- 수정 코드 (링크) -->
-<a href="./recruiter-info.html" class="recruiter-infodetail-move-btn">
-기업회원 정보 조회 목록 이동
-</a>
+					<div class="recruiter-detail-row">
+						<div class="recruiter-detail-label">아이디</div>
+						<div class="recruiter-detail-value">${recruiterInfo.userId}</div>
+					</div>
 
-</div>
+					<div class="recruiter-detail-row">
+						<div class="recruiter-detail-label">이름</div>
+						<div class="recruiter-detail-value">${recruiterInfo.userName}</div>
+					</div>
 
-<!-- 회원 정보 -->
-<div class="recruiter-infodetail-info">
+					<div class="recruiter-detail-row">
+						<div class="recruiter-detail-label">전화번호</div>
+						<div class="recruiter-detail-value">${recruiterInfo.userPhone}</div>
+					</div>
 
-<div class="recruiter-infodetail-row">
-<div class="recruiter-infodetail-label">아이디</div>
-<div class="recruiter-infodetail-value">zaps00121</div>
-</div>
+					<div class="recruiter-detail-row">
+						<div class="recruiter-detail-label">가입일</div>
+						<div class="recruiter-detail-value">${recruiterInfo.userJoinDate}</div>
+					</div>
 
-<div class="recruiter-infodetail-row">
-<div class="recruiter-infodetail-label">이름</div>
-<div class="recruiter-infodetail-value">김성연</div>
-</div>
+				</div>
 
-<div class="recruiter-infodetail-row">
-<div class="recruiter-infodetail-label">성별</div>
-<div class="recruiter-infodetail-value">남</div>
-</div>
+			</section>
 
-<div class="recruiter-infodetail-row">
-<div class="recruiter-infodetail-label">전화번호</div>
-<div class="recruiter-infodetail-value">01091675544</div>
-</div>
+		</main>
 
-<div class="recruiter-infodetail-row">
-<div class="recruiter-infodetail-label">생년월일</div>
-<div class="recruiter-infodetail-value">011217</div>
-</div>
-
-</div>
-<!-- 
-<div class="recruiter-infodetail-update">
-최근 로그인 정보 최신 업데이트
-</div>
-
-<div class="recruiter-infodetail-date">
-25.02.02&nbsp;&nbsp;&nbsp;&nbsp;12:00
-</div> -->
-
-<div class="recruiter-infodetail-delete-area">
-<button class="recruiter-infodetail-delete-btn">
-삭제
-</button>
-</div>
-
-</section>
-
-</main>
-
-</div>
-
+	</div>
 </body>
 </html>

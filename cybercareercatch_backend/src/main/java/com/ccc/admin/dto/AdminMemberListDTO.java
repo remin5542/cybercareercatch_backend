@@ -5,7 +5,9 @@ public class AdminMemberListDTO {
     private int userNumber;
     private String userId;
     private String userName;
+    private String userPhone;
     private String userJoinDate;
+    private String jobResultStatus;
 
     public int getUserNumber() {
         return userNumber;
@@ -31,6 +33,14 @@ public class AdminMemberListDTO {
         this.userName = userName;
     }
 
+    public String getUserPhone() {
+        return userPhone;
+    }
+
+    public void setUserPhone(String userPhone) {
+        this.userPhone = userPhone;
+    }
+
     public String getUserJoinDate() {
         return userJoinDate;
     }
@@ -39,10 +49,18 @@ public class AdminMemberListDTO {
         this.userJoinDate = userJoinDate;
     }
 
+    public String getJobResultStatus() {
+        return jobResultStatus;
+    }
+
+    public void setJobResultStatus(String jobResultStatus) {
+        this.jobResultStatus = jobResultStatus;
+    }
+
 	@Override
 	public String toString() {
 		return "AdminMemberListDTO [userNumber=" + userNumber + ", userId=" + userId + ", userName=" + userName
-				+ ", userJoinDate=" + userJoinDate + "]";
+				+ ", userPhone=" + userPhone + ", userJoinDate=" + userJoinDate + ", jobResultStatus="
+				+ jobResultStatus + "]";
 	}
-    
 }

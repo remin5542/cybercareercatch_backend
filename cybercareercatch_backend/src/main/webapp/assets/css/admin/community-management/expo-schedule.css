@@ -1,180 +1,304 @@
+* {
+	box-sizing: border-box;
+}
+
 .expoSchedule-body {
-    margin: 0;
-    background: #ffffff;
+	margin: 0;
+	background: #ffffff;
+	font-family: sans-serif;
 }
 
 .expoSchedule-container {
-    width: 1300px;
-    margin: 40px auto;
-    background: #c9cfe0;
-    padding: 30px;
+	width: 1300px;
+	margin: 40px auto;
+	background: #c9cfe0;
+	padding: 30px;
 }
 
 .expoSchedule-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 20px;
 }
 
 .expoSchedule-title {
-    background: #6b83d6;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 6px;
-    font-weight: bold;
-    cursor: pointer;
+	background: #6b83d6;
+	border-radius: 6px;
+	font-weight: bold;
+	overflow: hidden;
+}
+
+.expoSchedule-title a {
+	display: block;
+	padding: 10px 20px;
+	color: white;
+	text-decoration: none;
 }
 
 .expoSchedule-menu1 {
-    display: flex;
-    gap: 40px;
+	display: flex;
+	justify-content: center;
+	gap: 40px;
+	flex: 1;
 }
 
 .expoSchedule-menu1 a {
-    background: #6b83d6;
-    color: white;
-    padding: 10px 25px;
-    border-radius: 6px;
-    text-decoration: none;
+	background: #6b83d6;
+	color: white;
+	padding: 10px 25px;
+	border-radius: 6px;
+	text-decoration: none;
 }
 
 .expoSchedule-menu1 a:hover {
-    background: #5569c1;
+	background: #5569c1;
 }
 
 .expoSchedule-logout {
-    padding: 6px 12px;
+	display: inline-block;
+	background: #6b83d6;
+	color: white;
+	padding: 10px 25px;
+	border-radius: 6px;
+	text-decoration: none;
 }
 
 .expoSchedule-logout:hover {
-    background: #dcdcdc;
+	background: #5569c1;
 }
 
 .expoSchedule-main {
-    display: flex;
-    margin-top: 30px;
-    gap: 20px;
-}
-
-.expoSchedule-main form {
-    flex: 1;
+	display: flex;
+	margin-top: 30px;
+	gap: 20px;
+	align-items: stretch;
 }
 
 .expoSchedule-leftbar {
-    width: 200px;
-    background: #adbbdb;
-    padding-top: 20px;
+	width: 220px;
+	background: #adbbdb;
+	padding-top: 20px;
+	flex-shrink: 0;
 }
-
 
 .expoSchedule-left-item {
-    padding: 20px;
-    margin-bottom: 10px;
-    text-align: center;
-    cursor: pointer;
-    background: #adbbdb;
+	padding: 20px;
+	margin-bottom: 10px;
+	text-align: center;
+	background: #adbbdb;
 }
 
-
 .expoSchedule-left-item a {
-    color: black;
-    text-decoration: none;
-    display: block;
+	display: block;
+	color: black;
+	text-decoration: none;
+	word-break: keep-all;
 }
 
 .expoSchedule-left-item:hover {
-    background: #949fca;
+	background: #949fca;
 }
 
 .expoSchedule-left-item:hover a {
-    color: white;
+	color: white;
 }
 
-
 .expoSchedule-left-item.expoSchedule-active {
-    background: #8a8a8a;
+	background: #8a8a8a;
 }
 
 .expoSchedule-left-item.expoSchedule-active a {
-    color: white;
-    font-weight: 700;
+	color: white;
+	font-weight: 700;
 }
 
 .expoSchedule-content {
-    flex: 1;
-    background: white;
-    padding: 30px;
+	flex: 1;
+	background: white;
+	padding: 35px;
+	min-height: 800px;
 }
 
 .expoSchedule-tab {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
+	display: flex;
+	margin-bottom: 24px;
 }
 
 .expoSchedule-tab-item {
-    flex: 1;
-    background: #e6e6e6;
-    padding: 15px;
-    text-align: center;
-    cursor: pointer;
+	padding: 12px 20px;
+	background: #f0f3ff;
+	border: 1px solid #d4dbef;
+	border-radius: 8px;
+	font-weight: 700;
+	color: #4b57a8;
 }
 
-.expoSchedule-active {
-    background: white;
-    font-weight: bold;
-    text-decoration: none;
+.expoSchedule-addForm {
+	margin-bottom: 28px;
+	padding: 22px;
+	background: #f8f9ff;
+	border: 1px solid #dce2f3;
+	border-radius: 10px;
 }
 
-.expoSchedule-tab-item a {
-    text-decoration: none;
-    color: black;
-    display: block;
+.expoSchedule-formTitle {
+	font-size: 24px;
+	font-weight: 700;
+	margin-bottom: 16px;
+	color: #222222;
+}
+
+.expoSchedule-addRow {
+	display: flex;
+	gap: 10px;
+	flex-wrap: wrap;
+}
+
+.expoSchedule-addRow input {
+	height: 42px;
+	padding: 0 12px;
+	border: 1px solid #d0d0d0;
+	border-radius: 6px;
+}
+
+.expoSchedule-addRow input[type="text"] {
+	flex: 1;
+	min-width: 200px;
+}
+
+.expoSchedule-addRow input[type="date"] {
+	width: 170px;
+}
+
+.expoSchedule-addRow button {
+	background: #6b83d6;
+	color: white;
+	border: none;
+	padding: 0 20px;
+	border-radius: 6px;
+	cursor: pointer;
+	height: 42px;
+}
+
+.expoSchedule-addRow button:hover {
+	background: #5569c1;
 }
 
 .expoSchedule-table {
-    width: 100%;
+	border-top: 2px solid #dcdcdc;
 }
 
 .expoSchedule-row {
-    display: flex;
-    padding: 10px 0;
-    border-bottom: 1px solid #ddd;
-    text-align: center;
-}
-
-.expoSchedule-row div {
-    flex: 1;
+	display: flex;
+	align-items: center;
+	min-height: 64px;
+	border-bottom: 1px solid #ececec;
+	padding: 0 10px;
 }
 
 .expoSchedule-head {
-    font-weight: bold;
-    background: #f3f3f3;
+	background: #f8f8f8;
+	font-weight: 700;
+}
+
+.expoSchedule-row > div {
+	padding: 16px 10px;
+	text-align: center;
+	word-break: keep-all;
+}
+
+.col0 {
+	width: 80px;
+	flex-shrink: 0;
+}
+
+.col1 {
+	width: 90px;
+	flex-shrink: 0;
+}
+
+.col2 {
+	width: 260px;
+	flex-shrink: 0;
+}
+
+.col3 {
+	width: 150px;
+	flex-shrink: 0;
+}
+
+.col4 {
+	width: 150px;
+	flex-shrink: 0;
+}
+
+.col5 {
+	flex: 1;
+	text-align: left !important;
+}
+
+.col6 {
+	width: 130px;
+	flex-shrink: 0;
+}
+
+.expoSchedule-detailBtn {
+	display: inline-block;
+	background: #6b83d6;
+	color: white;
+	padding: 8px 14px;
+	border-radius: 6px;
+	text-decoration: none;
+	font-size: 14px;
+}
+
+.expoSchedule-detailBtn:hover {
+	background: #5569c1;
+}
+
+.expoSchedule-empty {
+	padding: 80px 0;
+	text-align: center;
+	color: #666666;
+	border-bottom: 1px solid #ececec;
 }
 
 .expoSchedule-page {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin: 30px 0;
+	display: flex;
+	justify-content: center;
+	gap: 12px;
+	margin-top: 30px;
 }
 
+.expoSchedule-page a,
 .expoSchedule-page span {
-    cursor: pointer;
+	text-decoration: none;
+	color: inherit;
+	min-width: 20px;
+	text-align: center;
 }
 
 .expoSchedule-page-active {
-    color: #4c6ef5;
-    font-weight: bold;
+	color: #4c6ef5;
+	font-weight: bold;
 }
 
-.expoSchedule-company {
-    margin-top: 40px;
+.expoSchedule-del {
+	display: flex;
+	justify-content: flex-end;
+	margin-top: 24px;
 }
 
-.expoSchedule-company-row {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 0;
-    border-bottom: 1px solid #eee;
+.expoSchedule-del button {
+	background: #d87c7c;
+	color: white;
+	border: none;
+	padding: 10px 25px;
+	border-radius: 6px;
+	cursor: pointer;
+}
+
+.expoSchedule-del button:hover {
+	background: #c86b6b;
 }
