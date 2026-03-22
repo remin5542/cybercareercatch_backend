@@ -6,7 +6,7 @@
 <mapper namespace="qna">
 
     <!-- 기업 목록 조회 -->
-<select id="selectCompanyList" resultType="com.ccc.qna.dto.CompanyDTO">
+<select id="selectCompanyList" resultType="com.ccc.company.dto.CompanyDTO">
     SELECT
         COMPANY_NUMBER,
         COMPANY_NAME

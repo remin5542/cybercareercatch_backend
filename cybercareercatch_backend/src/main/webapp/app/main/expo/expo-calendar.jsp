@@ -18,6 +18,8 @@
 <script>
     const contextPath = "${pageContext.request.contextPath}";
 </script>
+<script src="${pageContext.request.contextPath}/assets/js/main/expo/expo-calendar.js"></script>
+
 <body>
     <header></header>
 
