@@ -101,6 +101,14 @@ public class MemberFrontController extends HttpServlet {
 			result.setPath("/app/main/account/find-password.jsp");
 			result.setRedirect(false);
 			break;
+		case "/member/sendSMS.mefc":
+			System.out.println("핸드폰 인증 요청");
+			result = new JoinSMSController().execute(request, response);
+			break;
+		case "/member/verifyCode.mefc":
+			System.out.println("인증번호 확인 요청");
+			result = new VerifyCodeController().execute(request, response);
+			break;
 		default:
 			System.out.println("어디로감?");
 		}

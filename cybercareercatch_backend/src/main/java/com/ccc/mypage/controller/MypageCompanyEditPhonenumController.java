@@ -1,7 +1,6 @@
 package com.ccc.mypage.controller;
 
 import java.io.IOException;
-import java.util.regex.Pattern;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -15,8 +14,6 @@ import com.ccc.mypage.dto.CompanyMypageInfoDTO;
 
 public class MypageCompanyEditPhonenumController implements Execute {
 
-
-
 	@Override
 	public Result execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -28,29 +25,26 @@ public class MypageCompanyEditPhonenumController implements Execute {
 
 		Integer userNumber = (Integer) session.getAttribute("userNumber");
 		String userType = (String) session.getAttribute("userType");
+
+		session.setAttribute("userNumber", 1);
+		session.setAttribute("userType", "일반회원");
 		
 		//테스트용 - 삭제
 		session.setAttribute("userNumber", 51);
 		session.setAttribute("userType", "기업회원");
-		
-		System.out.println("로그인한 회원 번호 : " + userNumber);
-		System.out.println("로그인한 회원 타입 : " + userType);
-		
-		// 로그인 안 된 경우
+
 		if (userNumber == null) {
 			result.setRedirect(true);
 			result.setPath(request.getContextPath() + "/member/login.mefc");
 			return result;
 		}
 
-		// 기업회원이 아니면 접근 불가
 		if (userType == null || !userType.equals("기업회원")) {
 			result.setRedirect(true);
 			result.setPath(request.getContextPath() + "/mainpage/mainpage.mafc");
 			return result;
 		}
-		
-		// 정보수정 전 비밀번호 확인 안 했으면 다시 비밀번호 확인 페이지로
+
 		Boolean companyPwChecked = (Boolean) session.getAttribute("companyPwChecked");
 		if (companyPwChecked == null || !companyPwChecked) {
 			result.setPath(request.getContextPath() + "/company/mypage/checkPw.mpfc");
@@ -58,15 +52,12 @@ public class MypageCompanyEditPhonenumController implements Execute {
 			return result;
 		}
 
-		// 입력값 받기
 		String newPhone = request.getParameter("userPhone");
 		String authCode = request.getParameter("authCode");
 
-		// null 방지 + 공백 제거
 		newPhone = newPhone == null ? "" : newPhone.trim();
 		authCode = authCode == null ? "" : authCode.trim();
 
-		// 전화번호 공백 체크
 		if (newPhone.isEmpty()) {
 			request.setAttribute("phoneMessage", "전화번호를 입력해주세요.");
 
@@ -78,7 +69,6 @@ public class MypageCompanyEditPhonenumController implements Execute {
 			return result;
 		}
 
-		// 인증번호 공백 체크
 		if (authCode.isEmpty()) {
 			request.setAttribute("authMessage", "인증번호를 입력해주세요.");
 
@@ -90,19 +80,26 @@ public class MypageCompanyEditPhonenumController implements Execute {
 			return result;
 		}
 
+		String sessionCode = (String) session.getAttribute("verificationCode");
 
-		// 실제 SMS 인증 서버가 없으면 여기서는 형식만 확인 가능
-		// 인증번호 진위 검증 로직이 있다면 이 위치에 추가
+		if (sessionCode == null || !sessionCode.equals(authCode)) {
+			request.setAttribute("authMessage", "인증번호가 일치하지 않습니다.");
 
-		// 전화번호 수정
+			CompanyMypageInfoDTO companyMypageInfoDTO = mypageDAO.selectCompanyMemberMypageInfo(userNumber);
+			request.setAttribute("companyMypageInfoDTO", companyMypageInfoDTO);
+
+			result.setPath("/app/main/mypage/mypage-company-edit.jsp");
+			result.setRedirect(false);
+			return result;
+		}
+
 		mypageDAO.updateCompanyPhone(userNumber, newPhone);
 		System.out.println("변경할 전화번호 : " + newPhone);
 		System.out.println("기업회원 전화번호 변경 완료");
 
-		// 정보수정 접근용 비밀번호 확인 세션 제거
+		session.removeAttribute("verificationCode");
 		session.removeAttribute("companyPwChecked");
 
-		// 수정 후 기업회원 마이페이지 메인으로 이동
 		result.setPath(request.getContextPath() + "/company/mypage.mpfc");
 		result.setRedirect(true);
 

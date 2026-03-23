@@ -128,10 +128,10 @@ public class MypageCompanypageRegisterOkController implements Execute {
 					companyInfoDTO.setCompEmplCnt(parseIntOnlyNumber(paramValue));
 
 				} else if ("company_sales".equals(paramName)) {
-				    companyInfoDTO.setCompRev(parseLongOnlyNumber(paramValue));
+				    companyInfoDTO.setCompRev(paramValue == null ? "" : paramValue.trim());
 
 				} else if ("company_capital".equals(paramName)) {
-				    companyInfoDTO.setCompCap(parseLongOnlyNumber(paramValue));
+				    companyInfoDTO.setCompCap(paramValue == null ? "" : paramValue.trim());
 
 				} else if ("company_type".equals(paramName)) {
 					companyInfoDTO.setCompType(paramValue);
@@ -244,22 +244,22 @@ public class MypageCompanypageRegisterOkController implements Execute {
 		}
 	}
 	
-	private long parseLongOnlyNumber(String value) {
-	    try {
-	        if (value == null || value.trim().isEmpty()) {
-	            return 0L;
-	        }
-
-	        String onlyNumber = value.replaceAll("[^0-9]", "");
-
-	        if (onlyNumber.isEmpty()) {
-	            return 0L;
-	        }
-
-	        return Long.parseLong(onlyNumber);
-
-	    } catch (NumberFormatException e) {
-	        return 0L;
-	    }
-	}
+//	private long parseLongOnlyNumber(String value) {
+//	    try {
+//	        if (value == null || value.trim().isEmpty()) {
+//	            return 0L;
+//	        }
+//
+//	        String onlyNumber = value.replaceAll("[^0-9]", "");
+//
+//	        if (onlyNumber.isEmpty()) {
+//	            return 0L;
+//	        }
+//
+//	        return Long.parseLong(onlyNumber);
+//
+//	    } catch (NumberFormatException e) {
+//	        return 0L;
+//	    }
+//	}
 }

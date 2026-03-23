@@ -10,6 +10,9 @@
 <title>기업회원 마이페이지(수정)</title>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/assets/css/main/mypage/mypage-company-edit.css">
+<script>
+	const contextPath = "${pageContext.request.contextPath}";
+</script>
 <script defer
 	src="${pageContext.request.contextPath}/assets/js/main/mypage/mypage-company-edit.js"></script>
 </head>
@@ -79,7 +82,8 @@
 						<div class="mypage-info-title">인증번호</div>
 						<div class="mypage-input-wrap">
 							<input type="text" name="authCode" class="mypage-info-text"
-								id="company-verificationcode" placeholder="인증번호" maxlength="6" required>
+								id="company-verificationcode" placeholder="인증번호" maxlength="6"
+								required disabled>
 							<div class="input-message" id="company-verificationcode-message">${authMessage}</div>
 						</div>
 						<button type="button" class="btn"
@@ -137,7 +141,8 @@
 			</form>
 
 			<div class="company-quit-wrap">
-				<a href="${pageContext.request.contextPath}/company/mypage/quit.mpfc"
+				<a
+					href="${pageContext.request.contextPath}/company/mypage/quit.mpfc"
 					class="btn" id="company-quit">회원탈퇴</a>
 			</div>
 		</div>
