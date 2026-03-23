@@ -42,17 +42,17 @@ public class ExpoFrontController extends HttpServlet {
         Result result = null;
 
         switch (target) {
-        case "/expo/calendar.ex":
+        case "/expo/calendar.efc":
             System.out.println("박람회 페이지 진입");
             result = new ExpoCalendarController().execute(request, response);
             break;
             
-        case "/expo/list.ex":
+        case "/expo/list.efc":
             System.out.println("박람회 일정 목록 요청");
             result = new ExpoListOkController().execute(request, response);
             break;
 
-        case "/expo/detail.ex":
+        case "/expo/detail.efc":
             System.out.println("박람회 상세 요청");
             result = new ExpoDetailOkController().execute(request, response);
             break;

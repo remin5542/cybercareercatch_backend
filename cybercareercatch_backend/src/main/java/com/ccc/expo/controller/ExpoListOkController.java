@@ -16,8 +16,10 @@ public class ExpoListOkController implements Execute {
 
     @Override
     public Result execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    	System.out.println("리스트 ok 컨트롤러 진입====");
         ExpoDAO expoDAO = new ExpoDAO();
         List<ExpoCalendarDTO> expoList = expoDAO.selectExpoCalendarList();
+        System.out.println(expoList + "\n======확인=====");
 
         response.setContentType("application/json; charset=UTF-8");
 

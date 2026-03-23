@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function loadExpoDetail(expoNumber) {
-        fetch(`${contextPath}/expo/detail.ex?expoNumber=${expoNumber}`)
+        fetch(`${contextPath}/expo/detail.efc?expoNumber=${expoNumber}`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error("상세 조회 실패");
@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function loadExpoCalendarList() {
-        fetch(`${contextPath}/expo/list.ex`)
+        fetch(`${contextPath}/expo/list.efc`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error("일정 목록 조회 실패");
