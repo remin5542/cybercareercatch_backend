@@ -143,7 +143,7 @@
 	</main>
 	<c:if test="${param.registerSuccess eq 'true'}">
 		<script>
-		alert("입력되었습니다.");
+		alert("저장되었습니다.");
 	</script>
 	</c:if>
 

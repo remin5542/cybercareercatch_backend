@@ -48,7 +48,15 @@ public class MypageCompanyEditPwController implements Execute {
 			result.setPath(request.getContextPath() + "/mainpage/mainpage.mafc");
 			return result;
 		}
-		
+
+		// 정보수정 전 비밀번호 확인 안 했으면 다시 비밀번호 확인 페이지로
+		Boolean companyPwChecked = (Boolean) session.getAttribute("companyPwChecked");
+		if (companyPwChecked == null || !companyPwChecked) {
+			result.setPath(request.getContextPath() + "/company/mypage/checkPw.mpfc");
+			result.setRedirect(true);
+			return result;
+		}
+
 		// 입력값 받기
 		String currentUserPw = request.getParameter("currentUserPw");
 		String newUserPw = request.getParameter("newUserPw");
@@ -128,7 +136,7 @@ public class MypageCompanyEditPwController implements Execute {
 		session.removeAttribute("companyPwChecked");
 
 		// 수정 후 기업회원 마이페이지 메인으로 이동
-		result.setPath(request.getContextPath() + "/company/mypage.mpfc");
+		result.setPath(request.getContextPath() + "/company/mypage.mpfc?editSuccess=true");
 		result.setRedirect(true);
 
 		return result;

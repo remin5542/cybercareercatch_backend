@@ -63,7 +63,7 @@ public class MypageMemberEditInfoController implements Execute {
 
 		// 조회 실패 시 메인으로 이동
 		if (memberMypageInfoDTO == null) {
-			result.setPath(request.getContextPath() + "/main/main.mafc");
+			result.setPath(request.getContextPath() + "/mainpage/mainpage.mafc");
 			result.setRedirect(true);
 			return result;
 		}

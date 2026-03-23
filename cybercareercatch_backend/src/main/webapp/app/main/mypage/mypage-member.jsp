@@ -1,127 +1,101 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html lang="ko">
 
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>일반회원 마이페이지(수정)</title>
-
+<title>일반회원 마이페이지</title>
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/assets/css/main/mypage/mypage-member-edit.css">
-<script>
-	const contextPath = "${pageContext.request.contextPath}";
-</script>
-<script defer
-	src="${pageContext.request.contextPath}/assets/js/main/mypage/mypage-member-edit.js"></script>
+	href="${pageContext.request.contextPath}/assets/css/main/mypage/mypage-member.css">
 </head>
 
 <body>
 	<main>
 		<div class="main-container">
 			<div class="mypage-title">마이페이지</div>
+			<div class="mypage-subtitle">회원정보조회</div>
 
-			<!-- 회원정보 변경 -->
-			<form id="member-phone-form"
-				action="${pageContext.request.contextPath}/member/mypage/updatePhone.mpfc"
-				method="post">
+			<div class="main-container-section">
+				<div class="mypage-info-box">
+					<div class="mypage-info-title">아이디</div>
+					<div class="mypage-info-text">${memberMypageInfoDTO.userId}</div>
+				</div>
 
-				<div class="mypage-subtitle">회원정보 변경</div>
-				<div class="main-container-section-changeinfo">
+				<div class="mypage-info-box">
+					<div class="mypage-info-title">이름</div>
+					<div class="mypage-info-text">${memberMypageInfoDTO.userName}</div>
+				</div>
 
-					<div class="mypage-info-box">
-						<div class="mypage-info-title">아이디</div>
-						<div class="mypage-input-wrap">
-							<div class="mypage-info-text" id="member-id">${memberMypageInfoDTO.userId}</div>
-						</div>
-					</div>
+				<div class="mypage-info-box">
+					<div class="mypage-info-title">생년월일</div>
+					<div class="mypage-info-text">${memberMypageInfoDTO.memberDob}</div>
+				</div>
 
-					<div class="mypage-info-box">
-						<div class="mypage-info-title">전화번호</div>
-						<div class="mypage-input-wrap">
-							<input type="text" name="userPhone" class="mypage-info-text"
-								id="member-phonenumber"
-								value="${memberMypageInfoDTO.userPhone}"
-								placeholder="전화번호입력(-제외)"
-								maxlength="11"
-								required>
-							<div class="input-message" id="member-phonenumber-message">${phoneMessage}</div>
-						</div>
-						<button type="button" class="btn" id="member-phonenumber-submit-btn">전송</button>
-					</div>
-
-					<div class="mypage-info-box">
-						<div class="mypage-info-title">인증번호</div>
-						<div class="mypage-input-wrap">
-							<input type="text" name="authCode" class="mypage-info-text"
-								id="member-verificationcode"
-								placeholder="인증번호"
-								maxlength="6"
-								required disabled>
-							<div class="input-message" id="member-verificationcode-message">${authMessage}</div>
-						</div>
-						<button type="button" class="btn" id="member-verificationcode-btn">확인</button>
-					</div>
-
-					<div class="mypage-button-box">
-						<button type="submit" class="btn" id="mypage-infoedit-btn">수정</button>
-						<button type="button" class="btn" id="mypage-infoeditcancel-btn"
-							data-move-url="${pageContext.request.contextPath}/member/mypage.mpfc">취소</button>
+				<div class="mypage-info-box">
+					<div class="mypage-info-title">성별</div>
+					<div class="mypage-info-text">
+						<c:choose>
+							<c:when test="${memberMypageInfoDTO.memberGender eq 'M'}">남</c:when>
+							<c:when test="${memberMypageInfoDTO.memberGender eq 'F'}">여</c:when>
+							<c:otherwise>${memberMypageInfoDTO.memberGender}</c:otherwise>
+						</c:choose>
 					</div>
 				</div>
-			</form>
 
-			<!-- 비밀번호 변경 -->
-			<form id="member-password-form"
-				action="${pageContext.request.contextPath}/member/mypage/updatePw.mpfc"
-				method="post">
+				<div class="mypage-info-box">
+					<div class="mypage-info-title">전화번호</div>
+					<div class="mypage-info-text">${memberMypageInfoDTO.userPhone}</div>
+				</div>
 
-				<div class="mypage-subtitle">비밀번호 변경</div>
-				<div class="main-container-section-changeinfo">
-
-					<div class="mypage-info-box">
-						<div class="mypage-info-title">현재 비밀번호</div>
-						<div class="mypage-input-wrap">
-							<input type="password" name="currentUserPw"
-								class="mypage-info-text" id="member-current-pw" required>
-							<div class="input-message" id="member-current-pw-message">${currentPwMessage}</div>
-						</div>
+				<div class="mypage-info-box">
+					<div class="mypage-info-title">직군</div>
+					<div class="mypage-info-text">
+						<c:choose>
+							<c:when test="${not empty memberMypageInfoDTO.jobName}">
+								${memberMypageInfoDTO.jobName}
+							</c:when>
+							<c:otherwise>미판정</c:otherwise>
+						</c:choose>
 					</div>
+				</div>
 
-					<div class="mypage-info-box">
-						<div class="mypage-info-title">변경할 비밀번호</div>
-						<div class="mypage-input-wrap">
-							<input type="password" name="newUserPw"
-								class="mypage-info-text" id="member-change-pw" required>
-							<div class="input-message" id="member-change-pw-message">${newPwMessage}</div>
-						</div>
-					</div>
-
-					<div class="mypage-info-box">
-						<div class="mypage-info-title">변경할 비밀번호 확인</div>
-						<div class="mypage-input-wrap">
-							<input type="password" name="newUserPwConfirm"
-								class="mypage-info-text" id="member-check-pw" required>
-							<div class="input-message" id="member-check-pw-message">${newPwConfirmMessage}</div>
-						</div>
+				<div class="mypage-info-box">
+					<div class="mypage-info-title">직군판정일</div>
+					<div class="mypage-info-text">
+						<c:choose>
+							<c:when test="${not empty memberMypageInfoDTO.jobConfirmDate}">
+								${memberMypageInfoDTO.jobConfirmDate}
+							</c:when>
+							<c:otherwise>-</c:otherwise>
+						</c:choose>
 					</div>
 				</div>
 
 				<div class="mypage-button-box">
-					<button type="submit" class="btn" id="mypage-pwedit-btn">수정</button>
-					<button type="button" class="btn" id="mypage-pweditcancel-btn"
-						data-move-url="${pageContext.request.contextPath}/member/mypage.mpfc">취소</button>
+					<a
+						href="${pageContext.request.contextPath}/member/mypage/checkPw.mpfc"
+						class="btn" id="mypage-edit-btn">회원 정보 수정</a> <a
+						href="${pageContext.request.contextPath}/member/mypage/myQna.mpfc"
+						class="btn" id="mypage-mycommunity-check">내가 작성한 게시물 목록 확인</a>
 				</div>
-			</form>
-
-			<div class="member-quit-wrap">
-				<a href="${pageContext.request.contextPath}/member/mypage/quit.mpfc"
-					class="btn" id="member-quit">회원탈퇴</a>
 			</div>
 		</div>
 	</main>
+	<c:if test="${param.registerSuccess eq 'true'}">
+		<script>
+		alert("저장되었습니다.");
+	</script>
+	</c:if>
+
+	<c:if test="${param.editSuccess eq 'true'}">
+		<script>
+		alert("수정되었습니다.");
+	</script>
+	</c:if>
 </body>
 
 </html>

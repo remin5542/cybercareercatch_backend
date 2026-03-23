@@ -53,6 +53,9 @@ body{
   background-color:white;
 }
 
+#company-address{
+	width:350px;
+}
 input.mypage-info-text{
   outline:none;
 }

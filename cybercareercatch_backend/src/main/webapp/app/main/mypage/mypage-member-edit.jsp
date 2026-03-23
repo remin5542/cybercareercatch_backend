@@ -11,7 +11,9 @@
 
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/assets/css/main/mypage/mypage-member-edit.css">
-
+<script>
+	const contextPath = "${pageContext.request.contextPath}";
+</script>
 <script defer
 	src="${pageContext.request.contextPath}/assets/js/main/mypage/mypage-member-edit.js"></script>
 </head>
@@ -57,7 +59,7 @@
 								id="member-verificationcode"
 								placeholder="인증번호"
 								maxlength="6"
-								required>
+								required disabled>
 							<div class="input-message" id="member-verificationcode-message">${authMessage}</div>
 						</div>
 						<button type="button" class="btn" id="member-verificationcode-btn">확인</button>

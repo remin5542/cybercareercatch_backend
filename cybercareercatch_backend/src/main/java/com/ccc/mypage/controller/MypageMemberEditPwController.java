@@ -119,7 +119,7 @@ public class MypageMemberEditPwController implements Execute {
 		session.removeAttribute("memberPwChecked");
 
 		// 수정 후 마이페이지로 이동
-		result.setPath(request.getContextPath() + "/member/mypage.mpfc");
+		result.setPath(request.getContextPath() + "/member/mypage.mpfc?editSuccess=true");
 		result.setRedirect(true);
 
 		return result;

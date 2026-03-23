@@ -26,8 +26,6 @@ public class MypageCompanyEditPhonenumController implements Execute {
 		Integer userNumber = (Integer) session.getAttribute("userNumber");
 		String userType = (String) session.getAttribute("userType");
 
-		session.setAttribute("userNumber", 1);
-		session.setAttribute("userType", "일반회원");
 		
 		//테스트용 - 삭제
 		session.setAttribute("userNumber", 51);
@@ -100,7 +98,7 @@ public class MypageCompanyEditPhonenumController implements Execute {
 		session.removeAttribute("verificationCode");
 		session.removeAttribute("companyPwChecked");
 
-		result.setPath(request.getContextPath() + "/company/mypage.mpfc");
+		result.setPath(request.getContextPath() + "/company/mypage.mpfc?editSuccess=true");
 		result.setRedirect(true);
 
 		return result;

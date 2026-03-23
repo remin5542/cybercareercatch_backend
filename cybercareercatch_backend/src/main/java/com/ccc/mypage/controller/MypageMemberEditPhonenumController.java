@@ -89,7 +89,7 @@ public class MypageMemberEditPhonenumController implements Execute {
 		session.removeAttribute("verificationCode");
 		session.removeAttribute("memberPwChecked");
 
-		result.setPath(request.getContextPath() + "/member/mypage.mpfc");
+		result.setPath(request.getContextPath() + "/member/mypage.mpfc?editSuccess=true");
 		result.setRedirect(true);
 
 		return result;
