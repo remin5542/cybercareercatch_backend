@@ -305,3 +305,36 @@ html {
 .qna-delete button:hover {
 	background: #c86b6b;
 }
+
+/* ===== 긴 글 입력/출력 시 가로로 안 밀리고 아래로 줄바꿈 ===== */
+
+.qna-content {
+	min-width: 0;
+}
+
+#notice-box {
+	min-width: 0;
+	max-width: 100%;
+	white-space: pre-wrap;
+	word-break: break-word;
+	overflow-wrap: anywhere;
+}
+
+.qna-table,
+.qna-row,
+.qna-row > div {
+	min-width: 0;
+}
+
+.qna-row > div {
+	white-space: normal;
+	word-break: break-word;
+	overflow-wrap: anywhere;
+}
+
+.col2 {
+	min-width: 0;
+	white-space: normal;
+	word-break: break-word;
+	overflow-wrap: anywhere;
+}

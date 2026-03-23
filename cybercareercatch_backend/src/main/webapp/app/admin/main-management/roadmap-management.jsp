@@ -233,7 +233,92 @@ if (session.getAttribute("adminNumber") == null) {
 		</main>
 	</div>
 
-	<script
-		src="${pageContext.request.contextPath}/assets/js/admin/main-management/roadmap-management.js"></script>
+	<script>
+		function getByteLength(value) {
+			return new TextEncoder().encode(value).length;
+		}
+
+		function isOverLimit(selector, maxByte) {
+			const elements = document.querySelectorAll(selector);
+
+			for (let i = 0; i < elements.length; i++) {
+				const element = elements[i];
+				const value = element.value == null ? "" : element.value.trim();
+
+				if (value !== "" && getByteLength(value) > maxByte) {
+					alert("글자 수 초과하셨습니다.");
+					element.focus();
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		document.addEventListener("DOMContentLoaded", function() {
+			const roadmapForm = document.getElementById("roadmapForm");
+			const resetBtn = document.getElementById("roadmapResetBtn");
+			const textareas = document.querySelectorAll(".rm-textarea");
+
+			function resizeTextarea(textarea) {
+				textarea.style.height = "auto";
+				textarea.style.height = textarea.scrollHeight + "px";
+			}
+
+			textareas.forEach(function(textarea) {
+				resizeTextarea(textarea);
+
+				textarea.addEventListener("input", function() {
+					resizeTextarea(textarea);
+				});
+			});
+
+			if (roadmapForm) {
+				roadmapForm.addEventListener("submit", function(e) {
+					if (isOverLimit("input[name='roadmapImagePath']", 500)) {
+						e.preventDefault();
+						return;
+					}
+
+					if (isOverLimit("input[name^='roadmapJobName']", 100)) {
+						e.preventDefault();
+						return;
+					}
+
+					if (isOverLimit("textarea[name^='roadmapJobDesc']", 4000)) {
+						e.preventDefault();
+						return;
+					}
+
+					if (isOverLimit("input[name^='skillName']", 100)) {
+						e.preventDefault();
+						return;
+					}
+
+					if (isOverLimit("textarea[name^='skillDesc']", 4000)) {
+						e.preventDefault();
+						return;
+					}
+
+					if (isOverLimit("input[name^='recName']", 200)) {
+						e.preventDefault();
+						return;
+					}
+
+					if (!confirm("로드맵 내용을 수정하시겠습니까?")) {
+						e.preventDefault();
+					}
+				});
+			}
+
+			if (resetBtn) {
+				resetBtn.addEventListener("click", function(e) {
+					if (!confirm("입력한 내용을 초기화하시겠습니까?")) {
+						e.preventDefault();
+					}
+				});
+			}
+		});
+	</script>
 </body>
 </html>

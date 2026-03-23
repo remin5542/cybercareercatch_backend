@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
-/*
- * 로그인하지 않은 관리자는
- * 기업회원 승인/반려 상세 페이지에 접근할 수 없도록 막는다.
- */
 if (session.getAttribute("adminNumber") == null) {
 	response.sendRedirect(request.getContextPath() + "/admin/login.adfc");
 	return;
@@ -22,7 +19,6 @@ if (session.getAttribute("adminNumber") == null) {
 <div class="company-checkdetail-container">
 
 	<header class="company-checkdetail-header">
-
 		<div class="company-checkdetail-title">
 			<a href="${pageContext.request.contextPath}/admin/main.adfc">관리자 페이지</a>
 		</div>
@@ -34,14 +30,11 @@ if (session.getAttribute("adminNumber") == null) {
 		</nav>
 
 		<a href="${pageContext.request.contextPath}/admin/logout.adfc" class="company-checkdetail-logout">로그아웃</a>
-
 	</header>
 
 	<main class="company-checkdetail-main">
 
-		<!-- 왼쪽 사이드바 -->
 		<aside class="company-checkdetail-sidebar">
-
 			<div class="company-checkdetail-sidebar-item">
 				<a href="${pageContext.request.contextPath}/admin/memberInfo.adfc">일반회원 정보 조회</a>
 			</div>
@@ -53,13 +46,12 @@ if (session.getAttribute("adminNumber") == null) {
 			<div class="company-checkdetail-sidebar-item">
 				<a href="${pageContext.request.contextPath}/app/admin/member-management/recruiter-info.jsp">기업회원 정보 조회</a>
 			</div>
-				<div class="company-checkdetail-sidebar-item">
-					<a href="${pageContext.request.contextPath}/admin/jobCheck.adfc">질의문
-						답변 조회</a>
-				</div>
+
+			<div class="company-checkdetail-sidebar-item">
+				<a href="${pageContext.request.contextPath}/admin/jobCheck.adfc">질의문 답변 조회</a>
+			</div>
 		</aside>
 
-		<!-- 오른쪽 콘텐츠 -->
 		<section class="company-checkdetail-content">
 
 			<div class="company-checkdetail-top">
@@ -171,23 +163,48 @@ if (session.getAttribute("adminNumber") == null) {
 
 			</div>
 
-			<!-- 승인 / 반려 버튼 -->
 			<form action="${pageContext.request.contextPath}/admin/updateCompanyState.adfc" method="post" class="company-checkdetail-btn-wrap">
 				<input type="hidden" name="companyNumber" value="${companyDetail.companyNumber}">
 
-				<button type="submit"
-						name="companyState"
-						value="승인"
-						class="company-checkdetail-btn company-checkdetail-approve-btn">
-					승인
-				</button>
+				<c:choose>
+					<c:when test="${companyDetail.companyState eq '승인'}">
+						<button type="submit"
+								name="companyState"
+								value="반려"
+								class="company-checkdetail-btn company-checkdetail-reject-btn"
+								onclick="return confirm('이 기업을 반려 처리하시겠습니까?');">
+							반려
+						</button>
+					</c:when>
 
-				<button type="submit"
-						name="companyState"
-						value="반려"
-						class="company-checkdetail-btn company-checkdetail-reject-btn">
-					반려
-				</button>
+					<c:when test="${companyDetail.companyState eq '반려'}">
+						<button type="submit"
+								name="companyState"
+								value="승인"
+								class="company-checkdetail-btn company-checkdetail-approve-btn"
+								onclick="return confirm('이 기업을 승인 처리하시겠습니까?');">
+							승인
+						</button>
+					</c:when>
+
+					<c:otherwise>
+						<button type="submit"
+								name="companyState"
+								value="승인"
+								class="company-checkdetail-btn company-checkdetail-approve-btn"
+								onclick="return confirm('이 기업을 승인 처리하시겠습니까?');">
+							승인
+						</button>
+
+						<button type="submit"
+								name="companyState"
+								value="반려"
+								class="company-checkdetail-btn company-checkdetail-reject-btn"
+								onclick="return confirm('이 기업을 반려 처리하시겠습니까?');">
+							반려
+						</button>
+					</c:otherwise>
+				</c:choose>
 			</form>
 
 		</section>
@@ -195,5 +212,18 @@ if (session.getAttribute("adminNumber") == null) {
 	</main>
 
 </div>
+
+<c:if test="${param.result eq 'approve'}">
+	<script>
+		alert("승인 완료하셨습니다");
+	</script>
+</c:if>
+
+<c:if test="${param.result eq 'reject'}">
+	<script>
+		alert("반려 완료했습니다");
+	</script>
+</c:if>
+
 </body>
 </html>

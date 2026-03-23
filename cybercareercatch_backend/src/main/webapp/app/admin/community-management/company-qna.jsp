@@ -185,6 +185,30 @@ if (session.getAttribute("adminNumber") == null) {
 	</div>
 
 	<script src="${pageContext.request.contextPath}/assets/js/admin/main-management/company-qna.js"></script>
+	<script>
+		function getByteLength(value) {
+			return new TextEncoder().encode(value).length;
+		}
+
+		document.addEventListener("DOMContentLoaded", function() {
+			const qnaNoticeForm = document.getElementById("qnaNoticeForm");
+			const noticeBox = document.getElementById("notice-box");
+
+			if (!qnaNoticeForm || !noticeBox) {
+				return;
+			}
+
+			qnaNoticeForm.addEventListener("submit", function(event) {
+				const content = noticeBox.value.trim();
+
+				if (content !== "" && getByteLength(content) > 4000) {
+					alert("글자 수 초과하셨습니다.");
+					noticeBox.focus();
+					event.preventDefault();
+				}
+			});
+		});
+	</script>
 </body>
 
 </html>

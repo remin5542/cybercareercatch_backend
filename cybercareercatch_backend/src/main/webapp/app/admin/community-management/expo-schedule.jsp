@@ -63,7 +63,7 @@ if (session.getAttribute("adminNumber") == null) {
 				</div>
 
 				<form action="${pageContext.request.contextPath}/admin/insertExpo.adfc"
-					method="post" class="expoSchedule-addForm">
+					method="post" class="expoSchedule-addForm" id="expoInsertForm">
 
 					<div class="expoSchedule-formTitle">박람회 추가</div>
 
@@ -168,6 +168,46 @@ if (session.getAttribute("adminNumber") == null) {
 		</main>
 
 	</div>
+
+	<script>
+		function getByteLength(value) {
+			return new TextEncoder().encode(value).length;
+		}
+
+		document.addEventListener("DOMContentLoaded", function() {
+			const expoInsertForm = document.getElementById("expoInsertForm");
+
+			if (!expoInsertForm) {
+				return;
+			}
+
+			expoInsertForm.addEventListener("submit", function(event) {
+				const expoNameInput = expoInsertForm.querySelector("input[name='expoName']");
+				const locationInput = expoInsertForm.querySelector("input[name='location']");
+
+				if (expoNameInput) {
+					const expoName = expoNameInput.value.trim();
+
+					if (expoName !== "" && getByteLength(expoName) > 100) {
+						alert("글자 수 초과하셨습니다.");
+						expoNameInput.focus();
+						event.preventDefault();
+						return;
+					}
+				}
+
+				if (locationInput) {
+					const location = locationInput.value.trim();
+
+					if (location !== "" && getByteLength(location) > 200) {
+						alert("글자 수 초과하셨습니다.");
+						locationInput.focus();
+						event.preventDefault();
+					}
+				}
+			});
+		});
+	</script>
 </body>
 
 </html>

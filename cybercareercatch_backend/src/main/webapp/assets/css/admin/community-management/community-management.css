@@ -264,3 +264,36 @@
 .qnaMgmt-del button:hover {
 	background: #c56464;
 }
+
+/* ===== 긴 글 입력/출력 시 가로로 안 밀리고 아래로 줄바꿈 ===== */
+
+.qnaMgmt-ct {
+	min-width: 0;
+}
+
+#free-notice-box {
+	min-width: 0;
+	max-width: 100%;
+	white-space: pre-wrap;
+	word-break: break-word;
+	overflow-wrap: anywhere;
+}
+
+.qnaMgmt-table,
+.qnaMgmt-row,
+.qnaMgmt-row > div {
+	min-width: 0;
+}
+
+.qnaMgmt-row > div {
+	white-space: normal;
+	word-break: break-word;
+	overflow-wrap: anywhere;
+}
+
+.col2 {
+	min-width: 0;
+	white-space: normal;
+	word-break: break-word;
+	overflow-wrap: anywhere;
+}

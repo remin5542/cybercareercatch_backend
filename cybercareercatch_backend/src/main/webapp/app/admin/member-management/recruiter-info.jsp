@@ -73,7 +73,8 @@ if (session.getAttribute("adminNumber") == null) {
 
 				<form
 					action="${pageContext.request.contextPath}/admin/recruiterInfo.adfc"
-					method="get" class="recruiter-info-search-box">
+					method="get" class="recruiter-info-search-box" id="recruiterSearchForm"
+					onsubmit="return validateRecruiterSearch();">
 					<span class="recruiter-info-search-label">- 검색</span> <select
 						class="recruiter-info-search-select" name="keywordType">
 						<option value="userName"
@@ -184,6 +185,29 @@ if (session.getAttribute("adminNumber") == null) {
 	</div>
 
 	<script>
+		function getByteLength(value) {
+			return new TextEncoder().encode(value).length;
+		}
+
+		function validateRecruiterSearch() {
+			const keywordInput = document
+					.querySelector("#recruiterSearchForm input[name='keyword']");
+
+			if (!keywordInput) {
+				return true;
+			}
+
+			const keyword = keywordInput.value.trim();
+
+			if (keyword !== "" && getByteLength(keyword) > 20) {
+				alert("글자 수 초과하셨습니다.");
+				keywordInput.focus();
+				return false;
+			}
+
+			return true;
+		}
+
 		function validateRecruiterDelete() {
 			const checkedList = document
 					.querySelectorAll("input[name='userNumber']:checked");

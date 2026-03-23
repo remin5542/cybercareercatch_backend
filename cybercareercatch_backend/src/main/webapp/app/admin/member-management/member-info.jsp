@@ -74,7 +74,8 @@ if (session.getAttribute("adminNumber") == null) {
 
 				<form
 					action="${pageContext.request.contextPath}/admin/memberInfo.adfc"
-					method="get" class="member-info-search-box">
+					method="get" class="member-info-search-box" id="memberSearchForm"
+					onsubmit="return validateMemberSearch();">
 					<span class="member-info-search-label">- 검색</span> <select
 						class="member-info-search-select" name="keywordType">
 						<option value="userName"
@@ -184,6 +185,29 @@ if (session.getAttribute("adminNumber") == null) {
 	</div>
 
 	<script>
+		function getByteLength(value) {
+			return new TextEncoder().encode(value).length;
+		}
+
+		function validateMemberSearch() {
+			const keywordInput = document
+					.querySelector("#memberSearchForm input[name='keyword']");
+
+			if (!keywordInput) {
+				return true;
+			}
+
+			const keyword = keywordInput.value.trim();
+
+			if (keyword !== "" && getByteLength(keyword) > 20) {
+				alert("글자 수 초과하셨습니다.");
+				keywordInput.focus();
+				return false;
+			}
+
+			return true;
+		}
+
 		function validateMemberDelete() {
 			const checkedList = document
 					.querySelectorAll("input[name='userNumber']:checked");

@@ -63,7 +63,8 @@ if (session.getAttribute("adminNumber") == null) {
 				</div>
 
 				<form action="${pageContext.request.contextPath}/admin/companyInfoListOk.adfc"
-					method="get" class="companyInfo-searchForm">
+					method="get" class="companyInfo-searchForm" id="companyInfoSearchForm"
+					onsubmit="return validateCompanyInfoSearch();">
 					<div class="companyInfo-search">
 						<input type="text" name="keyword" value="${keyword}" placeholder="기업명 검색">
 						<button type="submit">검색</button>
@@ -152,8 +153,53 @@ if (session.getAttribute("adminNumber") == null) {
 		</main>
 	</div>
 
-	<script
-		src="${pageContext.request.contextPath}/assets/js/admin/main-management/company-info.js"></script>
+	<script>
+		function getByteLength(value) {
+			return new TextEncoder().encode(value).length;
+		}
+
+		function validateCompanyInfoSearch() {
+			const keywordInput = document
+					.querySelector("#companyInfoSearchForm input[name='keyword']");
+
+			if (!keywordInput) {
+				return true;
+			}
+
+			const keyword = keywordInput.value.trim();
+
+			if (keyword !== "" && getByteLength(keyword) > 30) {
+				alert("글자 수 초과하셨습니다.");
+				keywordInput.focus();
+				return false;
+			}
+
+			return true;
+		}
+
+		document.addEventListener("DOMContentLoaded", function() {
+			const deleteForm = document.getElementById("companyDeleteForm");
+
+			if (!deleteForm) {
+				return;
+			}
+
+			deleteForm.addEventListener("submit", function(event) {
+				const checkedList = deleteForm
+						.querySelectorAll("input[name='companyNumber']:checked");
+
+				if (checkedList.length === 0) {
+					alert("삭제할 기업 정보페이지를 선택하세요.");
+					event.preventDefault();
+					return;
+				}
+
+				if (!confirm("선택한 기업 정보페이지를 삭제하시겠습니까?")) {
+					event.preventDefault();
+				}
+			});
+		});
+	</script>
 </body>
 
 </html>

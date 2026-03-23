@@ -167,6 +167,31 @@ if (session.getAttribute("adminNumber") == null) {
 		</main>
 
 	</div>
+
+	<script>
+		function getByteLength(value) {
+			return new TextEncoder().encode(value).length;
+		}
+
+		document.addEventListener("DOMContentLoaded", function() {
+			const freeNoticeForm = document.getElementById("freeNoticeForm");
+			const freeNoticeBox = document.getElementById("free-notice-box");
+
+			if (!freeNoticeForm || !freeNoticeBox) {
+				return;
+			}
+
+			freeNoticeForm.addEventListener("submit", function(event) {
+				const content = freeNoticeBox.value.trim();
+
+				if (content !== "" && getByteLength(content) > 4000) {
+					alert("글자 수 초과하셨습니다.");
+					freeNoticeBox.focus();
+					event.preventDefault();
+				}
+			});
+		});
+	</script>
 </body>
 
 </html>
