@@ -35,7 +35,7 @@
 
 	<!-- 직군검사 결과 1건 생성 -->
 	<insert id="insertMainJobResult"
-		parameterType="com.ccc.job.dto.JobTestResultDTO">
+		parameterType="JobTestResultDTO">
 		<selectKey keyProperty="jobResultNumber" resultType="int"
 			order="BEFORE">
 			SELECT SEQ_JOB_RESULT.NEXTVAL
@@ -50,7 +50,7 @@
 		) VALUES (
 		#{jobResultNumber},
 		#{userNumber},
-		'진행중',
+		'제출완료',
 		SYSDATE
 		)
 	</insert>

@@ -24,15 +24,19 @@ public class MainpageAnswerOkController implements Execute {
 		MainpageDAO mainpageDAO = new MainpageDAO();
 		Result result = new Result();
 		HttpSession session = request.getSession();
+		
+		System.out.println("session: " + session);
+		System.out.println("userNumber: " + (session != null ? session.getAttribute("userNumber") : "null"));
+		System.out.println("userType: " + (session != null ? session.getAttribute("userType") : "null"));
 
-		Object memberNumberObj = session.getAttribute("memberNumber");
-		if (memberNumberObj == null) {
+		Object userNumberObj = session.getAttribute("userNumber");
+		if (userNumberObj == null) {
 			result.setRedirect(true);
 			result.setPath(request.getContextPath() + "/mainpage/mainpage.mafc?loginRequired=true");
 			return result;
 		}
 
-		int userNumber = Integer.parseInt(String.valueOf(memberNumberObj));
+		int userNumber = Integer.parseInt(String.valueOf(userNumberObj));
 
 		if (!mainpageDAO.isGeneralMember(userNumber)) {
 			result.setRedirect(true);

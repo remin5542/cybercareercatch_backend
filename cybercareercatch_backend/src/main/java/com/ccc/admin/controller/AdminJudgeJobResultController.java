@@ -38,6 +38,10 @@ public class AdminJudgeJobResultController implements Execute {
 
 		// 직군 판정을 저장한다.
 		jobDAO.judgeJobResult(jobResultDTO);
+		
+		// TBL_MEMBER의 JOB_NUMBER 업데이트
+		int userNumber = jobDAO.selectUserNumberByJobResultNumber(jobResultNumber);
+		jobDAO.updateMemberJobNumber(userNumber, jobNumber);
 
 		// 저장 후 다시 상세 페이지로 이동한다.
 		result.setPath(request.getContextPath() + "/admin/jobCheckDetail.adfc?jobResultNumber=" + jobResultNumber);

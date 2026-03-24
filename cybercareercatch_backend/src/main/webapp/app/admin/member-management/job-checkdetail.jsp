@@ -23,13 +23,17 @@ if (session.getAttribute("adminNumber") == null) {
 
 		<header class="job-checkdetail-header">
 			<div class="job-checkdetail-title">
-				<a href="${pageContext.request.contextPath}/admin/main.adfc">관리자 페이지</a>
+				<a href="${pageContext.request.contextPath}/admin/main.adfc">관리자
+					페이지</a>
 			</div>
 
 			<nav class="job-checkdetail-menu">
-				<a href="${pageContext.request.contextPath}/admin/memberInfo.adfc">회원 관리</a>
-				<a href="${pageContext.request.contextPath}/admin/insertQuestion.adfc">메인 관리</a>
-				<a href="${pageContext.request.contextPath}/app/admin/community-management/expo-schedule.jsp">커뮤니티 관리</a>
+				<a href="${pageContext.request.contextPath}/admin/memberInfo.adfc">회원
+					관리</a> <a
+					href="${pageContext.request.contextPath}/admin/insertQuestion.adfc">메인
+					관리</a> <a
+					href="${pageContext.request.contextPath}/app/admin/community-management/expo-schedule.jsp">커뮤니티
+					관리</a>
 			</nav>
 
 			<a href="${pageContext.request.contextPath}/admin/logout.adfc"
@@ -40,19 +44,25 @@ if (session.getAttribute("adminNumber") == null) {
 
 			<aside class="job-checkdetail-sidebar">
 				<div class="job-checkdetail-sidebar-item">
-					<a href="${pageContext.request.contextPath}/admin/memberInfo.adfc">일반회원 정보 조회</a>
+					<a href="${pageContext.request.contextPath}/admin/memberInfo.adfc">일반회원
+						정보 조회</a>
 				</div>
 
 				<div class="job-checkdetail-sidebar-item">
-					<a href="${pageContext.request.contextPath}/admin/companyCheck.adfc">기업회원 승인, 반려</a>
+					<a
+						href="${pageContext.request.contextPath}/admin/companyCheck.adfc">기업회원
+						승인, 반려</a>
 				</div>
 
 				<div class="job-checkdetail-sidebar-item">
-					<a href="${pageContext.request.contextPath}/admin/recruiterInfo.adfc">기업회원 정보 조회</a>
+					<a
+						href="${pageContext.request.contextPath}/admin/recruiterInfo.adfc">기업회원
+						정보 조회</a>
 				</div>
 
 				<div class="job-checkdetail-sidebar-item job-checkdetail-active">
-					<a href="${pageContext.request.contextPath}/admin/jobCheck.adfc">질의문 답변 조회</a>
+					<a href="${pageContext.request.contextPath}/admin/jobCheck.adfc">질의문
+						답변 조회</a>
 				</div>
 			</aside>
 
@@ -119,48 +129,57 @@ if (session.getAttribute("adminNumber") == null) {
 						<c:forEach var="detail" items="${detailList}">
 							<div class="job-checkdetail-question">
 								<div class="job-checkdetail-qtitle">
-									Q${detail.jobQuestionNumber}
-								</div>
+									Q${detail.jobQuestionNumber}</div>
 
 								<div class="job-checkdetail-qcontent">
-									${detail.jobQuestionContentSnapshot}
-								</div>
+									${detail.jobQuestionContentSnapshot}</div>
 
 								<div class="job-checkdetail-acontent">
-									${detail.answerContent}
-								</div>
+									${detail.answerContent}</div>
 							</div>
 						</c:forEach>
+						<c:choose>
+							<c:when test="${isLatest}">
+								<form
+									action="${pageContext.request.contextPath}/admin/judgeJobResult.adfc"
+									method="post" id="judgeForm">
 
-						<form action="${pageContext.request.contextPath}/admin/judgeJobResult.adfc"
-							method="post" id="judgeForm">
+									<input type="hidden" name="jobResultNumber"
+										value="${detailInfo.jobResultNumber}">
 
-							<input type="hidden" name="jobResultNumber"
-								value="${detailInfo.jobResultNumber}">
+									<div class="job-checkdetail-jobbox">
+										<div class="job-checkdetail-jobtitle">직군 판정</div>
 
-							<div class="job-checkdetail-jobbox">
-								<div class="job-checkdetail-jobtitle">직군 판정</div>
+										<c:forEach var="jobGroup" items="${jobGroupList}">
+											<label class="job-checkdetail-radio"> <input
+												type="radio" name="jobNumber" value="${jobGroup.jobNumber}"
+												<c:if test="${detailInfo.jobName eq jobGroup.jobName}">checked="checked"</c:if>>
+												${jobGroup.jobName}
+											</label>
+										</c:forEach>
+									</div>
 
-								<c:forEach var="jobGroup" items="${jobGroupList}">
-									<label class="job-checkdetail-radio">
-										<input type="radio" name="jobNumber"
-											value="${jobGroup.jobNumber}"
-											<c:if test="${detailInfo.jobName eq jobGroup.jobName}">checked="checked"</c:if>>
-										${jobGroup.jobName}
-									</label>
-								</c:forEach>
-							</div>
-
-							<div class="job-checkdetail-btnbox">
-								<a href="${pageContext.request.contextPath}/admin/jobCheck.adfc"
-									class="job-checkdetail-back">목록으로</a>
-								<button type="submit" class="job-checkdetail-save">판정 저장</button>
-							</div>
-						</form>
-
+									<div class="job-checkdetail-btnbox">
+										<a
+											href="${pageContext.request.contextPath}/admin/jobCheck.adfc"
+											class="job-checkdetail-back">목록으로</a>
+										<button type="submit" class="job-checkdetail-save">판정
+											저장</button>
+									</div>
+								</form>
+							</c:when>
+							<c:otherwise>
+								<div class="job-checkdetail-btnbox">
+									<a
+										href="${pageContext.request.contextPath}/admin/jobCheck.adfc"
+										class="job-checkdetail-back">목록으로</a> <span
+										style="color: #999; font-size: 14px;">※ 최신 검사 결과에서만 판정
+										가능합니다.</span>
+								</div>
+							</c:otherwise>
+						</c:choose>
 					</c:otherwise>
 				</c:choose>
-
 			</section>
 
 		</main>
@@ -173,7 +192,8 @@ if (session.getAttribute("adminNumber") == null) {
 
 			if (judgeForm) {
 				judgeForm.addEventListener("submit", function(e) {
-					const checkedRadio = document.querySelector("input[name='jobNumber']:checked");
+					const checkedRadio = document
+							.querySelector("input[name='jobNumber']:checked");
 
 					if (!checkedRadio) {
 						alert("직군을 선택해주세요.");

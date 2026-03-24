@@ -1,16 +1,17 @@
 package com.ccc.job.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
 import com.ccc.admin.dto.AdminJobResultDetailDTO;
+import com.ccc.common.config.MyBatisConfig;
 import com.ccc.job.dto.JobGroupDTO;
 import com.ccc.job.dto.JobRecommendQuestionDTO;
 import com.ccc.job.dto.JobResultDTO;
 import com.ccc.job.dto.JobTestResultDTO;
-import com.ccc.common.config.MyBatisConfig;
 
 public class JobDAO {
 	public SqlSession sqlSession;
@@ -62,5 +63,20 @@ public class JobDAO {
 	// 직군 판정
 	public void judgeJobResult(JobResultDTO jobResultDTO) {
 		sqlSession.update("job.judgeJobResult", jobResultDTO);
+	}
+	
+	public int selectUserNumberByJobResultNumber(int jobResultNumber) {
+	    return sqlSession.selectOne("job.selectUserNumberByJobResultNumber", jobResultNumber);
+	}
+	
+	public void updateMemberJobNumber(int userNumber, int jobNumber) {
+	    Map<String, Object> map = new HashMap<>();
+	    map.put("userNumber", userNumber);
+	    map.put("jobNumber", jobNumber);
+	    sqlSession.update("job.updateMemberJobNumber", map);
+	}
+	
+	public int selectLatestJobResultNumber(int userNumber) {
+	    return sqlSession.selectOne("job.selectLatestJobResultNumber", userNumber);
 	}
 }

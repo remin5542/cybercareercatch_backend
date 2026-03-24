@@ -39,10 +39,15 @@ public class AdminJobCheckDetailController implements Execute {
 		if (detailList != null && !detailList.isEmpty()) {
 			detailInfo = detailList.get(0);
 		}
+		
+		// 가장 최근에 작성된 직군 검사 확인 여부
+		int latestJobResultNumber = jobDAO.selectLatestJobResultNumber(detailInfo.getUserNumber());
+		boolean isLatest = (jobResultNumber == latestJobResultNumber);
 
 		request.setAttribute("detailList", detailList);
 		request.setAttribute("detailInfo", detailInfo);
 		request.setAttribute("jobGroupList", jobGroupList);
+		request.setAttribute("isLatest", isLatest);
 
 		result.setPath("/app/admin/member-management/job-checkdetail.jsp");
 		result.setRedirect(false);

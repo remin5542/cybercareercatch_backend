@@ -8,50 +8,60 @@
 	<!-- 직군 목록 조회 -->
 	<select id="selectJobGroupList" resultType="JobGroupDTO">
 		SELECT
-			JOB_NUMBER,
-			JOB_NAME
+		JOB_NUMBER,
+		JOB_NAME
 		FROM TBL_JOB_GROUP
 		ORDER BY JOB_NUMBER
 	</select>
 
 	<!-- 질의문 목록 조회 -->
-	<select id="selectQuestionList" resultType="JobRecommendQuestionDTO">
+	<select id="selectQuestionList"
+		resultType="JobRecommendQuestionDTO">
 		SELECT
-			JOB_QUESTION_NUMBER,
-			JOB_QUESTION_CONTENT
-		FROM TBL_JOB_RECOMMEND_QUESTION
+		JOB_QUESTION_NUMBER,
+		JOB_QUESTION_CONTENT
+		FROM
+		TBL_JOB_RECOMMEND_QUESTION
 		ORDER BY JOB_QUESTION_NUMBER
 	</select>
 
 	<!-- 질의문 단건 조회 -->
-	<select id="selectQuestion" parameterType="int" resultType="JobRecommendQuestionDTO">
+	<select id="selectQuestion" parameterType="int"
+		resultType="JobRecommendQuestionDTO">
 		SELECT
-			JOB_QUESTION_NUMBER,
-			JOB_QUESTION_CONTENT
-		FROM TBL_JOB_RECOMMEND_QUESTION
-		WHERE JOB_QUESTION_NUMBER = #{jobQuestionNumber}
+		JOB_QUESTION_NUMBER,
+		JOB_QUESTION_CONTENT
+		FROM
+		TBL_JOB_RECOMMEND_QUESTION
+		WHERE JOB_QUESTION_NUMBER =
+		#{jobQuestionNumber}
 	</select>
 
 	<!-- 질의문 작성 -->
-	<insert id="insertQuestion" parameterType="JobRecommendQuestionDTO">
+	<insert id="insertQuestion"
+		parameterType="JobRecommendQuestionDTO">
 		INSERT INTO TBL_JOB_RECOMMEND_QUESTION (
-			JOB_QUESTION_NUMBER,
-			JOB_QUESTION_CONTENT
+		JOB_QUESTION_NUMBER,
+		JOB_QUESTION_CONTENT
 		) VALUES (
-			#{jobQuestionNumber},
-			#{jobQuestionContent}
+		#{jobQuestionNumber},
+		#{jobQuestionContent}
 		)
 	</insert>
 
 	<!-- 질의문 수정 -->
-	<update id="updateQuestion" parameterType="JobRecommendQuestionDTO">
+	<update id="updateQuestion"
+		parameterType="JobRecommendQuestionDTO">
 		UPDATE TBL_JOB_RECOMMEND_QUESTION
-		SET JOB_QUESTION_CONTENT = #{jobQuestionContent}
-		WHERE JOB_QUESTION_NUMBER = #{jobQuestionNumber}
+		SET
+		JOB_QUESTION_CONTENT = #{jobQuestionContent}
+		WHERE JOB_QUESTION_NUMBER
+		= #{jobQuestionNumber}
 	</update>
 
 	<!-- 관리자 질의문 답변 목록 조회 -->
-	<select id="selectJobResultList" parameterType="map" resultType="JobTestResultDTO">
+	<select id="selectJobResultList" parameterType="map"
+		resultType="JobTestResultDTO">
 		<![CDATA[
 		SELECT * FROM (
 			SELECT ROWNUM AS RNUM, A.*
@@ -79,32 +89,40 @@
 
 	<!-- 관리자 질의문 답변 총 개수 -->
 	<select id="getJobResultTotal" resultType="int">
-		SELECT COUNT(JOB_RESULT_NUMBER)
+		SELECT
+		COUNT(JOB_RESULT_NUMBER)
 		FROM TBL_JOB_RESULT
 	</select>
 
 	<!-- 관리자 질의문 답변 상세 조회 -->
-	<select id="selectJobResultDetail" parameterType="int" resultType="AdminJobResultDetailDTO">
+	<select id="selectJobResultDetail" parameterType="int"
+		resultType="AdminJobResultDetailDTO">
 		SELECT
-			JR.JOB_RESULT_NUMBER,
-			JR.USER_NUMBER,
-			U.USER_NAME,
-			U.USER_ID,
-			JR.JOB_RESULT_STATUS,
-			JG.JOB_NAME,
-			JR.JOB_RESULT_CREATED_DATE,
-			JR.JOB_RESULT_CONFIRM_DATE,
-			JRA.JOB_QUESTION_NUMBER,
-			JRA.JOB_QUESTION_CONTENT_SNAPSHOT,
-			JRA.ANSWER_CONTENT
+		JR.JOB_RESULT_NUMBER,
+		JR.USER_NUMBER,
+		U.USER_NAME,
+		U.USER_ID,
+		JR.JOB_RESULT_STATUS,
+		JG.JOB_NAME,
+		JR.JOB_RESULT_CREATED_DATE,
+		JR.JOB_RESULT_CONFIRM_DATE,
+		JRA.JOB_QUESTION_NUMBER,
+		JRA.JOB_QUESTION_CONTENT_SNAPSHOT,
+		JRA.ANSWER_CONTENT
 		FROM TBL_JOB_RESULT JR
 		JOIN TBL_USER U
-		ON JR.USER_NUMBER = U.USER_NUMBER
+		ON
+		JR.USER_NUMBER = U.USER_NUMBER
 		LEFT JOIN TBL_JOB_GROUP JG
-		ON JR.JOB_NUMBER = JG.JOB_NUMBER
-		JOIN TBL_JOB_RESULT_ANSWER JRA
-		ON JR.JOB_RESULT_NUMBER = JRA.JOB_RESULT_NUMBER
-		WHERE JR.JOB_RESULT_NUMBER = #{jobResultNumber}
+		ON
+		JR.JOB_NUMBER = JG.JOB_NUMBER
+		JOIN
+		TBL_JOB_RESULT_ANSWER JRA
+		ON
+		JR.JOB_RESULT_NUMBER =
+		JRA.JOB_RESULT_NUMBER
+		WHERE JR.JOB_RESULT_NUMBER
+		= #{jobResultNumber}
 		ORDER BY JRA.JOB_QUESTION_NUMBER
 	</select>
 
@@ -112,9 +130,39 @@
 	<update id="judgeJobResult" parameterType="JobResultDTO">
 		UPDATE TBL_JOB_RESULT
 		SET JOB_NUMBER = #{jobNumber},
-			JOB_RESULT_STATUS = '판정완료',
-			JOB_RESULT_CONFIRM_DATE = SYSDATE
-		WHERE JOB_RESULT_NUMBER = #{jobResultNumber}
+		JOB_RESULT_STATUS = '판정완료',
+		JOB_RESULT_CONFIRM_DATE = SYSDATE
+		WHERE JOB_RESULT_NUMBER =
+		#{jobResultNumber}
 	</update>
 
+	<select id="selectUserNumberByJobResultNumber"
+		parameterType="int" resultType="int">
+		SELECT USER_NUMBER
+		FROM TBL_JOB_RESULT
+		WHERE JOB_RESULT_NUMBER = #{value}
+	</select>
+
+	<!-- TBL_MEMBER JOB_NUMBER 업데이트 -->
+	<update id="updateMemberJobNumber" parameterType="map">
+		UPDATE
+		TBL_MEMBER
+		SET JOB_NUMBER = #{jobNumber}
+		WHERE USER_NUMBER =
+		#{userNumber}
+	</update>
+
+	<!-- 가장 최근에 작성된 직군 검사만 가져오기 -->
+	<select id="selectLatestJobResultNumber" parameterType="int"
+		resultType="int">
+		SELECT JOB_RESULT_NUMBER
+		FROM (
+		SELECT JOB_RESULT_NUMBER
+		FROM TBL_JOB_RESULT
+		WHERE USER_NUMBER = #{value}
+		AND JOB_RESULT_STATUS IN ('제출완료', '판정완료')
+		ORDER BY JOB_RESULT_NUMBER DESC
+		)
+		WHERE ROWNUM = 1
+	</select>
 </mapper>
